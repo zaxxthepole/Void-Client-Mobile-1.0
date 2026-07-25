@@ -24,6 +24,11 @@ enum class ModuleCategory(
         labelResId = R.string.visual,
         displayName = "Visual"
     ),
+    Misc(
+        iconResId = R.drawable.toc_24px,
+        labelResId = R.string.misc,
+        displayName = "Misc"
+    ),
     Config(
         iconResId = R.drawable.ic_settings,
         labelResId = R.string.config,
