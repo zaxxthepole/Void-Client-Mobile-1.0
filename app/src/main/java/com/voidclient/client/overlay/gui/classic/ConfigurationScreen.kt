@@ -25,11 +25,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-private val CardBackgroundExpanded = Color(0xFF1A1212)
-private val AccentPrimary = Color(0xFFE63946)
+private val CardBackgroundExpanded = Color(0xFF1A1228)
+private val AccentPrimary = Color(0xFF7B2FBE)
 private val TextPrimary = Color(0xFFE8E8E8)
 private val TextTertiary = Color(0xFF888888)
-private val ButtonBackground = Color(0xFF251A1A)
+private val ButtonBackground = Color(0xFF251A30)
 
 @Composable
 fun ConfigurationScreen(

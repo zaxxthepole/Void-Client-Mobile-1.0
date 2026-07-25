@@ -51,16 +51,16 @@ import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
 
 
-private val DarkBackground = Color(0xFF0A0A0A)
-private val CardBackground = Color(0xFF121212)
-private val CardBackgroundExpanded = Color(0xFF1A1212)
-private val AccentPrimary = Color(0xFFE63946)
-private val AccentSecondary = Color(0xFFDC2F3E)
-private val AccentDark = Color(0xFF8B1A1F)
+private val DarkBackground = Color(0xFF0E0A1A)
+private val CardBackground = Color(0xFF121220)
+private val CardBackgroundExpanded = Color(0xFF1A1228)
+private val AccentPrimary = Color(0xFF7B2FBE)
+private val AccentSecondary = Color(0xFFA855F7)
+private val AccentDark = Color(0xFF5B1F8E)
 private val TextPrimary = Color(0xFFE8E8E8)
 private val TextSecondary = Color(0xFFB0B0B0)
-private val BorderColor = Color(0xFF2A1A1A)
-private val BorderColorActive = Color(0xFF3A2222)
+private val BorderColor = Color(0xFF2A1A30)
+private val BorderColorActive = Color(0xFF3A2244)
 private val ErrorRed = Color(0xFFCF222E)
 
 private val moduleCache = HashMap<ModuleCategory, List<Module>>()
@@ -157,8 +157,8 @@ private fun ModuleCard(module: Module) {
                         checkedThumbColor = AccentPrimary,
                         checkedTrackColor = AccentPrimary.copy(alpha = 0.3f),
                         checkedBorderColor = Color.Transparent,
-                        uncheckedThumbColor = Color(0xFF353535),
-                        uncheckedTrackColor = Color(0xFF1A1A1A),
+                        uncheckedThumbColor = Color(0xFF353545),
+                        uncheckedTrackColor = Color(0xFF1A1A2E),
                         uncheckedBorderColor = BorderColor
                     ),
                     modifier = Modifier
@@ -202,20 +202,20 @@ private fun ChoiceValueContent(value: ListValue) {
                     modifier = Modifier.height(32.dp),
                     enabled = true,
                     colors = FilterChipDefaults.filterChipColors(
-                        containerColor = Color(0xFF1A1A1A),
+                        containerColor = Color(0xFF1A1A2E),
                         selectedContainerColor = AccentPrimary,
                         labelColor = TextSecondary,
                         selectedLabelColor = Color.White,
                         disabledContainerColor = Color(0xFF121212),
-                        disabledLabelColor = Color(0xFF606060)
+                        disabledLabelColor = Color(0xFF706080)
                     ),
                     border = FilterChipDefaults.filterChipBorder(
                         enabled = true,
                         selected = value.value == item,
                         borderColor = BorderColor,
                         selectedBorderColor = AccentPrimary,
-                        disabledBorderColor = Color(0xFF1A1A1A),
-                        disabledSelectedBorderColor = Color(0xFF1A1A1A)
+                        disabledBorderColor = Color(0xFF1A1A2E),
+                        disabledSelectedBorderColor = Color(0xFF1A1A2E)
                     )
                 )
                 Spacer(Modifier.width(8.dp))
@@ -245,13 +245,13 @@ private fun FloatValueContent(value: FloatValue) {
             thumbColor = AccentPrimary,
             activeTrackColor = AccentPrimary,
             activeTickColor = AccentPrimary,
-            inactiveTickColor = Color(0xFF2A1A1A),
-            inactiveTrackColor = Color(0xFF2A1A1A),
-            disabledThumbColor = Color(0xFF353535),
-            disabledActiveTrackColor = Color(0xFF2A1A1A),
-            disabledActiveTickColor = Color(0xFF2A1A1A),
-            disabledInactiveTrackColor = Color(0xFF1A1A1A),
-            disabledInactiveTickColor = Color(0xFF1A1A1A)
+            inactiveTickColor = Color(0xFF2A1A30),
+            inactiveTrackColor = Color(0xFF2A1A30),
+            disabledThumbColor = Color(0xFF353545),
+            disabledActiveTrackColor = Color(0xFF2A1A30),
+            disabledActiveTickColor = Color(0xFF2A1A30),
+            disabledInactiveTrackColor = Color(0xFF1A1A2E),
+            disabledInactiveTickColor = Color(0xFF1A1A2E)
         )
 
         val animated by animateFloatAsState(
@@ -294,13 +294,13 @@ private fun IntValueContent(value: IntValue) {
             thumbColor = AccentPrimary,
             activeTrackColor = AccentPrimary,
             activeTickColor = AccentPrimary,
-            inactiveTickColor = Color(0xFF2A1A1A),
-            inactiveTrackColor = Color(0xFF2A1A1A),
-            disabledThumbColor = Color(0xFF353535),
-            disabledActiveTrackColor = Color(0xFF2A1A1A),
-            disabledActiveTickColor = Color(0xFF2A1A1A),
-            disabledInactiveTrackColor = Color(0xFF1A1A1A),
-            disabledInactiveTickColor = Color(0xFF1A1A1A)
+            inactiveTickColor = Color(0xFF2A1A30),
+            inactiveTrackColor = Color(0xFF2A1A30),
+            disabledThumbColor = Color(0xFF353545),
+            disabledActiveTrackColor = Color(0xFF2A1A30),
+            disabledActiveTickColor = Color(0xFF2A1A30),
+            disabledInactiveTrackColor = Color(0xFF1A1A2E),
+            disabledInactiveTickColor = Color(0xFF1A1A2E)
         )
 
         val animated by animateFloatAsState(
@@ -348,12 +348,12 @@ private fun BoolValueContent(value: BoolValue) {
             modifier = Modifier.padding(0.dp),
             enabled = true,
             colors = CheckboxDefaults.colors(
-                uncheckedColor = Color(0xFF353535),
+                uncheckedColor = Color(0xFF353545),
                 checkedColor = AccentPrimary,
                 checkmarkColor = Color.White,
-                disabledCheckedColor = Color(0xFF353535),
-                disabledUncheckedColor = Color(0xFF252525),
-                disabledIndeterminateColor = Color(0xFF353535)
+                disabledCheckedColor = Color(0xFF353545),
+                disabledUncheckedColor = Color(0xFF252535),
+                disabledIndeterminateColor = Color(0xFF353545)
             )
         )
     }
@@ -389,12 +389,12 @@ private fun ShortcutContent(module: Module) {
             modifier = Modifier.padding(0.dp),
             enabled = true,
             colors = CheckboxDefaults.colors(
-                uncheckedColor = Color(0xFF353535),
+                uncheckedColor = Color(0xFF353545),
                 checkedColor = AccentPrimary,
                 checkmarkColor = Color.White,
-                disabledCheckedColor = Color(0xFF353535),
-                disabledUncheckedColor = Color(0xFF252525),
-                disabledIndeterminateColor = Color(0xFF353535)
+                disabledCheckedColor = Color(0xFF353545),
+                disabledUncheckedColor = Color(0xFF252535),
+                disabledIndeterminateColor = Color(0xFF353545)
             )
         )
     }
@@ -418,20 +418,20 @@ private fun <T : Enum<T>> EnumValueContent(value: EnumValue<T>) {
                     modifier = Modifier.height(32.dp),
                     enabled = true,
                     colors = FilterChipDefaults.filterChipColors(
-                        containerColor = Color(0xFF1A1A1A),
+                        containerColor = Color(0xFF1A1A2E),
                         selectedContainerColor = AccentPrimary,
                         labelColor = TextSecondary,
                         selectedLabelColor = Color.White,
                         disabledContainerColor = Color(0xFF121212),
-                        disabledLabelColor = Color(0xFF606060)
+                        disabledLabelColor = Color(0xFF706080)
                     ),
                     border = FilterChipDefaults.filterChipBorder(
                         enabled = true,
                         selected = value.value == option,
                         borderColor = BorderColor,
                         selectedBorderColor = AccentPrimary,
-                        disabledBorderColor = Color(0xFF1A1A1A),
-                        disabledSelectedBorderColor = Color(0xFF1A1A1A)
+                        disabledBorderColor = Color(0xFF1A1A2E),
+                        disabledSelectedBorderColor = Color(0xFF1A1A2E)
                     )
                 )
                 Spacer(Modifier.width(8.dp))
@@ -461,8 +461,8 @@ private fun StringValueContent(value: StringValue) {
                 focusedTextColor = TextPrimary,
                 unfocusedTextColor = TextPrimary,
                 cursorColor = AccentPrimary,
-                disabledBorderColor = Color(0xFF1A1A1A),
-                disabledTextColor = Color(0xFF606060),
+                disabledBorderColor = Color(0xFF1A1A2E),
+                disabledTextColor = Color(0xFF706080),
                 errorBorderColor = ErrorRed,
                 errorTextColor = TextPrimary,
                 errorCursorColor = ErrorRed

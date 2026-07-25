@@ -58,13 +58,13 @@ import com.voidclient.client.game.ModuleContent
 import com.voidclient.client.overlay.OverlayManager
 import com.voidclient.client.overlay.OverlayWindow
 
-private val DarkBackground = Color(0xFF0A0A0A)
-private val SidebarBackground = Color(0xFF1A1212)
-private val HeaderBackground = Color(0xFF161212)
-private val AccentPrimary = Color(0xFFE63946)
+private val DarkBackground = Color(0xFF0E0A1A)
+private val SidebarBackground = Color(0xFF1A1228)
+private val HeaderBackground = Color(0xFF161224)
+private val AccentPrimary = Color(0xFF7B2FBE)
 private val TextPrimary = Color(0xFFE8E8E8)
 private val TextSecondary = Color(0xFFB0B0B0)
-private val ButtonBackground = Color(0xFF251A1A)
+private val ButtonBackground = Color(0xFF251A30)
 
 class OverlayClickGUI : OverlayWindow() {
 
@@ -110,8 +110,8 @@ class OverlayClickGUI : OverlayWindow() {
                     .background(
                         Brush.verticalGradient(
                             listOf(
-                                Color(0xFF0F0A0A),
-                                Color(0xFF121010)
+                                Color(0xFF0E0A1A),
+                                Color(0xFF121020)
                             )
                         ),
                         RoundedCornerShape(20.dp)
