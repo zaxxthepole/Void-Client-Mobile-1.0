@@ -123,7 +123,7 @@ private fun DiscordSection(context: android.content.Context) {
         onClick = {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                "https://discord.gg/T8QBmuNdV".toUri()
+                "https://discord.gg/AM3ZpaXHW5".toUri()
             )
             context.startActivity(intent)
         },
@@ -143,7 +143,7 @@ private fun DiscordSection(context: android.content.Context) {
                     color = WColors.OnSurface
                 )
                 Text(
-                    text = "discord.gg/T8QBmuNdV",
+                    text = "discord.gg/AM3ZpaXHW5",
                     style = MaterialTheme.typography.bodySmall,
                     color = WColors.OnSurfaceVariant
                 )

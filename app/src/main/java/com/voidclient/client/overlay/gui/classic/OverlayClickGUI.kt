@@ -129,7 +129,7 @@ class OverlayClickGUI : OverlayWindow() {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://discord.gg/T8QBmuNdV")
+                                    Uri.parse("https://discord.gg/AM3ZpaXHW5")
                                 )
                             )
                         },
@@ -137,7 +137,7 @@ class OverlayClickGUI : OverlayWindow() {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://discord.gg/T8QBmuNdV")
+                                    Uri.parse("https://discord.gg/AM3ZpaXHW5")
                                 )
                             )
                         },

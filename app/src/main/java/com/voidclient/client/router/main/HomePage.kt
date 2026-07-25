@@ -756,7 +756,7 @@ private fun HomeLinksRow() {
 
         WGlassCard(
             onClick = {
-                val intent = Intent(Intent.ACTION_VIEW, "https://discord.gg/jVWPuDvdRX".toUri())
+                val intent = Intent(Intent.ACTION_VIEW, "https://discord.gg/AM3ZpaXHW5".toUri())
                 context.startActivity(intent)
             },
             modifier = Modifier.fillMaxWidth(),

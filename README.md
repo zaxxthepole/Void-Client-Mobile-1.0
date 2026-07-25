@@ -207,7 +207,7 @@ This software is provided **"AS IS"** without warranty. It is intended **solely 
 
 **Join the community for updates and support:**
 
-[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/T8QBmuNdV)
+[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/AM3ZpaXHW5)
 
 </div>
 
