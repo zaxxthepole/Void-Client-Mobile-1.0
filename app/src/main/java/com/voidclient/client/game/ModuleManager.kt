@@ -242,7 +242,7 @@ object ModuleManager {
             }
 
             val voidclientDir = File(baseDir, "Voidclient")
-            val configsDir = File(wclientDir, "configs")
+            val configsDir = File(voidclientDir, "configs")
 
             if (configsDir.exists() || configsDir.mkdirs()) {
                 configsDir
