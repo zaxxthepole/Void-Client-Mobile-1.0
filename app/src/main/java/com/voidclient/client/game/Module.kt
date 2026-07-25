@@ -116,7 +116,7 @@ abstract class Module(
         val moduleName = name.translatedSelf
 
         session.displayClientMessage(
-            "§l§c[WClient] §r§7$moduleName §8» $status"
+            "§l§c[Voidclient] §r§7$moduleName §8» $status"
         )
     }
 }

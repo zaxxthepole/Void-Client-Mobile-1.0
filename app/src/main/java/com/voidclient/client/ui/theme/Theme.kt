@@ -259,7 +259,7 @@ val WTypography = Typography(
 )
 
 @Composable
-fun WClientTheme(
+fun VoidclientTheme(
     darkTheme: Boolean = true,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit

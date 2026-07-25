@@ -74,8 +74,8 @@ fun SettingsPageContent() {
         suspend fun exportConfig(fileName: String): Result<String> = withContext(Dispatchers.IO) {
             try {
 
-                val configsDir = ModuleManager.getWClientConfigsDirectory()
-                    ?: return@withContext Result.failure(Exception("Failed to create WClient directory"))
+                val configsDir = ModuleManager.getVoidclientConfigsDirectory()
+                    ?: return@withContext Result.failure(Exception("Failed to create Voidclient directory"))
 
 
                 val finalFileName = if (fileName.isBlank()) {
@@ -247,7 +247,7 @@ fun SettingsPageContent() {
                                 )
 
                                 Text(
-                                    "Config will be saved to: Documents/WClient/configs/",
+                                    "Config will be saved to: Documents/Voidclient/configs/",
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )

@@ -230,7 +230,7 @@ object ModuleManager {
         }
     }
 
-    fun getWClientConfigsDirectory(): File? {
+    fun getVoidclientConfigsDirectory(): File? {
         return try {
             val documentsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
             val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
@@ -241,7 +241,7 @@ object ModuleManager {
                 downloadsDir
             }
 
-            val wclientDir = File(baseDir, "Voidclient")
+            val voidclientDir = File(baseDir, "Voidclient")
             val configsDir = File(wclientDir, "configs")
 
             if (configsDir.exists() || configsDir.mkdirs()) {

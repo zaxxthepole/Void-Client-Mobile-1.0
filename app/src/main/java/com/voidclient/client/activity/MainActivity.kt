@@ -24,7 +24,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.voidclient.client.game.ModuleManager
 import com.voidclient.client.navigation.Navigation
 import com.voidclient.client.ui.component.LoadingScreen
-import com.voidclient.client.ui.theme.WClientTheme
+import com.voidclient.client.ui.theme.VoidclientTheme
 import com.voidclient.client.util.SoundUtil
 
 class MainActivity : ComponentActivity() {
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
         requestStoragePermissions()
 
         setContent {
-            WClientTheme {
+            VoidclientTheme {
                 var showLoading by remember { mutableStateOf(true) }
 
                 if (showLoading) {

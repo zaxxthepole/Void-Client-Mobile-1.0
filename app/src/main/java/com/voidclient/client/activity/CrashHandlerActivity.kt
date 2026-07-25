@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.voidclient.client.R
-import com.voidclient.client.ui.theme.WClientTheme
+import com.voidclient.client.ui.theme.VoidclientTheme
 
 class CrashHandlerActivity : ComponentActivity() {
 
@@ -34,7 +34,7 @@ class CrashHandlerActivity : ComponentActivity() {
         val message = intent?.getStringExtra("message") ?: return finish()
 
         setContent {
-            WClientTheme {
+            VoidclientTheme {
                 Scaffold(
                     topBar = {
                         TopAppBar(

@@ -12,7 +12,7 @@ import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.lifecycle.setViewTreeViewModelStoreOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.voidclient.client.game.ModuleManager
-import com.voidclient.client.ui.theme.WClientTheme
+import com.voidclient.client.ui.theme.VoidclientTheme
 import com.voidclient.client.overlay.gui.classic.OverlayButton
 import com.voidclient.client.overlay.gui.classic.OverlayShortcutButton
 
@@ -132,7 +132,7 @@ object OverlayManager {
         val layoutParams = overlayWindow.layoutParams
         val composeView = overlayWindow.composeView
         composeView.setContent {
-            WClientTheme {
+            VoidclientTheme {
                 overlayWindow.Content()
             }
         }

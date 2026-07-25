@@ -65,11 +65,11 @@ fun ConfigurationScreen(
             onExportClick = {
                 coroutineScope.launch(Dispatchers.IO) {
                     val fileName = generateUniqueFileName()
-                    val success = exportConfigToWClientFolder(fileName)
+                    val success = exportConfigToVoidclientFolder(fileName)
                     withContext(Dispatchers.Main) {
                         if (success) {
-                            val configsDir = ModuleManager.getWClientConfigsDirectory()
-                            val path = configsDir?.let { File(it, fileName).absolutePath } ?: "WClient/configs/$fileName"
+                            val configsDir = ModuleManager.getVoidclientConfigsDirectory()
+                            val path = configsDir?.let { File(it, fileName).absolutePath } ?: "Voidclient/configs/$fileName"
                             snackbarHostState.showSnackbar("✅ Exported to: $path")
                         } else {
                             snackbarHostState.showSnackbar("❌ Failed to export config")
@@ -164,9 +164,9 @@ private fun generateUniqueFileName(): String {
     return "config_$timestamp.json"
 }
 
-private fun exportConfigToWClientFolder(fileName: String): Boolean {
+private fun exportConfigToVoidclientFolder(fileName: String): Boolean {
     return try {
-        val configsDir = ModuleManager.getWClientConfigsDirectory() ?: return false
+        val configsDir = ModuleManager.getVoidclientConfigsDirectory() ?: return false
         val file = File(configsDir, fileName)
 
         val configContent = ModuleManager.exportConfig()
