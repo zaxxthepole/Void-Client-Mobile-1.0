@@ -27,7 +27,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "WClient"
+rootProject.name = "Voidclient"
 include(":app")
 include(":relay")
 include(

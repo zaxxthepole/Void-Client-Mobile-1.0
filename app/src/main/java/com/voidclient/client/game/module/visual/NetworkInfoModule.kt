@@ -1,0 +1,85 @@
+﻿package com.voidclient.client.game.module.visual
+
+import com.voidclient.client.game.InterceptablePacket
+import com.voidclient.client.game.Module
+import com.voidclient.client.game.ModuleCategory
+import com.voidclient.client.game.ActionBarManager
+import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
+import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket
+
+class NetworkInfoModule : Module("network_info", ModuleCategory.Visual) {
+
+    private var lastDisplayTime = 0L
+    private val displayInterval = 500L
+    private val colorStyle by boolValue("colored_text", true)
+    private val showPacketCounts by boolValue("show_packets", true)
+
+    private var incomingPackets = 0
+    private var outgoingPackets = 0
+    private var lastPacketCountReset = 0L
+    private val packetCountInterval = 1000L
+
+    private var lastPingSentTime = 0L
+    private var currentPing = 0L
+
+    override fun beforePacketBound(interceptablePacket: InterceptablePacket) {
+        if (!isEnabled) return
+
+        val packet = interceptablePacket.packet
+        incomingPackets++
+
+        if (packet is PlayerAuthInputPacket) {
+            if (lastPingSentTime > 0) {
+                currentPing = System.currentTimeMillis() - lastPingSentTime
+            }
+
+            val currentTime = System.currentTimeMillis()
+
+            if (currentTime - lastPacketCountReset >= packetCountInterval) {
+                lastPacketCountReset = currentTime
+                incomingPackets = 0
+                outgoingPackets = 0
+            }
+
+            if (currentTime - lastDisplayTime >= displayInterval) {
+                lastDisplayTime = currentTime
+
+                val networkText = if (colorStyle) {
+                    buildString {
+                        append("Â§lÂ§c[Network] Â§r")
+                        append("Â§fPing: Â§a${currentPing}ms")
+                        if (showPacketCounts) {
+                            append(" Â§f| Â§fPackets: Â§aâ†‘$outgoingPackets Â§câ†“$incomingPackets")
+                        }
+                    }
+                } else {
+                    buildString {
+                        append("Network: ")
+                        append("Ping: ${currentPing}ms")
+                        if (showPacketCounts) {
+                            append(" | Packets: â†‘$outgoingPackets â†“$incomingPackets")
+                        }
+                    }
+                }
+
+                ActionBarManager.updateModule("network", networkText)
+                ActionBarManager.display(session)
+            }
+        }
+    }
+
+    override fun afterPacketBound(packet: BedrockPacket) {
+        if (!isEnabled) return
+
+        outgoingPackets++
+        lastPingSentTime = System.currentTimeMillis()
+    }
+
+    override fun onDisabled() {
+        super.onDisabled()
+        if (isSessionCreated) {
+            ActionBarManager.removeModule("network")
+            ActionBarManager.display(session)
+        }
+    }
+}

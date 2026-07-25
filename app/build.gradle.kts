@@ -9,16 +9,16 @@ plugins {
 }
 
 android {
-    namespace = "com.retrivedmods.wclient"
+    namespace = "com.voidclient.client"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.retrivedmods.wclient"
+        applicationId = "com.voidclient.client"
         minSdk = 28
         //noinspection OldTargetApi,EditedTargetSdkVersion
         targetSdk = 35
         versionCode = 1
-        versionName = "18.0"
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
