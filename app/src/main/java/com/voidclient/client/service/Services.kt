@@ -18,15 +18,15 @@ import com.voidclient.client.game.module.visual.ESPModule
 import com.voidclient.client.model.CaptureModeModel
 import com.voidclient.client.overlay.OverlayManager
 import com.voidclient.client.render.RenderOverlayView
-import com.retrivedmods.wrelay.WRelay
-import com.retrivedmods.wrelay.WRelaySession
-import com.retrivedmods.wrelay.address.WAddress
-import com.retrivedmods.wrelay.config.EnhancedServerConfig
-import com.retrivedmods.wrelay.definition.Definitions
-import com.retrivedmods.wrelay.listener.AutoCodecPacketListener
-import com.retrivedmods.wrelay.listener.GamingPacketHandler
-import com.retrivedmods.wrelay.listener.OnlineLoginPacketListener
-import com.retrivedmods.wrelay.util.captureGamePacket
+import com.voidclient.vrelay.WRelay
+import com.voidclient.vrelay.WRelaySession
+import com.voidclient.vrelay.address.WAddress
+import com.voidclient.vrelay.config.EnhancedServerConfig
+import com.voidclient.vrelay.definition.Definitions
+import com.voidclient.vrelay.listener.AutoCodecPacketListener
+import com.voidclient.vrelay.listener.GamingPacketHandler
+import com.voidclient.vrelay.listener.OnlineLoginPacketListener
+import com.voidclient.vrelay.util.captureGamePacket
 import com.voidclient.client.util.ServerCompatUtils
 import java.io.File
 import kotlin.concurrent.thread
@@ -94,7 +94,7 @@ object Services {
                     relay.javaClass.getMethod("stop").invoke(relay)
                 }
             } catch (e: Exception) {
-                Log.e("Services", "Error stopping existing WRelay: ${e.message}")
+                Log.e("Services", "Error stopping existing relay: ${e.message}")
             }
         }
         wRelay = null
@@ -109,7 +109,7 @@ object Services {
         setupOverlay(context)
 
         thread = thread(
-            name = "WRelayThread",
+            name = "VRelayThread",
             priority = Thread.MAX_PRIORITY
         ) {
             runCatching {
@@ -162,13 +162,13 @@ object Services {
                 }
             }.exceptionOrNull()?.let {
                 it.printStackTrace()
-                context.toast("Start WRelay error: ${it.message}")
+                context.toast("Start relay error: ${it.message}")
             }
         }
     }
 
     private fun off() {
-        thread(name = "WRelayThread") {
+        thread(name = "VRelayThread") {
             ModuleManager.saveConfig()
 
             wRelay?.let { relay ->
@@ -178,10 +178,10 @@ object Services {
 
                     if (relay.javaClass.methods.any { it.name == "stop" }) {
                         relay.javaClass.getMethod("stop").invoke(relay)
-                        Log.d("Services", "WRelay connection stopped successfully")
+                        Log.d("Services", "Relay connection stopped successfully")
                     }
                 } catch (e: Exception) {
-                    Log.e("Services", "Error stopping WRelay: ${e.message}")
+                    Log.e("Services", "Error stopping relay: ${e.message}")
                     e.printStackTrace()
                 }
             }
@@ -203,7 +203,7 @@ object Services {
             thread?.interrupt()
             thread = null
 
-            Log.d("Services", "WRelay service stopped and cleaned up")
+            Log.d("Services", "Relay service stopped and cleaned up")
         }
     }
 
@@ -217,7 +217,7 @@ object Services {
         val session = GameSession(wRelaySession)
         wRelaySession.listeners.add(session)
 
-        wRelaySession.listeners.add(com.retrivedmods.wrelay.listener.VersionTrackingListener() { protocol, version ->
+        wRelaySession.listeners.add(com.voidclient.vrelay.listener.VersionTrackingListener() { protocol, version ->
             detectedProtocolVersion = protocol
             detectedMinecraftVersion = version
             Log.i("Services", "Client version: Minecraft $version (Protocol $protocol)")

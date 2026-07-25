@@ -13,7 +13,7 @@ import com.voidclient.client.game.module.combat.HitAndRunModule
 import com.voidclient.client.game.module.combat.HitboxModule
 import com.voidclient.client.game.module.combat.KillauraModule
 import com.voidclient.client.game.module.combat.TriggerBotModule
-import com.voidclient.client.game.module.combat.WAuraModule
+import com.voidclient.client.game.module.combat.VAuraModule
 import com.voidclient.client.game.module.combat.AutoFightModule
 import com.voidclient.client.game.module.combat.AutoHvHModule
 import com.voidclient.client.game.module.combat.AutoTotemModule
@@ -69,7 +69,7 @@ object ModuleManager {
     init {
         with(_modules) {
             // Combat
-            add(WAuraModule())
+            add(VAuraModule())
             add(HotbarSwitcherModule())
             add(KillauraModule())
             add(AutoFightModule())

@@ -8,7 +8,7 @@ import com.voidclient.client.game.registry.BlockMappingProvider
 import com.voidclient.client.game.registry.ItemMapping
 import com.voidclient.client.game.registry.ItemMappingProvider
 import com.voidclient.client.game.world.Level
-import com.retrivedmods.wrelay.WRelaySession
+import com.voidclient.vrelay.WRelaySession
 import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket
 import org.cloudburstmc.protocol.bedrock.packet.ItemComponentPacket

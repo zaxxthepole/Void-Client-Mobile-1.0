@@ -76,7 +76,7 @@ class RelayService : Service() {
 
     private fun createNotification(): NotificationCompat.Builder {
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle("WRelay")
+            .setContentTitle("VRelay")
             .setContentText("Relay service is running")
             .setSmallIcon(android.R.drawable.ic_dialog_info)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

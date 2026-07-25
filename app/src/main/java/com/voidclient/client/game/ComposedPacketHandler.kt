@@ -1,6 +1,6 @@
 package com.voidclient.client.game
 
-import com.retrivedmods.wrelay.listener.WRelayPacketListener
+import com.voidclient.vrelay.listener.WRelayPacketListener
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket
 
 interface ComposedPacketHandler : WRelayPacketListener {

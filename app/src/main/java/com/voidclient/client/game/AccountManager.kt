@@ -8,8 +8,8 @@ import com.google.gson.JsonParser
 import com.voidclient.client.application.AppContext
 import com.voidclient.client.game.RealmsAuthFlow
 import com.voidclient.client.service.RealmsManager
-import com.retrivedmods.wrelay.util.AuthUtils
-import com.retrivedmods.wrelay.util.refresh
+import com.voidclient.vrelay.util.AuthUtils
+import com.voidclient.vrelay.util.refresh
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

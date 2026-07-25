@@ -60,11 +60,11 @@
 
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="WRelay Capture" />
+                android:value="VRelay Capture" />
 
             <intent-filter>
-                <action android:name="com.retrivedmods.wrelay.capture.start" />
-                <action android:name="com.retrivedmods.wrelay.capture.stop" />
+                <action android:name="com.voidclient.vrelay.capture.start" />
+                <action android:name="com.voidclient.vrelay.capture.stop" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
