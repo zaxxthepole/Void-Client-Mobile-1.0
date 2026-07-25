@@ -1,100 +1,222 @@
-# Voidclient- #1 Utility Client for MCPE
+<div align="center">
 
-![MCPE](https://img.shields.io/badge/Minecraft-Bedrock-green?logo=minecraft&logoColor=white)
-![Platform](https://img.shields.io/badge/Platform-MCPE-orange)
-![Kotlin](https://img.shields.io/badge/Code-Kotlin-7F52FF?logo=kotlin&logoColor=white)
-![License](https://img.shields.io/badge/License-GNU%20GPLv3-blue?logo=gnu&logoColor=white)
+# ✦ Voidclient
 
-**VoidClient** is a modular, high-performance utility client designed for **Minecraft Bedrock Edition**. Built with a strong focus on stability, packet-level control, and extensibility, WClient delivers advanced combat, movement, and visual enhancements while maintaining a clean, maintainable architecture.
+### Minecraft Bedrock Edition Utility Client
 
-VoidClient does **not** modify game memory directly and is engineered for compatibility across multiple Bedrock environments.
+![Minecraft](https://img.shields.io/badge/Minecraft-Bedrock-green?logo=minecraft&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Android-orange?logo=android&logoColor=white)
+![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?logo=kotlin&logoColor=white)
+![License](https://img.shields.io/badge/License-GPLv3-blue?logo=gnu&logoColor=white)
+![API](https://img.shields.io/badge/Min%20SDK-28-purple)
 
-> [!CAUTION]
-> **This isn't the end.**
->
-> It's just no longer public.
-> WClient is actively developed behind closed doors.
-> This repository stays online as a legacy archive.
+</div>
 
-## Our Team
+---
 
-Prajwal (Founder & Developer)
+## About
 
-Flexy H6X (Helper)
+**Voidclient** is a high-performance utility client for **Minecraft Bedrock Edition** on Android. It uses a MITM (Man-in-the-Middle) packet interception approach to provide combat, movement, and visual enhancements — **without modifying game memory**.
 
-RA Legend (Supporter)
+Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient rebrands and extends the foundation with a dark purple theme, new features, and a refreshed identity.
 
-## Platform Support
+> **85% of this project's core architecture, relay system, and module framework originates from WClient by RetrivedMods. Voidclient would not exist without their work.**
 
-WClient is primarily developed and tested for **Android**, but can interface with other platforms using MITM-style packet interception depending on setup.
+---
 
-Supported:
+## Credits
 
-* Android (primary)
-* Additional platforms may work depending on network configuration
+| Contribution | Credit |
+|---|---|
+| Core architecture & relay system | **WClient (RetrivedMods)** — 85% |
+| Module framework & packet handling | **WClient (RetrivedMods)** |
+| Original codebase & protocol layer | **WClient (RetrivedMods)** |
+| Voidclient rebrand, theme & extras | **DoTo.dev** |
 
-## Module Categories
+> WClient is the original project. Voidclient is a fork that builds upon their incredible work.
+> Check out the original: [github.com/RetrivedMods/WClient](https://github.com/RetrivedMods/WClient)
 
-WClient modules are organized into the following categories:
+---
 
-* **Combat** - PvP enhancements and automated combat logic
-* **Motion** - Mobility and speed modules
-* **Visual** - Rendering and awareness tools
-* **Misc** - General gameplay improvements
+## Features
 
-## GUI and Configuration
+### Combat
+| Module | Description |
+|--------|-------------|
+| VAura | Automated PvP combat with target switching |
+| Killaura | Continuous entity targeting |
+| AutoFight | Smart automatic combat |
+| InfiniteAura | Extended range combat |
+| ACA | Advanced Combat Aura |
+| AutoTotem | Automatic totem equipping |
+| AutoHvH | Auto Hive vs Hive combat |
+| EnemyHunter | Target specific enemies |
+| AntiKnockback | Reduce knockback effect |
+| AntiCrystal | Counter crystal exploits |
+| HitAndRun | Hit and retreat tactics |
+| Hitbox | Expand entity hitboxes |
+| CrystalSmash | Auto crystal breaking |
+| TriggerBot | Click-to-attack automation |
+| HotbarSwitcher | Auto weapon switching |
 
-WClient supports dynamic configuration via JSON files, allowing runtime customization of modules, thresholds, ranges, and behavior.
+### Motion
+| Module | Description |
+|--------|-------------|
+| Fly | Flight in survival mode |
+| Speed | Movement speed boost |
+| Sprint | Auto-sprint toggle |
+| NoClip | Walk through blocks |
+| JetPack | Jetpack-style flight |
+| HighJump | Enhanced jump height |
+| Bhop | Bunny hop physics |
+| Spider | Wall climbing |
+| AirJump | Jump in mid-air |
+| AntiAFK | Anti-AFK automation |
+| AutoWalk | Automatic walking |
+| PlayerTP | Teleport to players |
+| MotionFly | Motion-based flight |
 
-Example:
+### Visual
+| Module | Description |
+|--------|-------------|
+| ESP | Entity highlighting |
+| NameTags | Enhanced name display |
+| Coordinates | Position overlay |
+| Minimap | Mini map display |
+| Crosshair | Custom crosshair |
+| TargetHud | Target information HUD |
+| Fullbright | Full brightness |
+| SpeedDisplay | Speed indicator |
+| NetworkInfo | Network stats |
+| WorldState | World information |
+| DamageText | Damage numbers |
+| PlayerJoin | Join notifications |
+| NoHurtCamera | Disable hurt camera |
+| Zoom | Camera zoom |
+
+### Misc
+| Module | Description |
+|--------|-------------|
+| Watermark | RGB animated watermark |
+| ArrayList | Active module list |
+| PieChart | Visual pie chart |
+
+---
+
+## Configuration
+
+Modules are configurable via JSON. Settings persist across sessions.
 
 ```json
 {
   "modules": {
-    "AdvanceCombatAura": { "enabled": true, "range": 4.5 },
-    "MotionFly": { "enabled": false, "horizontalSpeed": 1.4 }
+    "VAura": { "enabled": true, "range": 4.5, "cps": 25 },
+    "Fly": { "enabled": false, "speed": 1.4 },
+    "ESP": { "enabled": true }
   }
 }
 ```
 
+Configs can be imported/exported from the in-app **Config** tab.
+
+---
+
+## Building
+
+### Prerequisites
+- Android Studio (latest stable)
+- JDK 17
+- Android SDK 36
+
+### Steps
+```bash
+git clone https://github.com/zaxxthepole/Void-Client-Mobile-1.0.git
+cd Void-Client-Mobile-1.0
+./gradlew assembleDebug
+```
+
+The APK will be at `app/build/outputs/apk/debug/`.
+
+---
+
+## Project Structure
+
+```
+Voidclient/
+├── app/                          # Main application module
+│   ├── src/main/java/
+│   │   └── com/voidclient/client/
+│   │       ├── game/             # Module system & game logic
+│   │       │   ├── module/       # All cheat modules
+│   │       │   ├── entity/       # Entity tracking
+│   │       │   └── world/        # World state
+│   │       ├── overlay/          # GUI overlays
+│   │       ├── service/          # Background services
+│   │       └── ui/               # App UI (Compose)
+│   └── src/main/res/             # Resources & icons
+├── relay/                        # VRelay packet interception
+│   ├── src/main/kotlin/com/voidclient/vrelay/
+│   │   ├── WRelay.kt            # Main relay server
+│   │   ├── WRelaySession.kt     # Session management
+│   │   ├── listener/            # Packet listeners
+│   │   └── util/                # Utilities
+│   ├── Protocol/                # Bedrock protocol codec
+│   └── Network/                 # RakNet transport
+└── settings.gradle.kts
+```
+
+---
+
+## Platform Support
+
+| Platform | Status |
+|----------|--------|
+| Android | Primary |
+| Other | May work via custom network setup |
+
+---
+
 ## License
 
-WClient is licensed under the **GNU General Public License v3.0 (GPLv3)**.
+Licensed under the **GNU General Public License v3.0 (GPLv3)**.
 
-### Permitted
+### You Can
+- Use personally and modify
+- Redistribute with source code included
+- Create content (videos, tutorials)
 
-* Personal use and modification
-* Redistribution of modified or unmodified versions **with source code included**
-* Creating content (videos, showcases, tutorials)
+### You Cannot
+- Distribute binaries without source code
+- Claim ownership of original code
 
-### Prohibited
+Full license: [GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-* Distributing modified binaries **without providing full source code**
-* Claiming ownership of the project or its original code
+---
 
-Full license text: [https://www.gnu.org/licenses/gpl-3.0.en.html](https://www.gnu.org/licenses/gpl-3.0.en.html)
+## Disclaimer
 
-## Disclaimer of Warranty
+This software is provided **"AS IS"** without warranty. It is intended **solely for educational and research purposes**. Users are responsible for compliance with applicable laws and server rules.
 
-This software is provided **“AS IS”**, without warranty of any kind, express or implied, including but not limited to fitness for a particular purpose or non-infringement.
+**Voidclient is not affiliated with Mojang Studios or Microsoft.**
 
-## Limitation of Liability
+---
 
-In no event shall the authors be liable for any damages arising from the use of this software.
+## Community
 
-## Intended Use
+<div align="center">
 
-This project is intended **solely for educational and research purposes**.
-Users are responsible for ensuring compliance with local laws and server rules.
+**Join the community for updates and support:**
 
-## Contributions
+[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/T8QBmuNdV)
 
-Contributions are welcome. Bug reports, feature suggestions, and pull requests help improve WClient.
+</div>
 
-## Community & Support
+---
 
-Join the WClient community for support, updates, and discussions:
+<div align="center">
 
-Discord: [https://discord.gg/wclient](https://discord.gg/jVWPuDvdRX)
+**Built with care by DoTo.dev**
 
-*VoidClient is not affiliated with Mojang Studios or Microsoft.*
+*Powered by [WClient](https://github.com/RetrivedMods/WClient) — 85% of the core*
+
+</div>
