@@ -10,7 +10,7 @@ class WaterMarkModule : Module("watermark", ModuleCategory.Misc) {
 
     private var scope: CoroutineScope? = null
 
-    private val customText by stringValue("Text", "WClient", listOf())
+    private val customText by stringValue("Text", "Voidclient", listOf())
     private val showVersion by boolValue("Show Version", true)
     private val position by enumValue("Position", Position.TOP_LEFT, Position::class.java)
     private val fontSize by intValue("Font Size", 24, 12..36)

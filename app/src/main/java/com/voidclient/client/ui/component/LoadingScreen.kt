@@ -55,8 +55,8 @@ fun LoadingScreen(onDone: () -> Unit) {
     }
 
     val backgroundColor = Color(0xFF0A0A0A)
-    val primaryColor = Color(0xFFD32F2F)
-    val secondaryColor = Color(0xFFFF6B6B)
+    val primaryColor = Color(0xFF7B2FBE)
+    val secondaryColor = Color(0xFFA855F7)
 
     val infiniteTransition = rememberInfiniteTransition(label = "InfiniteAnimations")
 
@@ -133,7 +133,7 @@ fun LoadingScreen(onDone: () -> Unit) {
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = "WClient",
+                text = "Voidclient",
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Black,
                 color = primaryColor.copy(alpha = textGlow),

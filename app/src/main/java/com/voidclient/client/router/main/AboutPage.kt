@@ -69,9 +69,9 @@ fun AboutPageContent() {
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 AppInfoSection()
+                DiscordSection(context)
                 LicenseSection()
                 LegalSection()
-                AcknowledgementsSection(context)
                 SourceCodeSection(context)
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -92,12 +92,12 @@ private fun AppInfoSection() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "WClient",
+                text = "Voidclient",
                 style = MaterialTheme.typography.displaySmall,
                 color = WColors.Primary
             )
             Text(
-                text = "RetrivedMods",
+                text = "by DoTo.dev",
                 style = MaterialTheme.typography.titleMedium,
                 color = WColors.OnSurfaceVariant
             )
@@ -113,6 +113,47 @@ private fun AppInfoSection() {
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
                 )
             }
+        }
+    }
+}
+
+@Composable
+private fun DiscordSection(context: android.content.Context) {
+    WGlassCard(
+        onClick = {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                "https://discord.gg/T8QBmuNdV".toUri()
+            )
+            context.startActivity(intent)
+        },
+        modifier = Modifier.fillMaxWidth(),
+        glowColor = WColors.Secondary,
+        glowIntensity = 0.3f
+    ) {
+        Row(
+            modifier = Modifier.padding(20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(
+                    text = "Discord",
+                    style = MaterialTheme.typography.titleMedium,
+                    color = WColors.OnSurface
+                )
+                Text(
+                    text = "discord.gg/T8QBmuNdV",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = WColors.OnSurfaceVariant
+                )
+            }
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.OpenInNew,
+                contentDescription = "Open Discord",
+                tint = WColors.Secondary,
+                modifier = Modifier.size(22.dp)
+            )
         }
     }
 }
@@ -155,7 +196,7 @@ private fun LicenseSection() {
                         verticalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         BulletPoint("Personal use and modification")
-                        BulletPoint("Creating content using WClient")
+                        BulletPoint("Creating content using Voidclient")
                         BulletPoint("Redistributing source code with GPLv3 license")
                     }
                 }
@@ -188,7 +229,7 @@ private fun LicenseSection() {
 private fun BulletPoint(text: String) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "•",
+            text = "\u2022",
             style = MaterialTheme.typography.bodyMedium,
             color = WColors.OnSurface
         )
@@ -259,112 +300,12 @@ private fun LegalItem(title: String, content: String) {
 }
 
 @Composable
-private fun AcknowledgementsSection(context: android.content.Context) {
-    WGlassCard(
-        modifier = Modifier.fillMaxWidth(),
-        glowColor = WColors.Primary,
-        glowIntensity = 0.25f
-    ) {
-        Column(
-            modifier = Modifier.padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = "Acknowledgements",
-                style = MaterialTheme.typography.headlineSmall,
-                color = WColors.OnSurface,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-
-            HorizontalDivider(
-                color = WColors.OnSurfaceVariant.copy(alpha = 0.2f)
-            )
-
-            Text(
-                text = "Special thanks to the contributors who made this project possible.",
-                style = MaterialTheme.typography.bodyMedium,
-                color = WColors.OnSurfaceVariant
-            )
-
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                ContributorItem(
-                    name = "一剪沐橙",
-                    description = "Core contributor",
-                    githubUrl = "https://github.com/mucute-qwq",
-                    context = context
-                )
-
-                ContributorItem(
-                    name = "radiantByte",
-                    description = "Project contributor",
-                    githubUrl = null,
-                    context = context
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun ContributorItem(
-    name: String,
-    description: String,
-    githubUrl: String?,
-    context: android.content.Context
-) {
-    Surface(
-        onClick = if (githubUrl != null) {
-            {
-                val intent = Intent(Intent.ACTION_VIEW, githubUrl.toUri())
-                context.startActivity(intent)
-            }
-        } else {
-            {}
-        },
-        color = WColors.Primary.copy(alpha = 0.06f),
-        shape = MaterialTheme.shapes.small,
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(2.dp)
-            ) {
-                Text(
-                    text = name,
-                    style = MaterialTheme.typography.titleSmall,
-                    color = WColors.OnSurface
-                )
-                Text(
-                    text = description,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = WColors.OnSurfaceVariant
-                )
-            }
-            if (githubUrl != null) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.OpenInNew,
-                    contentDescription = "View on GitHub",
-                    tint = WColors.OnSurfaceVariant,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
 private fun SourceCodeSection(context: android.content.Context) {
     WGlassCard(
         onClick = {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                "https://github.com/RetrivedMods/WClient".toUri()
+                "https://github.com/zaxxthepole/Void-Client-Mobile-1.0".toUri()
             )
             context.startActivity(intent)
         },

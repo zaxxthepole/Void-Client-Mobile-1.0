@@ -49,7 +49,7 @@ class WaterMarkOverlay : OverlayWindow() {
     override val layoutParams: WindowManager.LayoutParams
         get() = _layoutParams
 
-    private var customText by mutableStateOf("WClient")
+    private var customText by mutableStateOf("Voidclient")
     private var showVersion by mutableStateOf(true)
     private var position by mutableStateOf(WaterMarkModule.Position.TOP_LEFT)
     private var fontSize by mutableStateOf(20)

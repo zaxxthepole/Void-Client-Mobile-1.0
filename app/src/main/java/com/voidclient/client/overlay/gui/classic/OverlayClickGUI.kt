@@ -129,7 +129,7 @@ class OverlayClickGUI : OverlayWindow() {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://discord.gg/N2Gejr8Fbp")
+                                    Uri.parse("https://discord.gg/T8QBmuNdV")
                                 )
                             )
                         },
@@ -137,7 +137,7 @@ class OverlayClickGUI : OverlayWindow() {
                             context.startActivity(
                                 Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://wclient.neocities.org/")
+                                    Uri.parse("https://discord.gg/T8QBmuNdV")
                                 )
                             )
                         },
@@ -176,7 +176,7 @@ class OverlayClickGUI : OverlayWindow() {
                 horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Text(
-                    "WClient",
+                    "Voidclient",
                     color = AccentPrimary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
