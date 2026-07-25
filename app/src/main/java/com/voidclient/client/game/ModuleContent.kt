@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState

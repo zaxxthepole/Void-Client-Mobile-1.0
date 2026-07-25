@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay
+package com.voidclient.client.overlay
 
 import android.annotation.SuppressLint
 import android.content.Context

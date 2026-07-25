@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.command
+package com.voidclient.client.game.command
 
 interface Command {
 

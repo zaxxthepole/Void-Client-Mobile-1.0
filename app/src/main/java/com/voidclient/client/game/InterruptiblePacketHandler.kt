@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import com.voidclient.client.game.InterceptablePacket
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket

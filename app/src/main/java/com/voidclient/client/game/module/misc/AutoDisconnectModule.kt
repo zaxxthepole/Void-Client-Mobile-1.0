@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.misc
+package com.voidclient.client.game.module.misc
 
 import com.voidclient.client.game.Module
 import com.voidclient.client.game.ModuleCategory
@@ -34,7 +34,7 @@ class AutoDisconnectModule : Module("auto_disconnect", ModuleCategory.Misc) {
     }
 
     private fun disconnectPlayer(currentHealth: Int) {
-        val message = "Â§cAutoDisconnected at $currentHealth HP"
+        val message = "§cAutoDisconnected at $currentHealth HP"
         val disconnectPacket = DisconnectPacket().apply {
             kickMessage = message
         }

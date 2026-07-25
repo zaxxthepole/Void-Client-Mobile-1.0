@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.motion
+package com.voidclient.client.game.module.motion
 
 
 import com.voidclient.client.game.InterceptablePacket

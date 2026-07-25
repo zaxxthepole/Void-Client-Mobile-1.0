@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.utils.misc
+package com.voidclient.client.game.utils.misc
 
 import org.cloudburstmc.nbt.NbtType
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData

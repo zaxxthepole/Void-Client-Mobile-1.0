@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.ui.component
+package com.voidclient.client.ui.component
 
 import android.annotation.SuppressLint
 import android.content.Context

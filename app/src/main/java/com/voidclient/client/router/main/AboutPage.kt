@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.router.main
+package com.voidclient.client.router.main
 
 import android.content.Intent
 import androidx.compose.animation.animateContentSize
@@ -188,7 +188,7 @@ private fun LicenseSection() {
 private fun BulletPoint(text: String) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(
-            text = "â€¢",
+            text = "•",
             style = MaterialTheme.typography.bodyMedium,
             color = WColors.OnSurface
         )
@@ -289,7 +289,7 @@ private fun AcknowledgementsSection(context: android.content.Context) {
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 ContributorItem(
-                    name = "ä¸€å‰ªæ²æ©™",
+                    name = "一剪沐橙",
                     description = "Core contributor",
                     githubUrl = "https://github.com/mucute-qwq",
                     context = context

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay.gui.classic
+package com.voidclient.client.overlay.gui.classic
 
 import android.content.res.Configuration
 import android.view.WindowManager

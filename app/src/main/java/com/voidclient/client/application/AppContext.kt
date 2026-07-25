@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.application
+package com.voidclient.client.application
 
 import android.app.Application
 import android.content.Intent

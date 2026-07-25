@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.ui.component
+package com.voidclient.client.ui.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -410,7 +410,7 @@ private fun RealmsNotAvailableCard() {
             )
 
             Text(
-                text = "Go to Account â†’ Add Account to re-authenticate",
+                text = "Go to Account → Add Account to re-authenticate",
                 style = MaterialTheme.typography.bodySmall,
                 color = WColors.Primary,
                 fontWeight = FontWeight.Medium

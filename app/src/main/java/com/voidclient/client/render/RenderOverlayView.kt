@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.render
+package com.voidclient.client.render
 
 import android.content.Context
 import android.graphics.Canvas

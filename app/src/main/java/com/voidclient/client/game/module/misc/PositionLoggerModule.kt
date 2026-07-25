@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.misc
+package com.voidclient.client.game.module.misc
 
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
@@ -114,21 +114,21 @@ class PositionLoggerModule : Module("position_logger", ModuleCategory.Misc) {
                 val xuid = playerInfo?.xuid ?: "Unknown"
 
                 sendMessage("""
-                    Â§lÂ§b[Tracer]
-                    Â§rÂ§ePlayer: Â§a$playerName
-                    Â§eXUID: Â§7$xuid 
-                    Â§ePosition: Â§a$roundedPosition
-                    Â§eDistance: Â§c$roundedDistance
-                    Â§eDirection: Â§d$direction
+                    §l§b[Tracer]
+                    §r§ePlayer: §a$playerName
+                    §eXUID: §7$xuid 
+                    §ePosition: §a$roundedPosition
+                    §eDistance: §c$roundedDistance
+                    §eDirection: §d$direction
                 """.trimIndent())
             }
             is EntityUnknown -> {
                 sendMessage("""
-                    Â§lÂ§b[Tracer]
-                    Â§rÂ§eEntity: Â§a${entity.identifier}
-                    Â§ePosition: Â§a$roundedPosition
-                    Â§eDistance: Â§c$roundedDistance
-                    Â§eDirection: Â§d$direction
+                    §l§b[Tracer]
+                    §r§eEntity: §a${entity.identifier}
+                    §ePosition: §a$roundedPosition
+                    §eDistance: §c$roundedDistance
+                    §eDirection: §d$direction
                 """.trimIndent())
             }
         }

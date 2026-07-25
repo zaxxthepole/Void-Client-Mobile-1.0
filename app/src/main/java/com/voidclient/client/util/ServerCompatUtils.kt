@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.util
+package com.voidclient.client.util
 
 import java.util.regex.Pattern
 
@@ -109,17 +109,17 @@ object ServerCompatUtils {
 
         val tips = mutableListOf<String>()
 
-        tips.add("ðŸŽ¯ Protected server detected - using optimized connection settings")
-        tips.add("â±ï¸ Connection may take longer due to DDoS protection")
-        tips.add("ðŸ”„ Multiple retry attempts will be made with exponential backoff")
-        tips.add("ðŸ›¡ï¸ Enhanced connection stability for protected infrastructure")
+        tips.add("🎯 Protected server detected - using optimized connection settings")
+        tips.add("⏱️ Connection may take longer due to DDoS protection")
+        tips.add("🔄 Multiple retry attempts will be made with exponential backoff")
+        tips.add("🛡️ Enhanced connection stability for protected infrastructure")
 
         val serverInfo = extractServerInfo(hostname)
         if (serverInfo != null) {
             if (serverInfo.isNumericId) {
-                tips.add("ðŸ”¢ Numeric server ID detected - using standard configuration")
+                tips.add("🔢 Numeric server ID detected - using standard configuration")
             } else {
-                tips.add("ðŸ“ Custom server name detected - may have better stability")
+                tips.add("📝 Custom server name detected - may have better stability")
             }
         }
 
@@ -128,21 +128,21 @@ object ServerCompatUtils {
 
     fun getTroubleshootingTips(): List<String> {
         return listOf(
-            "ðŸ” Make sure your server is online in the dashboard",
-            "â° Wait 2-3 minutes between connection attempts",
-            "ðŸ”„ Try restarting your server if connection fails repeatedly",
-            "ðŸŒ Check if other players can connect to rule out server issues",
-            "ðŸ“± Ensure your device has a stable internet connection",
-            "ðŸ›¡ï¸ Server has DDoS protection that may temporarily block connections"
+            "🔍 Make sure your server is online in the dashboard",
+            "⏰ Wait 2-3 minutes between connection attempts",
+            "🔄 Try restarting your server if connection fails repeatedly",
+            "🌐 Check if other players can connect to rule out server issues",
+            "📱 Ensure your device has a stable internet connection",
+            "🛡️ Server has DDoS protection that may temporarily block connections"
         )
     }
 
     fun getStatusMessage(configType: ServerConfigType): String {
         return when (configType) {
-            ServerConfigType.FAST -> "âš¡ Using Fast configuration for stable server"
-            ServerConfigType.DEFAULT -> "ðŸ”§ Using Default configuration for standard server"
-            ServerConfigType.AGGRESSIVE -> "ðŸ”¥ Using Aggressive configuration for problematic server"
-            ServerConfigType.STANDARD -> "ðŸ“¡ Using standard configuration"
+            ServerConfigType.FAST -> "⚡ Using Fast configuration for stable server"
+            ServerConfigType.DEFAULT -> "🔧 Using Default configuration for standard server"
+            ServerConfigType.AGGRESSIVE -> "🔥 Using Aggressive configuration for problematic server"
+            ServerConfigType.STANDARD -> "📡 Using standard configuration"
         }
     }
 

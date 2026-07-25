@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.model
+package com.voidclient.client.model
 
 import android.content.SharedPreferences
 

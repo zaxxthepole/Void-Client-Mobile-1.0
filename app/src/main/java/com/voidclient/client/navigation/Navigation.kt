@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.navigation
+package com.voidclient.client.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider

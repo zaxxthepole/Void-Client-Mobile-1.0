@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import com.retrivedmods.wrelay.listener.WRelayPacketListener
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket

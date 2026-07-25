@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import android.content.Context
 import android.net.Uri

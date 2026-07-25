@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.model
+package com.voidclient.client.model
 
 import androidx.compose.runtime.Immutable
 import net.raphimc.minecraftauth.service.realms.model.RealmsWorld

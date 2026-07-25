@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.activity
+package com.voidclient.client.activity
 
 import android.os.Bundle
 import android.widget.Toast

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

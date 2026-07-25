@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.visual
+package com.voidclient.client.game.module.visual
 
 import android.annotation.SuppressLint
 import android.graphics.*

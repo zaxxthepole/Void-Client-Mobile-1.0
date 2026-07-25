@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.visual
+package com.voidclient.client.game.module.visual
 
 import android.annotation.SuppressLint
 import com.voidclient.client.game.InterceptablePacket
@@ -40,25 +40,25 @@ class WorldStateModule : Module("world_state", ModuleCategory.Visual) {
         if (isEnabled && isSessionCreated) {
             val text = buildString {
                 if (showEntities) {
-                    append(if (coloredText) "Â§aEntities: " else "Entities: ")
+                    append(if (coloredText) "§aEntities: " else "Entities: ")
                     append(session.level.entityMap.size)
                 }
 
                 if (showPlayers) {
-                    if (showEntities) append(if (coloredText) " Â§7| " else " | ")
-                    append(if (coloredText) "Â§cPlayers: " else "Players: ")
+                    if (showEntities) append(if (coloredText) " §7| " else " | ")
+                    append(if (coloredText) "§cPlayers: " else "Players: ")
                     append(session.level.playerMap.size)
                 }
 
                 if (showTime) {
-                    if (showEntities || showPlayers) append(if (coloredText) " Â§7| " else " | ")
-                    append(if (coloredText) "Â§eTime: " else "Time: ")
+                    if (showEntities || showPlayers) append(if (coloredText) " §7| " else " | ")
+                    append(if (coloredText) "§eTime: " else "Time: ")
                     append(formatMinecraftTime(worldTime))
                 }
 
                 if (showChunks) {
-                    if (showEntities || showPlayers || showTime) append(if (coloredText) " Â§7| " else " | ")
-                    append(if (coloredText) "Â§dChunks: " else "Chunks: ")
+                    if (showEntities || showPlayers || showTime) append(if (coloredText) " §7| " else " | ")
+                    append(if (coloredText) "§dChunks: " else "Chunks: ")
                     append(loadedChunks)
                 }
             }

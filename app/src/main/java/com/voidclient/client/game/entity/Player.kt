@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.entity
+package com.voidclient.client.game.entity
 
 import org.cloudburstmc.protocol.bedrock.packet.BedrockPacket
 import org.cloudburstmc.protocol.bedrock.packet.MovePlayerPacket

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.visual
+package com.voidclient.client.game.module.visual
 
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
@@ -46,10 +46,10 @@ class NetworkInfoModule : Module("network_info", ModuleCategory.Visual) {
 
                 val networkText = if (colorStyle) {
                     buildString {
-                        append("Â§lÂ§c[Network] Â§r")
-                        append("Â§fPing: Â§a${currentPing}ms")
+                        append("§l§c[Network] §r")
+                        append("§fPing: §a${currentPing}ms")
                         if (showPacketCounts) {
-                            append(" Â§f| Â§fPackets: Â§aâ†‘$outgoingPackets Â§câ†“$incomingPackets")
+                            append(" §f| §fPackets: §a↑$outgoingPackets §c↓$incomingPackets")
                         }
                     }
                 } else {
@@ -57,7 +57,7 @@ class NetworkInfoModule : Module("network_info", ModuleCategory.Visual) {
                         append("Network: ")
                         append("Ping: ${currentPing}ms")
                         if (showPacketCounts) {
-                            append(" | Packets: â†‘$outgoingPackets â†“$incomingPackets")
+                            append(" | Packets: ↑$outgoingPackets ↓$incomingPackets")
                         }
                     }
                 }

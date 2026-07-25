@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.misc
+package com.voidclient.client.game.module.misc
 
 import com.voidclient.client.application.AppContext
 import com.voidclient.client.game.InterceptablePacket
@@ -104,19 +104,19 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
         super.onEnabled()
         session.displayClientMessage(
             """
-            Â§lÂ§b[Replay] Â§rÂ§7Commands:
-            Â§f.replay record Â§7- Start recording
-            Â§f.replay play Â§7- Play last recording
-            Â§f.replay stop Â§7- Stop recording/playback
-            Â§f.replay save <name> Â§7- Save recording
-            Â§f.replay load <name> Â§7- Load recording
+            §l§b[Replay] §r§7Commands:
+            §f.replay record §7- Start recording
+            §f.replay play §7- Play last recording
+            §f.replay stop §7- Stop recording/playback
+            §f.replay save <name> §7- Save recording
+            §f.replay load <name> §7- Load recording
             """.trimIndent()
         )
     }
 
     fun startRecording() {
         if (isPlaying) {
-            session.displayClientMessage("Â§cCannot start recording while playing")
+            session.displayClientMessage("§cCannot start recording while playing")
             return
         }
 
@@ -128,7 +128,7 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
         // Store initial position
         originalPosition = session.localPlayer.vec3Position
 
-        session.displayClientMessage("Â§aStarted recording movement")
+        session.displayClientMessage("§aStarted recording movement")
     }
 
     fun stopRecording() {
@@ -138,17 +138,17 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
         if (autoSave) {
             saveReplay("replay_${System.currentTimeMillis()}")
         }
-        session.displayClientMessage("Â§cStopped recording (${frames.size} frames)")
+        session.displayClientMessage("§cStopped recording (${frames.size} frames)")
     }
 
     fun startPlayback() {
         if (isRecording) {
-            session.displayClientMessage("Â§cCannot start playback while recording")
+            session.displayClientMessage("§cCannot start playback while recording")
             return
         }
 
         if (frames.isEmpty()) {
-            session.displayClientMessage("Â§cNo frames recorded")
+            session.displayClientMessage("§cNo frames recorded")
             return
         }
 
@@ -207,7 +207,7 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
                         mode = MovePlayerPacket.Mode.NORMAL
                     })
                 }
-                session.displayClientMessage("Â§eReplay finished")
+                session.displayClientMessage("§eReplay finished")
             }
         }
     }
@@ -228,12 +228,12 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
                 mode = MovePlayerPacket.Mode.NORMAL
             })
         }
-        session.displayClientMessage("Â§cPlayback stopped")
+        session.displayClientMessage("§cPlayback stopped")
     }
 
     fun saveReplay(name: String) {
         if (frames.isEmpty()) {
-            session.displayClientMessage("Â§cNo frames to save")
+            session.displayClientMessage("§cNo frames to save")
             return
         }
 
@@ -250,10 +250,10 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
             file.writeText(Json.encodeToString(replayData))
 
             session.displayClientMessage(
-                "Â§aSaved replay Â§f$name Â§7(${metadata.frameCount} frames, ${metadata.duration / 1000}s)"
+                "§aSaved replay §f$name §7(${metadata.frameCount} frames, ${metadata.duration / 1000}s)"
             )
         } catch (e: Exception) {
-            session.displayClientMessage("Â§cFailed to save replay: ${e.message}")
+            session.displayClientMessage("§cFailed to save replay: ${e.message}")
         }
     }
 
@@ -261,16 +261,16 @@ class ReplayModule : Module("replay_mod", ModuleCategory.Misc) {
         try {
             val file = File(File(AppContext.instance.filesDir, "replays"), "$name.json")
             if (!file.exists()) {
-                session.displayClientMessage("Â§cReplay file not found")
+                session.displayClientMessage("§cReplay file not found")
                 return
             }
 
             val replayData = Json.decodeFromString<ReplayData>(file.readText())
             frames.clear()
             frames.addAll(replayData.frames)
-            session.displayClientMessage("Â§aLoaded replay with ${frames.size} frames")
+            session.displayClientMessage("§aLoaded replay with ${frames.size} frames")
         } catch (e: Exception) {
-            session.displayClientMessage("Â§cFailed to load replay: ${e.message}")
+            session.displayClientMessage("§cFailed to load replay: ${e.message}")
         }
     }
 

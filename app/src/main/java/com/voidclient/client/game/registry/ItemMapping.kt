@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.registry
+package com.voidclient.client.game.registry
 
 import android.content.Context
 import com.google.gson.JsonParser

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.world
+package com.voidclient.client.game.world
 
 import com.voidclient.client.game.GameSession
 import com.voidclient.client.game.entity.Entity

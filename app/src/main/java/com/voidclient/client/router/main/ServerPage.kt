@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.router.main
+package com.voidclient.client.router.main
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.border

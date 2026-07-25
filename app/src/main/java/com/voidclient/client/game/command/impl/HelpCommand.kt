@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.command.impl
+package com.voidclient.client.game.command.impl
 
 import com.voidclient.client.game.command.Command
 import com.voidclient.client.game.command.manager.CommandManager

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.inventory
+package com.voidclient.client.game.inventory
 
 import com.voidclient.client.game.GameSession
 import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerId

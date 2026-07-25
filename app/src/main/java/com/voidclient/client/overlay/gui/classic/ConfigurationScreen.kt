@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay.gui.classic
+package com.voidclient.client.overlay.gui.classic
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -45,11 +45,11 @@ fun ConfigurationScreen(
         uri?.let {
             if (ModuleManager.importConfigFromFile(context, it)) {
                 coroutineScope.launch {
-                    snackbarHostState.showSnackbar("âœ… Config imported successfully")
+                    snackbarHostState.showSnackbar("✅ Config imported successfully")
                 }
             } else {
                 coroutineScope.launch {
-                    snackbarHostState.showSnackbar("âŒ Failed to import config")
+                    snackbarHostState.showSnackbar("❌ Failed to import config")
                 }
             }
         }
@@ -70,9 +70,9 @@ fun ConfigurationScreen(
                         if (success) {
                             val configsDir = ModuleManager.getWClientConfigsDirectory()
                             val path = configsDir?.let { File(it, fileName).absolutePath } ?: "WClient/configs/$fileName"
-                            snackbarHostState.showSnackbar("âœ… Exported to: $path")
+                            snackbarHostState.showSnackbar("✅ Exported to: $path")
                         } else {
-                            snackbarHostState.showSnackbar("âŒ Failed to export config")
+                            snackbarHostState.showSnackbar("❌ Failed to export config")
                         }
                     }
                 }

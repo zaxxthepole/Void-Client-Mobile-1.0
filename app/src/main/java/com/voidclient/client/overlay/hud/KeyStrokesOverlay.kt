@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay.hud
+package com.voidclient.client.overlay.hud
 
 import android.content.res.Configuration
 import com.voidclient.client.overlay.OverlayWindow
@@ -229,7 +229,7 @@ class KeyStrokesOverlay : OverlayWindow() {
 
                 if (showSneak) {
                     KeyButton(
-                        label = "â‡§",
+                        label = "⇧",
                         isPressed = keyStates["Shift"] ?: false,
                         modifier = Modifier.size(spacebarWidth.dp, keySize.dp)
                     )

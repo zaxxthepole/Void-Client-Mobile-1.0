@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.util
+package com.voidclient.client.util
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable

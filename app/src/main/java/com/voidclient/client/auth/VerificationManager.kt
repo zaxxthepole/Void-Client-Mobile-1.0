@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.auth
+package com.voidclient.client.auth
 
 import android.app.Activity
 import android.content.ActivityNotFoundException

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay.hud
+package com.voidclient.client.overlay.hud
 
 import android.view.Gravity
 import android.view.WindowManager

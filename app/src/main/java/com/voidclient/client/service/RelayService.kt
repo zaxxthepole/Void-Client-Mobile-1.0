@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.service
+package com.voidclient.client.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

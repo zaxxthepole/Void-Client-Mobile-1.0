@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.entity
+package com.voidclient.client.game.entity
 
 object MobList {
     val mobTypes = setOf(

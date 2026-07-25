@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.router.main
+package com.voidclient.client.router.main
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.animateContentSize

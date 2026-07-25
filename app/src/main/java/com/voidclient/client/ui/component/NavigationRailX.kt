@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.ui.component
+package com.voidclient.client.ui.component
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

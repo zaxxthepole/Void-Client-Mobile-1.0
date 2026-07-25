@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.world
+package com.voidclient.client.game.module.world
 
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
@@ -86,7 +86,7 @@ class FreeCameraModule : Module("free_camera", ModuleCategory.World) {
 
             GlobalScope.launch {
                 for (i in 5 downTo 1) {
-                    val countdownMessage = "Â§lÂ§b[WClient] Â§rÂ§7FreeCam will enable in Â§e$i Â§7seconds"
+                    val countdownMessage = "§l§b[WClient] §r§7FreeCam will enable in §e$i §7seconds"
                     sendCountdownMessage(countdownMessage)
                     delay(1000)
                 }

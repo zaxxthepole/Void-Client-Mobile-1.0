@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.friend
+package com.voidclient.client.game.friend
 
 import java.util.*
 

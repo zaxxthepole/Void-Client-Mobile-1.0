@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.util
+package com.voidclient.client.util
 
 inline val String.translatedSelf: String
     get() = this.toDisplayName()

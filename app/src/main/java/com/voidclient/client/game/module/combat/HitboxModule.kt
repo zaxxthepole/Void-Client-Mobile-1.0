@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.combat
+package com.voidclient.client.game.module.combat
 
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module

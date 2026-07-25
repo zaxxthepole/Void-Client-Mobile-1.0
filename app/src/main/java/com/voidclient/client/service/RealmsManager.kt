@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.service
+package com.voidclient.client.service
 
 import android.util.Log
 import kotlinx.coroutines.*

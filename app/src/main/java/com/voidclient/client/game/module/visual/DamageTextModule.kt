@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.visual
+package com.voidclient.client.game.module.visual
 
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
@@ -28,8 +28,8 @@ class DamageTextModule : Module("DamageText", ModuleCategory.Visual) {
             if (entity is Player) {
                 val playerName = entity.username
 
-                val stateText = "$playerNameÂ§r Â§cEnemy Damaged"
-                val status = "Â§f$stateText"
+                val stateText = "$playerName§r §cEnemy Damaged"
+                val status = "§f$stateText"
                 val message = " $status"
 
 

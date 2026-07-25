@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.registry
+package com.voidclient.client.game.registry
 
 open class ItemDefinition(private val runtimeId: Int, private val identifier: String) :
     org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition {

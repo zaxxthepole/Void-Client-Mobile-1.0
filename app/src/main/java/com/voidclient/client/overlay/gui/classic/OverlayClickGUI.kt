@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay.gui.classic
+package com.voidclient.client.overlay.gui.classic
 
 import android.content.Intent
 import android.net.Uri

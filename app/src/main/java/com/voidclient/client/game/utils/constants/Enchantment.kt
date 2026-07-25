@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.utils.constants
+package com.voidclient.client.game.utils.constants
 
 object Enchantment {
 

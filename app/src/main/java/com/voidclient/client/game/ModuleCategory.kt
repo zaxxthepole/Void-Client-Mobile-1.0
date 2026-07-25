@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

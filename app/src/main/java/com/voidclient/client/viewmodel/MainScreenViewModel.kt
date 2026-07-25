@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.viewmodel
+package com.voidclient.client.viewmodel
 
 import android.content.Context
 import android.content.pm.ApplicationInfo

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.entity
+package com.voidclient.client.game.entity
 
 class Item(runtimeEntityId: Long, uniqueEntityId: Long) :
     Entity(runtimeEntityId, uniqueEntityId) {

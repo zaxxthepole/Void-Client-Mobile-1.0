@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -112,11 +112,11 @@ abstract class Module(
         if (!isSessionCreated) return
 
         val stateText = if (enabled) "enabled".translatedSelf else "disabled".translatedSelf
-        val status = (if (enabled) "Â§a" else "Â§c") + stateText
+        val status = (if (enabled) "§a" else "§c") + stateText
         val moduleName = name.translatedSelf
 
         session.displayClientMessage(
-            "Â§lÂ§c[WClient] Â§rÂ§7$moduleName Â§8Â» $status"
+            "§l§c[WClient] §r§7$moduleName §8» $status"
         )
     }
 }

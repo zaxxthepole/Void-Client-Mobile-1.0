@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.router.main
+package com.voidclient.client.router.main
 
 import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult

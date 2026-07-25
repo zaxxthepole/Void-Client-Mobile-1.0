@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.ui.component
+package com.voidclient.client.ui.component
 
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background

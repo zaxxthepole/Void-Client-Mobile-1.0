@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.misc
+package com.voidclient.client.game.module.misc
 
 import android.util.Log
 import com.voidclient.client.game.InterceptablePacket

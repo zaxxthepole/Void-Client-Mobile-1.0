@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import net.raphimc.minecraftauth.MinecraftAuth
 import net.raphimc.minecraftauth.step.AbstractStep

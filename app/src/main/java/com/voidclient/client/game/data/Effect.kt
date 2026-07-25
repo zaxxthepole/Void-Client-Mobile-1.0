@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.data
+package com.voidclient.client.game.data
 
 class Effect(val id: Int, var amplifier: Int, var duration: Int) {
 

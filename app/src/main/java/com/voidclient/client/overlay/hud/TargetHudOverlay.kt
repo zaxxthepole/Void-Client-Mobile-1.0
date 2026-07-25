@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.overlay.hud
+package com.voidclient.client.overlay.hud
 
 import android.graphics.Bitmap
 import com.voidclient.client.overlay.OverlayWindow

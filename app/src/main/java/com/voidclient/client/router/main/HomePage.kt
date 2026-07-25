@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.router.main
+package com.voidclient.client.router.main
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -304,7 +304,7 @@ fun HomePageContent() {
                             }
                         }
 
-                        Text("Open Minecraft â†’ Friends â†’ join via LAN. If it doesn't appear, add a server with this IP and port.", style = MaterialTheme.typography.bodyMedium)
+                        Text("Open Minecraft → Friends → join via LAN. If it doesn't appear, add a server with this IP and port.", style = MaterialTheme.typography.bodyMedium)
 
                         Card(
                             modifier = Modifier.fillMaxWidth(),

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.inventory
+package com.voidclient.client.game.inventory
 
 import android.util.Log
 import org.cloudburstmc.protocol.bedrock.data.inventory.ContainerType

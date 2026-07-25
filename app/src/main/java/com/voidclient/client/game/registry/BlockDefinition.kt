@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.registry
+package com.voidclient.client.game.registry
 
 open class BlockDefinition(private val runtimeId: Int, val identifier: String):
     org.cloudburstmc.protocol.bedrock.data.definitions.BlockDefinition {

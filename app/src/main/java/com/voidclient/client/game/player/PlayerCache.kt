@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.player
+package com.voidclient.client.game.player
 
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.visual
+package com.voidclient.client.game.module.visual
 
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
@@ -22,7 +22,7 @@ class PlayerJoinModule : Module("PlayerJoin", ModuleCategory.Visual) {
                         if (!trackedPlayers.containsKey(uuid)) {
                             trackedPlayers[uuid] = name
                             if (uuid != session.localPlayer.uuid.toString()) {
-                                session.displayClientMessage("Â§a[+] Â§f$name Â§ajoined")
+                                session.displayClientMessage("§a[+] §f$name §ajoined")
                             }
                         }
                     }
@@ -32,7 +32,7 @@ class PlayerJoinModule : Module("PlayerJoin", ModuleCategory.Visual) {
                         val uuid = entry.uuid.toString()
                         val name = trackedPlayers.remove(uuid)
                         if (name != null) {
-                            session.displayClientMessage("Â§c[-] Â§f$name Â§cleft")
+                            session.displayClientMessage("§c[-] §f$name §cleft")
                         }
                     }
                 }

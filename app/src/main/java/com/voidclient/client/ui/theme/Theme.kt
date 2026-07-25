@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.ui.theme
+package com.voidclient.client.ui.theme
 
 import android.os.Build
 import androidx.compose.material3.MaterialTheme

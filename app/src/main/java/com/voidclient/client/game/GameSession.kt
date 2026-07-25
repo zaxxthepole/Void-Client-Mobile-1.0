@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import android.util.Log
 import com.voidclient.client.application.AppContext

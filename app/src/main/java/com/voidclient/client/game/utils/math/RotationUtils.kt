@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.utils.math
+package com.voidclient.client.game.utils.math
 
 import org.cloudburstmc.math.vector.Vector3f
 import kotlin.math.atan2

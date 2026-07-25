@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game
+package com.voidclient.client.game
 
 import net.kyori.adventure.text.Component
 import org.cloudburstmc.protocol.bedrock.packet.SetTitlePacket
@@ -21,7 +21,7 @@ object ActionBarManager {
     fun display(session: GameSession) {
         if (activeModules.isEmpty()) return
 
-        val combinedText = activeModules.values.joinToString(" Â§7|Â§r ")
+        val combinedText = activeModules.values.joinToString(" §7|§r ")
 
         session.clientBound(SetTitlePacket().apply {
             type = SetTitlePacket.Type.ACTIONBAR

@@ -1,4 +1,4 @@
-﻿package com.voidclient.client.game.module.visual
+package com.voidclient.client.game.module.visual
 
 import android.annotation.SuppressLint
 import com.voidclient.client.game.InterceptablePacket
@@ -48,7 +48,7 @@ class SpeedDisplayModule : Module("speed_display", ModuleCategory.Visual) {
                 }
 
                 val speedText = if (colorStyle) {
-                    "Â§lÂ§c[Speed] Â§rÂ§f${String.format("%.2f", smoothedSpeed)} Â§7bps"
+                    "§l§c[Speed] §r§f${String.format("%.2f", smoothedSpeed)} §7bps"
                 } else {
                     "Speed: ${String.format("%.2f", smoothedSpeed)} bps"
                 }
