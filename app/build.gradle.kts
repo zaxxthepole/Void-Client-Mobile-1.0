@@ -37,7 +37,7 @@ android {
             enableV3Signing = true
 
             storeFile = rootDir.resolve("buildKey.jks")
-            keyAlias = "UntrustedKey"
+            keyAlias = "VoidclientKey"
             storePassword = "123456"
             keyPassword = "123456"
         }
