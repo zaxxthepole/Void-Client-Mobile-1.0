@@ -38,7 +38,7 @@ class OnlineLoginPacketListener(
                 } catch (e: Exception) {
                     println("Failed to refresh session: ${e.message}")
                     e.printStackTrace()
-                    wRelaySession.server.disconnect("Your session has expired and could not be refreshed. Please re-login in the W Client.")
+                    wRelaySession.server.disconnect("Your session has expired and could not be refreshed. Please re-login in the Voidclient.")
                     return true
                 }
             }
