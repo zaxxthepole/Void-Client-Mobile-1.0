@@ -17,70 +17,68 @@ import androidx.compose.ui.unit.sp
 
 
 object WColors {
-    // Primary reds
-    val Primary = Color(0xFFEF4444)
-    val PrimaryLight = Color(0xFFF87171)
-    val PrimaryDark = Color(0xFFDC2626)
+    // Primary purples
+    val Primary = Color(0xFF7B2FBE)
+    val PrimaryLight = Color(0xFFA855F7)
+    val PrimaryDark = Color(0xFF6D28D9)
     val OnPrimary = Color(0xFFFFFFFF)
 
-    // Secondary for contrast (cool slate)
-    val Secondary = Color(0xFF64748B)
-    val SecondaryVariant = Color(0xFF475569)
-    val SecondaryLight = Color(0xFF94A3B8)
+    // Secondary purples
+    val Secondary = Color(0xFFA855F7)
+    val SecondaryVariant = Color(0xFF7E22CE)
+    val SecondaryLight = Color(0xFFC084FC)
     val OnSecondary = Color(0xFFFFFFFF)
 
-    // Accent red/pink for glow effects
-    val Accent = Color(0xFFF43F5E)
-    val AccentLight = Color(0xFFFB7185)
-    val AccentDark = Color(0xFFBE123C)
+    // Accent lavender
+    val Accent = Color(0xFFC084FC)
+    val AccentLight = Color(0xFFD8B4FE)
+    val AccentDark = Color(0xFF9333EA)
 
+    val Background = Color(0xFF1A1A2E)
+    val Surface = Color(0xFF16213E)
+    val SurfaceVariant = Color(0xFF1E2A4A)
+    val SurfaceContainer = Color(0xFF192445)
 
-    val Background = Color(0xFF0B0A10)
-    val Surface = Color(0xFF121016)
-    val SurfaceVariant = Color(0xFF1D1A22)
-    val SurfaceContainer = Color(0xFF17141C)
-
-    val OnBackground = Color(0xFFF8FAFC)
+    val OnBackground = Color(0xFFE2E8F0)
     val OnSurface = Color(0xFFE2E8F0)
-    val OnSurfaceVariant = Color(0xFF9AA3B2)
+    val OnSurfaceVariant = Color(0xFF94A3B8)
 
-    val Error = Color(0xFFFF4D4D)
-    val ErrorLight = Color(0xFFFF8080)
+    val Error = Color(0xFFEF4444)
+    val ErrorLight = Color(0xFFF87171)
 
-    val Border = Color(0xFF2B2631)
-    val BorderLight = Color(0xFF3A3441)
+    val Border = Color(0xFF2D2D4E)
+    val BorderLight = Color(0xFF3D3D5E)
 
     val Overlay = Color(0x80000000)
-
 
     val MinimapBackground = Color(0xCC000000)
     val MinimapGrid = Color(0x66A9A9A9)
     val MinimapCrosshair = Color(0x80808080)
     val MinimapPlayerMarker = Color(0xFFFFFFFF)
-    val MinimapNorth = Color(0xFFEF4444)   // match primary red
-    val MinimapEntityClose = Color(0xFFFF3B3B)
-    val MinimapEntityFar = Color(0xFFFFD166)
+    val MinimapNorth = Color(0xFF7B2FBE)
+    val MinimapEntityClose = Color(0xFFA855F7)
+    val MinimapEntityFar = Color(0xFFC084FC)
     val MinimapZoom = 1.0f
     val MinimapDotSize = 5
 }
 
 object ClickGUIColors {
-    val PrimaryBackground = Color(0xFF0B0B11)
-    val SecondaryBackground = Color(0xFF14131B)
+    val PrimaryBackground = Color(0xFF1A1A2E)
+    val SecondaryBackground = Color(0xFF16213E)
 
     val AccentColor = WColors.Primary
     val AccentColorVariant = WColors.AccentLight
 
     val PrimaryText = Color(0xFFFFFFFF)
-    val SecondaryText = Color(0xFF9AA3B2)
+    val SecondaryText = Color(0xFF94A3B8)
 
-    val PanelBackground = Color(0xF014131A)
-    val PanelBorder = Color(0x60EF4444)
+    val PanelBackground = Color(0xF016213E)
+    val PanelBorder = Color(0x607B2FBE)
 
     val ModuleEnabled = AccentColor
-    val ModuleDisabled = Color(0xFF23222B)
+    val ModuleDisabled = Color(0xFF2D2D4E)
 
-    val SliderTrack = Color(0xFF2C2933)
+    val SliderTrack = Color(0xFF2D2D4E)
     val SliderThumb = AccentColor
     val SliderFill = AccentColor
 
