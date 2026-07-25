@@ -20,27 +20,8 @@ import com.voidclient.client.game.module.combat.AutoTotemModule
 import com.voidclient.client.game.module.combat.HotbarSwitcherModule
 import com.voidclient.client.game.module.combat.InfiniteAuraModule
 import com.voidclient.client.game.module.misc.ArrayListModule
-import com.voidclient.client.game.module.motion.NoClipModule
-import com.voidclient.client.game.module.misc.AutoDisconnectModule
-import com.voidclient.client.game.module.misc.CommandHandlerModule
-import com.voidclient.client.game.module.visual.CoordinatesModule
-import com.voidclient.client.game.module.misc.DesyncModule
-import com.voidclient.client.game.module.misc.FakeDeathModule
-import com.voidclient.client.game.module.misc.FakeXPModule
-import com.voidclient.client.game.module.misc.MinerModule
-import com.voidclient.client.game.module.misc.NoChatModule
 import com.voidclient.client.game.module.misc.PieChartModule
-import com.voidclient.client.game.module.misc.PositionLoggerModule
-import com.voidclient.client.game.module.misc.ReplayModule
-import com.voidclient.client.game.module.misc.ChestStealerModule
-import com.voidclient.client.game.module.misc.SpammerModule
-import com.voidclient.client.game.module.misc.ToggleSoundModule
 import com.voidclient.client.game.module.misc.WaterMarkModule
-import com.voidclient.client.game.module.world.AntiDebuffModule
-import com.voidclient.client.game.module.world.EffectsModule
-import com.voidclient.client.game.module.world.ParticlesModule
-import com.voidclient.client.game.module.world.TimeShiftModule
-import com.voidclient.client.game.module.world.WeatherControllerModule
 import com.voidclient.client.game.module.motion.AirJumpModule
 import com.voidclient.client.game.module.motion.AntiAFKModule
 import com.voidclient.client.game.module.motion.AutoWalkModule
@@ -49,10 +30,12 @@ import com.voidclient.client.game.module.motion.FlyModule
 import com.voidclient.client.game.module.motion.HighJumpModule
 import com.voidclient.client.game.module.motion.JetPackModule
 import com.voidclient.client.game.module.motion.MotionFlyModule
+import com.voidclient.client.game.module.motion.NoClipModule
 import com.voidclient.client.game.module.motion.PlayerTPModule
 import com.voidclient.client.game.module.motion.SpeedModule
 import com.voidclient.client.game.module.motion.SpiderModule
 import com.voidclient.client.game.module.motion.SprintModule
+import com.voidclient.client.game.module.visual.CoordinatesModule
 import com.voidclient.client.game.module.visual.CrosshairModule
 import com.voidclient.client.game.module.visual.DamageTextModule
 import com.voidclient.client.game.module.visual.ESPModule
@@ -62,10 +45,9 @@ import com.voidclient.client.game.module.visual.NetworkInfoModule
 import com.voidclient.client.game.module.visual.NoHurtCameraModule
 import com.voidclient.client.game.module.visual.PlayerJoinModule
 import com.voidclient.client.game.module.visual.SpeedDisplayModule
+import com.voidclient.client.game.module.visual.TargetHudModule
 import com.voidclient.client.game.module.visual.WorldStateModule
 import com.voidclient.client.game.module.visual.ZoomModule
-import com.voidclient.client.game.module.visual.TargetHudModule
-import com.voidclient.client.game.module.world.FreeCameraModule
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
@@ -134,31 +116,10 @@ object ModuleManager {
             add(TargetHudModule())
             add(FullbrightModule())
 
-            // World
-            add(FreeCameraModule())
-            add(TimeShiftModule())
-            add(WeatherControllerModule())
-            add(EffectsModule())
-            add(ParticlesModule())
-            add(AntiDebuffModule())
-
             // Misc
-
-            add(AutoDisconnectModule())
             add(ArrayListModule())
-            add(ToggleSoundModule())
-            add(ChestStealerModule())
-            add(DesyncModule())
-            add(SpammerModule())
             add(WaterMarkModule())
-            add(PositionLoggerModule())
-            add(NoChatModule())
-            add(CommandHandlerModule())
-            add(ReplayModule())
             add(PieChartModule())
-            add(FakeDeathModule())
-            add(FakeXPModule())
-            add(MinerModule())
         }
     }
 
@@ -280,7 +241,7 @@ object ModuleManager {
                 downloadsDir
             }
 
-            val wclientDir = File(baseDir, "WClient")
+            val wclientDir = File(baseDir, "Voidclient")
             val configsDir = File(wclientDir, "configs")
 
             if (configsDir.exists() || configsDir.mkdirs()) {

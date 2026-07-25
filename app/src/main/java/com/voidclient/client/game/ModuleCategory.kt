@@ -9,7 +9,6 @@ enum class ModuleCategory(
     @StringRes val labelResId: Int,
     val displayName: String
 ) {
-
     Combat(
         iconResId = R.drawable.swords_24px,
         labelResId = R.string.combat,
@@ -24,17 +23,6 @@ enum class ModuleCategory(
         iconResId = R.drawable.view_in_ar_24px,
         labelResId = R.string.visual,
         displayName = "Visual"
-    ),
-
-    World(
-        iconResId = R.drawable.public_24px,
-        labelResId = R.string.world,
-        displayName = "World"
-    ),
-    Misc(
-        iconResId = R.drawable.toc_24px,
-        labelResId = R.string.misc,
-        displayName = "Misc"
     ),
     Config(
         iconResId = R.drawable.ic_settings,
