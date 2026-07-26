@@ -21,6 +21,8 @@ import com.voidclient.client.game.module.combat.HotbarSwitcherModule
 import com.voidclient.client.game.module.combat.InfiniteAuraModule
 import com.voidclient.client.game.module.misc.ArrayListModule
 import com.voidclient.client.game.module.misc.PieChartModule
+import com.voidclient.client.game.module.misc.PositionSpoofModule
+import com.voidclient.client.game.module.misc.TimingSpoofModule
 import com.voidclient.client.game.module.misc.WaterMarkModule
 import com.voidclient.client.game.module.motion.AirJumpModule
 import com.voidclient.client.game.module.motion.AntiAFKModule
@@ -120,6 +122,8 @@ object ModuleManager {
             add(ArrayListModule())
             add(WaterMarkModule())
             add(PieChartModule())
+            add(PositionSpoofModule())
+            add(TimingSpoofModule())
         }
     }
 
