@@ -23,14 +23,14 @@ object ActionBarManager {
 
         val combinedText = activeModules.values.joinToString(" §7|§r ")
 
-        session.clientBound(SetTitlePacket().apply {
-            type = SetTitlePacket.Type.ACTIONBAR
-            text = combinedText
-            fadeInTime = 0
-            fadeOutTime = 0
-            stayTime = 2
-            xuid = ""
-            platformOnlineId = ""
-        })
+        val packet = SetTitlePacket()
+        packet.type = SetTitlePacket.Type.ACTIONBAR
+        packet.setText(combinedText)
+        packet.fadeInTime = 0
+        packet.fadeOutTime = 0
+        packet.stayTime = 2
+        packet.xuid = ""
+        packet.platformOnlineId = ""
+        session.clientBound(packet)
     }
 }
