@@ -121,4 +121,6 @@ dependencies {
     implementation("androidx.browser:browser:1.6.0")
     implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("io.coil-kt:coil-gif:2.5.0")
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
 }

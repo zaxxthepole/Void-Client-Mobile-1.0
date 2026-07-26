@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.voidclient.client.ui.theme.WColors
+import com.voidclient.client.ui.component.VideoBackground
 import com.voidclient.client.viewmodel.MainScreenViewModel
 
 @Immutable
@@ -66,16 +67,16 @@ fun MainScreen() {
     val selectedPage by vm.selectedPage.collectAsStateWithLifecycle()
     val pages = remember { MainScreenPages.entries.toList() }
 
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(WColors.Background)
-    ) {
+    VideoBackground(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
         IconSidebar(
             pages = pages,
             selected = selectedPage,
             onSelect = { if (selectedPage != it) vm.selectPage(it) },
-            containerColor = WColors.Surface,
+            containerColor = Color.Transparent,
             activeColor = WColors.OnSurface,
             indicatorColor = MaterialTheme.colorScheme.primary
         )
@@ -101,6 +102,7 @@ fun MainScreen() {
                 page.content()
             }
         }
+    }
     }
 }
 
