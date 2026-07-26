@@ -79,9 +79,9 @@ private fun CompactWHeader() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "W",
+            text = "VOID",
             style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Bold,
             color = WColors.Primary.copy(alpha = glowAlpha)
         )
 
