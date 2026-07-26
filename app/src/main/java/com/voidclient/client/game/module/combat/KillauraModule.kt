@@ -149,7 +149,7 @@ class KillauraModule : Module("killaura", ModuleCategory.Combat) {
                 position = tpPos
                 rotation = entity.vec3Rotation
                 mode = MovePlayerPacket.Mode.NORMAL
-                onGround = false
+                setOnGround(false)
                 tick = player.tickExists
             }
         )
@@ -170,7 +170,7 @@ class KillauraModule : Module("killaura", ModuleCategory.Combat) {
                 position = pos.add(x.toFloat(), 0f, z.toFloat())
                 rotation = Vector3f.ZERO
                 mode = MovePlayerPacket.Mode.NORMAL
-                onGround = true
+                setOnGround(true)
                 tick = session.localPlayer.tickExists
             }
         )
