@@ -103,7 +103,7 @@ fun ServerPageContent() {
                     modifier = Modifier.animateContentSize()
                 )
             },
-            containerColor = WColors.Background
+            containerColor = Color.Transparent
         ) { padding ->
             Box {
                 Column(

@@ -216,7 +216,7 @@ fun HomePageContent() {
                     modifier = Modifier.animateContentSize()
                 )
             },
-            containerColor = WColors.Background
+            containerColor = Color.Transparent
         ) { padding ->
             Box(Modifier.padding(padding).fillMaxSize()) {
                 Column(
