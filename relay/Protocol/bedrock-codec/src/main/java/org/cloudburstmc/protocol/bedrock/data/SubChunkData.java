@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.util.AbstractReferenceCounted;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.cloudburstmc.math.vector.Vector3i;
 
 @Data
@@ -17,15 +18,19 @@ public class SubChunkData extends AbstractReferenceCounted {
     private HeightMapDataType renderHeightMapType;
     private ByteBuf renderHeightMapData;
     private boolean cacheEnabled;
-    private long blobId;
+    @Nullable
+    private Long blobId;
 
     @Override
-    public SubChunkData touch(Object o) {
+    public SubChunkData touch(Object hint) {
         if (this.data != null) {
-            this.data.touch(o);
+            this.data.touch(hint);
         }
         if (this.heightMapData != null) {
-            this.heightMapData.touch(o);
+            this.heightMapData.touch(hint);
+        }
+        if (this.renderHeightMapData != null) {
+            this.renderHeightMapData.touch(hint);
         }
         return this;
     }
@@ -37,6 +42,9 @@ public class SubChunkData extends AbstractReferenceCounted {
         }
         if (this.heightMapData != null) {
             this.heightMapData.release();
+        }
+        if (this.renderHeightMapData != null) {
+            this.renderHeightMapData.release();
         }
     }
 }

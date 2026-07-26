@@ -111,10 +111,12 @@ public enum PlayerAuthInputData {
     START_USING_ITEM,
     /**
      * @since v748
+     * @deprecated since v2168
      */
     CAMERA_RELATIVE_MOVEMENT_ENABLED,
     /**
      * @since v748
+     * @deprecated since v2168
      */
     ROT_CONTROLLED_BY_MOVE_DIRECTION,
     /**
@@ -153,4 +155,8 @@ public enum PlayerAuthInputData {
      * @since v766
      */
     SNEAK_CURRENT_RAW,
+    /**
+     * @since v2168
+     */
+    INTERNAL_UPDATE,
 }

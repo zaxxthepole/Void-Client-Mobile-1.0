@@ -7,7 +7,7 @@ import lombok.ToString;
 import org.cloudburstmc.protocol.bedrock.data.inventory.crafting.ContainerMixData;
 import org.cloudburstmc.protocol.bedrock.data.inventory.crafting.MaterialReducer;
 import org.cloudburstmc.protocol.bedrock.data.inventory.crafting.PotionMixData;
-import org.cloudburstmc.protocol.bedrock.data.inventory.crafting.recipe.RecipeData;
+import org.cloudburstmc.protocol.bedrock.data.inventory.crafting.recipe.*;
 import org.cloudburstmc.protocol.common.PacketSignal;
 
 import java.util.List;
@@ -16,14 +16,46 @@ import java.util.List;
 @ToString(doNotUseGetters = true)
 @EqualsAndHashCode(doNotUseGetters = true)
 public class CraftingDataPacket implements BedrockPacket {
-    public final List<RecipeData> craftingData = new ObjectArrayList<>();
-    public final List<PotionMixData> potionMixData = new ObjectArrayList<>();
-    public final List<ContainerMixData> containerMixData = new ObjectArrayList<>();
+    private final List<RecipeData> craftingData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<ShapedRecipeData> shapedData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<ShapelessRecipeData> shapelessData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<MultiRecipeData> multiData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<ShapelessRecipeData> shapelessUserData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<ShapelessRecipeData> shapelessChemistryData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<ShapedRecipeData> shapedChemistryData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<SmithingTransformRecipeData> smithingTransformData = new ObjectArrayList<>();
+    /**
+     * @since v2168
+     */
+    private final List<SmithingTrimRecipeData> smithingTrimData = new ObjectArrayList<>();
+    private final List<PotionMixData> potionMixData = new ObjectArrayList<>();
+    private final List<ContainerMixData> containerMixData = new ObjectArrayList<>();
     /**
      * @since v465
      */
-    public final List<MaterialReducer> materialReducers = new ObjectArrayList<>();
-    public boolean cleanRecipes;
+    private final List<MaterialReducer> materialReducers = new ObjectArrayList<>();
+    private boolean cleanRecipes;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {

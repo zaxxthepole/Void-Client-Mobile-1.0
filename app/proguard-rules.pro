@@ -3,6 +3,9 @@
 -keep class io.netty.** { *; }
 -keep class org.cloudburstmc.netty.** { *; }
 -keep class org.cloudburstmc.protocol.bedrock.codec.** { *; }
+-keep class org.cloudburstmc.protocol.bedrock.codec.v** { *; }
+-keep class org.cloudburstmc.protocol.bedrock.** { *; }
+-keep class org.cloudburstmc.protocol.common.** { *; }
 -keep @io.netty.channel.ChannelHandler$Sharable class *
 -keepclassmembers class * {
     @com.google.gson.annotations.SerializedName <fields>;
@@ -10,3 +13,9 @@
 -keep class net.raphimc.minecraftauth.** { *; }
 -keep class net.lenni0451.commons.httpclient.** { *; }
 -keep class com.voidclient.client.game.AccountManager { *; }
+-keep class com.voidclient.vrelay.** { *; }
+-keep class com.voidclient.vrelay.codec.** { *; }
+-keep class com.voidclient.vrelay.listener.** { *; }
+-keep class com.voidclient.vrelay.WRelay { *; }
+-keep class com.voidclient.vrelay.WRelaySession { *; }
+-keep class com.voidclient.vrelay.definition.Definitions { *; }

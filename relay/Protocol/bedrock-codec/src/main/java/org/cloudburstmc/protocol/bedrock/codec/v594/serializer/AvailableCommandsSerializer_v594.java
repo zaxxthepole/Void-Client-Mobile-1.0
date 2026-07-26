@@ -143,7 +143,7 @@ public class AvailableCommandsSerializer_v594 extends AvailableCommandsSerialize
 
         helper.writeArray(buffer, commandData.getSubcommands(), (buf, subcommand) -> {
             int index = subCommands.indexOf(subcommand);
-            checkArgument(index > -1, "Invalid subcommand index: " + subcommand);
+            checkArgument(index > -1, "Invalid subcommand index: %s", subcommand);
             buf.writeShortLE(index);
         });
 
@@ -189,10 +189,10 @@ public class AvailableCommandsSerializer_v594 extends AvailableCommandsSerialize
         helper.writeString(buffer, data.getName());
         helper.writeArray(buffer, data.getValues(), (buf, val) -> {
             int first = values.indexOf(val.getFirst());
-            checkArgument(first > -1, "Invalid enum value detected: " + val.getFirst());
+            checkArgument(first > -1, "Invalid enum value detected: %s", val.getFirst());
 
             int second = values.indexOf(val.getSecond());
-            checkArgument(second > -1, "Invalid enum value detected: " + val.getSecond());
+            checkArgument(second > -1, "Invalid enum value detected: %s", val.getSecond());
 
             buf.writeShortLE(first);
             buf.writeShortLE(second);

@@ -13,8 +13,11 @@ import java.util.List;
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
 public class SetScorePacket implements BedrockPacket {
-    public Action action;
-    public List<ScoreInfo> infos = new ObjectArrayList<>();
+    /**
+     * @deprecated since v2168, now uses ScorerType from ScoreInfo
+     */
+    private Action action;
+    private List<ScoreInfo> infos = new ObjectArrayList<>();
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -25,6 +28,9 @@ public class SetScorePacket implements BedrockPacket {
         return BedrockPacketType.SET_SCORE;
     }
 
+    /**
+     * @deprecated since v2168
+     */
     public enum Action {
         SET,
         REMOVE

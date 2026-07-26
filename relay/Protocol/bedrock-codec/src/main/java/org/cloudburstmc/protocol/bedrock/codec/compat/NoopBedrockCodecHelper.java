@@ -5,6 +5,7 @@ import org.cloudburstmc.protocol.bedrock.codec.BaseBedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.BedrockCodecHelper;
 import org.cloudburstmc.protocol.bedrock.codec.EntityDataTypeMap;
 import org.cloudburstmc.protocol.bedrock.data.GameRuleData;
+import org.cloudburstmc.protocol.bedrock.data.GatheringsConfigurationJoinInfo;
 import org.cloudburstmc.protocol.bedrock.data.PlayerAbilityHolder;
 import org.cloudburstmc.protocol.bedrock.data.command.CommandEnumData;
 import org.cloudburstmc.protocol.bedrock.data.command.CommandOriginData;
@@ -55,6 +56,16 @@ public class NoopBedrockCodecHelper extends BaseBedrockCodecHelper {
 
     @Override
     public void writeItem(ByteBuf buffer, ItemData item) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ItemData readNetworkItemStackDescriptor(ByteBuf buffer) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void writeNetworkItemStackDescriptor(ByteBuf buffer, ItemData item) {
         throw new UnsupportedOperationException();
     }
 
@@ -175,6 +186,16 @@ public class NoopBedrockCodecHelper extends BaseBedrockCodecHelper {
 
     @Override
     public void readPlayerAbilities(ByteBuf buffer, PlayerAbilityHolder abilityHolder) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void writeGatheringsConfiguration(ByteBuf byteBuf, BedrockCodecHelper bedrockCodecHelper, GatheringsConfigurationJoinInfo gatheringsConfigurationJoinInfo) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public GatheringsConfigurationJoinInfo readGatheringsConfiguration(ByteBuf byteBuf, BedrockCodecHelper bedrockCodecHelper) {
         throw new UnsupportedOperationException();
     }
 }

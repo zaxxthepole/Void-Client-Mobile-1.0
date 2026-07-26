@@ -38,7 +38,7 @@ public class AvailableCommandsSerializer_v898 extends AvailableCommandsSerialize
         helper.writeArray(buffer, commandData.getSubcommands(), (buf, subcommand) -> {
             int index = subCommands.indexOf(subcommand);
             checkArgument(index > -1, "Invalid subcommand index: " + subcommand);
-            buf.writeShortLE(index);
+            buf.writeIntLE(index);
         });
 
         CommandOverloadData[] overloads = commandData.getOverloads();
@@ -88,7 +88,7 @@ public class AvailableCommandsSerializer_v898 extends AvailableCommandsSerialize
             VarInts.writeUnsignedInt(buffer, commandEnum.getValues().size());
             for (String value : commandEnum.getValues().keySet()) {
                 int index = values.indexOf(value);
-                checkArgument(index > -1, "Invalid enum value detected: " + value);
+                checkArgument(index > -1, "Invalid enum value detected: %s", value);
                 buffer.writeIntLE(index);
             }
         });
@@ -113,10 +113,10 @@ public class AvailableCommandsSerializer_v898 extends AvailableCommandsSerialize
         helper.writeString(buffer, data.getName());
         helper.writeArray(buffer, data.getValues(), (buf, val) -> {
             int first = values.indexOf(val.getFirst());
-            checkArgument(first > -1, "Invalid enum value detected: " + val.getFirst());
+            checkArgument(first > -1, "Invalid enum value detected: %s", val.getFirst());
 
             int second = values.indexOf(val.getSecond());
-            checkArgument(second > -1, "Invalid enum value detected: " + val.getSecond());
+            checkArgument(second > -1, "Invalid enum value detected: %s", val.getSecond());
 
             VarInts.writeUnsignedInt(buf, first);
             VarInts.writeUnsignedInt(buf, second);

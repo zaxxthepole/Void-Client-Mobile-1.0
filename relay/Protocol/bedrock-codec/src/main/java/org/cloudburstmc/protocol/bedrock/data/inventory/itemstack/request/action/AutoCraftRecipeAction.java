@@ -14,6 +14,7 @@ public class AutoCraftRecipeAction implements RecipeItemStackRequestAction {
     int recipeNetworkId;
     /**
      * @since v448
+     * @deprecated since v2168
      */
     int timesCrafted;
 

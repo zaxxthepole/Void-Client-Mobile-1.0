@@ -1,11 +1,10 @@
 package org.cloudburstmc.protocol.bedrock.packet;
 
-import it.unimi.dsi.fastutil.longs.LongArrayList;
 import it.unimi.dsi.fastutil.longs.LongList;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.cloudburstmc.math.vector.Vector3i;
 import org.cloudburstmc.protocol.bedrock.data.MapDecoration;
 import org.cloudburstmc.protocol.bedrock.data.MapTrackedObject;
@@ -17,24 +16,32 @@ import java.util.List;
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
 public class ClientboundMapItemDataPacket implements BedrockPacket {
-    public final LongList trackedEntityIds = new LongArrayList();
-    public final List<MapTrackedObject> trackedObjects = new ObjectArrayList<>();
-    public final List<MapDecoration> decorations = new ObjectArrayList<>();
-    public long uniqueMapId;
-    public int dimensionId;
-    public boolean locked;
+    @Nullable
+    private LongList trackedEntityIds;
+    @Nullable
+    private List<MapTrackedObject> trackedObjects;
+    @Nullable
+    private List<MapDecoration> decorations;
+    private long uniqueMapId;
+    private int dimensionId;
+    private boolean locked;
     /**
      * The world-relative position of the map's origin.
      *
      * @since 1.19.20
      */
-    public Vector3i origin;
-    public int scale;
-    public int height;
-    public int width;
-    public int xOffset;
-    public int yOffset;
-    public int[] colors;
+    private Vector3i origin;
+    @Nullable
+    private Byte scale;
+    @Nullable
+    private Integer height;
+    @Nullable
+    private Integer width;
+    @Nullable
+    private Integer xOffset;
+    @Nullable
+    private Integer yOffset;
+    private int[] colors;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {

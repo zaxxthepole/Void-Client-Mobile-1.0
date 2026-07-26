@@ -928,7 +928,15 @@ public interface BedrockPacketHandler extends PacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
-    default PacketSignal handle(ClientboundDataDrivenUIShowScreenPacket packet) {
+    default PacketSignal handle(ClientboundDataStorePacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(CameraAimAssistActorPriorityPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(CameraSplinePacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
@@ -940,19 +948,15 @@ public interface BedrockPacketHandler extends PacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
+    default PacketSignal handle(ClientboundDataDrivenUIShowScreenPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
     default PacketSignal handle(ClientboundTextureShiftPacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
     default PacketSignal handle(VoxelShapesPacket packet) {
-        return PacketSignal.UNHANDLED;
-    }
-
-    default PacketSignal handle(CameraSplinePacket packet) {
-        return PacketSignal.UNHANDLED;
-    }
-
-    default PacketSignal handle(CameraAimAssistActorPriorityPacket packet) {
         return PacketSignal.UNHANDLED;
     }
 
@@ -980,7 +984,23 @@ public interface BedrockPacketHandler extends PacketHandler {
         return PacketSignal.UNHANDLED;
     }
 
-    default PacketSignal handle(ClientboundDataStorePacket packet) {
+    default PacketSignal handle(ServerStoreInfoPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ServerPresenceInfoPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(ClientboundUpdateSoundDataPacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(SendPartyDestinationCookiePacket packet) {
+        return PacketSignal.UNHANDLED;
+    }
+
+    default PacketSignal handle(PartyDestinationCookieResponsePacket packet) {
         return PacketSignal.UNHANDLED;
     }
 }

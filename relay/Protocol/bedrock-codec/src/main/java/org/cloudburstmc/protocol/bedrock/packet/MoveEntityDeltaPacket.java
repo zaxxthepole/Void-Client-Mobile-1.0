@@ -10,21 +10,29 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(doNotUseGetters = true)
 public class MoveEntityDeltaPacket implements BedrockPacket {
-    public long runtimeEntityId;
+    private long runtimeEntityId;
 
-    public final Set<Flag> flags = EnumSet.noneOf(Flag.class);
+    private final Set<Flag> flags = EnumSet.noneOf(Flag.class);
 
-    public int deltaX;
-    public int deltaY;
-    public int deltaZ;
+    @Deprecated
+    private int deltaX;
+    @Deprecated
+    private int deltaY;
+    @Deprecated
+    private int deltaZ;
 
-    public float x;
-    public float y;
-    public float z;
+    private float x;
+    private float y;
+    private float z;
 
-    public float pitch;
-    public float yaw;
-    public float headYaw;
+    private float pitch;
+    private float yaw;
+    private float headYaw;
+
+    private boolean onGround;
+    private boolean forceMove;
+    private boolean forceMoveLocalEntity;
+    private boolean forceCompletion;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -39,7 +47,8 @@ public class MoveEntityDeltaPacket implements BedrockPacket {
         return "MoveEntityDeltaPacket(runtimeEntityId=" + runtimeEntityId +
                 ", flags=" + flags + ", delta=(" + deltaX + ", " + deltaY + ", " + deltaZ +
                 "), position=(" + x + ", " + y + ", " + z +
-                "), rotation=(" + pitch + ", " + yaw + ", " + headYaw + "))";
+                "), rotation=(" + pitch + ", " + yaw + ", " + headYaw + "), onGround=" + onGround +",forceMove=" +
+                forceMove + ",forceMoveLocalEntity=" + forceMoveLocalEntity + ",forceCompletion=" + forceCompletion + ")";
     }
 
     public enum Flag {
@@ -51,7 +60,8 @@ public class MoveEntityDeltaPacket implements BedrockPacket {
         HAS_HEAD_YAW,
         ON_GROUND,
         TELEPORTING,
-        FORCE_MOVE_LOCAL_ENTITY
+        FORCE_MOVE_LOCAL_ENTITY,
+        FORCE_COMPLETION
     }
 
     @Override

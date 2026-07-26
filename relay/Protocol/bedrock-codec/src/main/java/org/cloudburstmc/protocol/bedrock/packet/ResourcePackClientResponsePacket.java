@@ -12,8 +12,8 @@ import java.util.List;
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(doNotUseGetters = true)
 public class ResourcePackClientResponsePacket implements BedrockPacket {
-    public final List<String> packIds = new ObjectArrayList<>();
-    public Status status;
+    private final List<String> packIds = new ObjectArrayList<>();
+    private Status status;
 
     @Override
     public final PacketSignal handle(BedrockPacketHandler handler) {
@@ -25,6 +25,9 @@ public class ResourcePackClientResponsePacket implements BedrockPacket {
     }
 
     public enum Status {
+        /**
+         * @deprecated since v2168
+         */
         NONE,
         REFUSED,
         SEND_PACKS,
