@@ -5,12 +5,15 @@ import android.graphics.Canvas
 import android.view.View
 import com.voidclient.client.game.ModuleManager
 import com.voidclient.client.game.module.visual.ESPModule
+import com.voidclient.client.game.module.visual.StorageESPModule
 
 class RenderOverlayView(context: Context) : View(context) {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        invalidate() // Initial render
+        ESPModule.setRenderView(this)
+        StorageESPModule.setRenderView(this)
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -18,12 +21,19 @@ class RenderOverlayView(context: Context) : View(context) {
 
         ModuleManager.modules
             .filterIsInstance<ESPModule>()
-            .filter { it.isEnabled && it.isSessionCreated } //isSessionCreated check
+            .filter { it.isEnabled && it.isSessionCreated }
             .forEach { it.render(canvas) }
 
-        if (ModuleManager.modules.any {
-                it is ESPModule && it.isEnabled && it.isSessionCreated
-            }) {
+        ModuleManager.modules
+            .filterIsInstance<StorageESPModule>()
+            .filter { it.isEnabled && it.isSessionCreated }
+            .forEach { it.render(canvas) }
+
+        val hasRendering = ModuleManager.modules.any {
+            (it is ESPModule || it is StorageESPModule) && it.isEnabled && it.isSessionCreated
+        }
+
+        if (hasRendering) {
             postInvalidateOnAnimation()
         }
     }

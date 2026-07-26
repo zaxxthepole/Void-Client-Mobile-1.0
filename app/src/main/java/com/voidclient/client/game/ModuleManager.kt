@@ -20,6 +20,7 @@ import com.voidclient.client.game.module.combat.AutoTotemModule
 import com.voidclient.client.game.module.combat.HotbarSwitcherModule
 import com.voidclient.client.game.module.combat.InfiniteAuraModule
 import com.voidclient.client.game.module.misc.ArrayListModule
+import com.voidclient.client.game.module.misc.AutoFishModule
 import com.voidclient.client.game.module.misc.PieChartModule
 import com.voidclient.client.game.module.misc.PositionSpoofModule
 import com.voidclient.client.game.module.misc.TimingSpoofModule
@@ -37,11 +38,13 @@ import com.voidclient.client.game.module.motion.PlayerTPModule
 import com.voidclient.client.game.module.motion.SpeedModule
 import com.voidclient.client.game.module.motion.SpiderModule
 import com.voidclient.client.game.module.motion.SprintModule
+import com.voidclient.client.game.module.motion.NoSlowModule
 import com.voidclient.client.game.module.visual.CoordinatesModule
 import com.voidclient.client.game.module.visual.CrosshairModule
 import com.voidclient.client.game.module.visual.DamageTextModule
 import com.voidclient.client.game.module.visual.ESPModule
 import com.voidclient.client.game.module.visual.FullbrightModule
+import com.voidclient.client.game.module.visual.StorageESPModule
 import com.voidclient.client.game.module.visual.MinimapModule
 import com.voidclient.client.game.module.visual.NetworkInfoModule
 import com.voidclient.client.game.module.visual.NoHurtCameraModule
@@ -102,6 +105,7 @@ object ModuleManager {
             add(AutoWalkModule())
             add(AntiAFKModule())
             add(SpiderModule())
+            add(NoSlowModule())
 
             // Visual
             add(DamageTextModule())
@@ -117,6 +121,7 @@ object ModuleManager {
             add(CrosshairModule())
             add(TargetHudModule())
             add(FullbrightModule())
+            add(StorageESPModule())
 
             // Misc
             add(ArrayListModule())
@@ -124,6 +129,7 @@ object ModuleManager {
             add(PieChartModule())
             add(PositionSpoofModule())
             add(TimingSpoofModule())
+            add(AutoFishModule())
         }
     }
 
