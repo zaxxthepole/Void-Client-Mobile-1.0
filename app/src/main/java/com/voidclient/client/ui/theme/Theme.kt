@@ -18,29 +18,29 @@ import androidx.compose.ui.unit.sp
 
 object WColors {
     // Primary purples
-    val Primary = Color(0xFF7B2FBE)
-    val PrimaryLight = Color(0xFFA855F7)
-    val PrimaryDark = Color(0xFF6D28D9)
+    val Primary = Color(0xFF9D4EDD)
+    val PrimaryLight = Color(0xFFC084FC)
+    val PrimaryDark = Color(0xFF5B1F8E)
     val OnPrimary = Color(0xFFFFFFFF)
 
     // Secondary purples
     val Secondary = Color(0xFFA855F7)
     val SecondaryVariant = Color(0xFF7E22CE)
-    val SecondaryLight = Color(0xFFC084FC)
+    val SecondaryLight = Color(0xFFE0AAFF)
     val OnSecondary = Color(0xFFFFFFFF)
 
     // Accent lavender
     val Accent = Color(0xFFC084FC)
-    val AccentLight = Color(0xFFD8B4FE)
-    val AccentDark = Color(0xFF9333EA)
+    val AccentLight = Color(0xFFE0AAFF)
+    val AccentDark = Color(0xFF7B2FBE)
 
-    val Background = Color(0xFF1A1A2E)
-    val Surface = Color(0xFF16213E)
-    val SurfaceVariant = Color(0xFF1E2A4A)
-    val SurfaceContainer = Color(0xFF192445)
+    val Background = Color(0xFF0B0714)
+    val Surface = Color(0xFF120C22)
+    val SurfaceVariant = Color(0xFF18102B)
+    val SurfaceContainer = Color(0xFF160E27)
 
-    val OnBackground = Color(0xFFE2E8F0)
-    val OnSurface = Color(0xFFE2E8F0)
+    val OnBackground = Color(0xFFF1F5F9)
+    val OnSurface = Color(0xFFF1F5F9)
     val OnSurfaceVariant = Color(0xFF94A3B8)
 
     val Error = Color(0xFFEF4444)
@@ -63,8 +63,8 @@ object WColors {
 }
 
 object ClickGUIColors {
-    val PrimaryBackground = Color(0xFF1A1A2E)
-    val SecondaryBackground = Color(0xFF16213E)
+    val PrimaryBackground = Color(0xFF0B0714)
+    val SecondaryBackground = Color(0xFF120C22)
 
     val AccentColor = WColors.Primary
     val AccentColorVariant = WColors.AccentLight
