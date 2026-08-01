@@ -46,10 +46,27 @@ object WColors {
     val Error = Color(0xFFEF4444)
     val ErrorLight = Color(0xFFF87171)
 
+    val Success = Color(0xFF4ADE80)
+    val SuccessDark = Color(0xFF16A34A)
+    val Warning = Color(0xFFFBBF24)
+    val WarningDark = Color(0xFFD97706)
+    val Info = Color(0xFF38BDF8)
+
     val Border = Color(0xFF2D2D4E)
     val BorderLight = Color(0xFF3D3D5E)
 
     val Overlay = Color(0x80000000)
+
+    // ClickGUI merged palette
+    val PanelBackground = Color(0xF016213E)
+    val PanelBorder = Color(0x607B2FBE)
+    val ModuleEnabled = Color(0xFF9D4EDD)
+    val ModuleDisabled = Color(0xFF2D2D4E)
+    val SliderTrack = Color(0xFF2D2D4E)
+    val SliderThumb = Color(0xFF9D4EDD)
+    val SliderFill = Color(0xFF9D4EDD)
+    val CheckboxBorder = Color(0xFF9D4EDD)
+    val CheckboxFill = Color(0xFF9D4EDD)
 
     val MinimapBackground = Color(0xCC000000)
     val MinimapGrid = Color(0x66A9A9A9)
@@ -60,30 +77,6 @@ object WColors {
     val MinimapEntityFar = Color(0xFFC084FC)
     val MinimapZoom = 1.0f
     val MinimapDotSize = 5
-}
-
-object ClickGUIColors {
-    val PrimaryBackground = Color(0xFF0B0714)
-    val SecondaryBackground = Color(0xFF120C22)
-
-    val AccentColor = WColors.Primary
-    val AccentColorVariant = WColors.AccentLight
-
-    val PrimaryText = Color(0xFFFFFFFF)
-    val SecondaryText = Color(0xFF94A3B8)
-
-    val PanelBackground = Color(0xF016213E)
-    val PanelBorder = Color(0x607B2FBE)
-
-    val ModuleEnabled = AccentColor
-    val ModuleDisabled = Color(0xFF2D2D4E)
-
-    val SliderTrack = Color(0xFF2D2D4E)
-    val SliderThumb = AccentColor
-    val SliderFill = AccentColor
-
-    val CheckboxBorder = AccentColor
-    val CheckboxFill = AccentColor
 }
 
 private val WDarkColorScheme = darkColorScheme(

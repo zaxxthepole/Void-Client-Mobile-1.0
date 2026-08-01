@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.voidclient.client.ui.theme.WColors
 import kotlinx.coroutines.delay
 import kotlin.math.PI
 import kotlin.math.cos
@@ -54,9 +55,9 @@ fun LoadingScreen(onDone: () -> Unit) {
         onDone()
     }
 
-    val backgroundColor = Color(0xFF0A0A0A)
-    val primaryColor = Color(0xFF7B2FBE)
-    val secondaryColor = Color(0xFFA855F7)
+    val backgroundColor = WColors.Background
+    val primaryColor = WColors.Primary
+    val secondaryColor = WColors.Secondary
 
     val infiniteTransition = rememberInfiniteTransition(label = "InfiniteAnimations")
 
@@ -115,7 +116,7 @@ fun LoadingScreen(onDone: () -> Unit) {
             .fillMaxSize()
             .background(
                 Brush.radialGradient(
-                    colors = listOf(backgroundColor, Color(0xFF1A1A1A)),
+                    colors = listOf(backgroundColor, WColors.SurfaceVariant),
                     radius = 800f
                 )
             )

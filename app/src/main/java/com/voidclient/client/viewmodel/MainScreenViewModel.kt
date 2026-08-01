@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.voidclient.client.application.AppContext
 import com.voidclient.client.model.CaptureModeModel
-import com.voidclient.client.router.main.MainScreenPages
+import com.voidclient.client.router.main.AppTab
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -25,7 +25,7 @@ class MainScreenViewModel : ViewModel() {
         AppContext.instance.getSharedPreferences("game_settings", Context.MODE_PRIVATE)
     }
 
-    private val _selectedPage = MutableStateFlow(MainScreenPages.HomePage)
+    private val _selectedPage = MutableStateFlow(AppTab.Home)
 
     private val _captureModeModel = MutableStateFlow(initialCaptureModeModel())
 
@@ -45,7 +45,7 @@ class MainScreenViewModel : ViewModel() {
 
     val selectedGame = _selectedGame.asStateFlow()
 
-    fun selectPage(page: MainScreenPages) {
+    fun selectPage(page: AppTab) {
         _selectedPage.value = page
     }
 

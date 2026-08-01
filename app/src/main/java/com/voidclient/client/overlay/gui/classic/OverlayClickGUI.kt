@@ -1,70 +1,65 @@
 package com.voidclient.client.overlay.gui.classic
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.view.WindowManager
-import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.togetherWith
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.voidclient.client.R
 import com.voidclient.client.game.ModuleCategory
-import com.voidclient.client.game.ModuleContent
+import com.voidclient.client.game.ModuleManager
 import com.voidclient.client.overlay.OverlayManager
 import com.voidclient.client.overlay.OverlayWindow
-
-private val DarkBackground = Color(0xFF0B0714)
-private val SidebarBackground = Color(0xFF120C22)
-private val HeaderBackground = Color(0xFF160E27)
-private val AccentPrimary = Color(0xFF9D4EDD)
-private val TextPrimary = Color(0xFFF1F5F9)
-private val TextSecondary = Color(0xFF94A3B8)
-private val ButtonBackground = Color(0xFF18102B)
+import com.voidclient.client.ui.component.VCModuleCard
+import com.voidclient.client.ui.component.VCSearchBar
+import com.voidclient.client.ui.theme.Fade
+import com.voidclient.client.ui.theme.Slide
+import com.voidclient.client.ui.theme.WColors
 
 class OverlayClickGUI : OverlayWindow() {
 
@@ -73,7 +68,7 @@ class OverlayClickGUI : OverlayWindow() {
             flags = flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
             if (Build.VERSION.SDK_INT >= 31) blurBehindRadius = 20
             layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-            dimAmount = 0.7f
+            dimAmount = 0.65f
             windowAnimations = android.R.style.Animation_Dialog
             width = WindowManager.LayoutParams.MATCH_PARENT
             height = WindowManager.LayoutParams.MATCH_PARENT
@@ -83,232 +78,242 @@ class OverlayClickGUI : OverlayWindow() {
     override val layoutParams: WindowManager.LayoutParams
         get() = _layoutParams
 
-    private var selectedModuleCategory by mutableStateOf(ModuleCategory.Combat)
+    private var selectedModuleCategory by mutableStateOf<ModuleCategory?>(null)
+    private var query by mutableStateOf("")
 
     @OptIn(ExperimentalAnimationApi::class)
     @Composable
     override fun Content() {
-        val context = LocalContext.current
+        val configuration = LocalConfiguration.current
+        val maxPanelHeight = (configuration.screenHeightDp * 0.6f).dp
         val snackbarHostState = remember { SnackbarHostState() }
+        var visible by remember { mutableStateOf(false) }
+
+        LaunchedEffect(Unit) { visible = true }
+
+        val dimAlpha by animateFloatAsState(
+            targetValue = if (visible) 1f else 0f,
+            animationSpec = Fade,
+            label = "dimAlpha"
+        )
 
         Box(
             Modifier
                 .fillMaxSize()
-                .background(Color(0xD0000000))
+                .background(Color.Black.copy(alpha = 0.72f * dimAlpha))
                 .clickable(
                     indication = null,
-                    interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
+                    interactionSource = remember { MutableInteractionSource() }
                 ) {
-                    OverlayManager.dismissOverlayWindow(this)
+                    OverlayManager.dismissOverlayWindow(this@OverlayClickGUI)
                 },
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.BottomCenter
         ) {
-            Box(
-                modifier = Modifier
-                    .width(600.dp)
-                    .height(340.dp)
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                Color(0xFF0E0A1A),
-                                Color(0xFF121020)
-                            )
-                        ),
-                        RoundedCornerShape(20.dp)
-                    )
-                    .clickable(
-                        indication = null,
-                        interactionSource = remember { androidx.compose.foundation.interaction.MutableInteractionSource() }
-                    ) {}
+            AnimatedVisibility(
+                visible = visible,
+                enter = slideInVertically(
+                    initialOffsetY = { it },
+                    animationSpec = Slide
+                ) + fadeIn(Fade),
+                exit = slideOutVertically(
+                    targetOffsetY = { it },
+                    animationSpec = Slide
+                ) + fadeOut(Fade),
+                modifier = Modifier.align(Alignment.BottomCenter)
             ) {
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    HeaderBar(
-                        onDiscord = {
-                            context.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://discord.gg/AM3ZpaXHW5")
-                                )
-                            )
-                        },
-                        onWebsite = {
-                            context.startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW,
-                                    Uri.parse("https://discord.gg/AM3ZpaXHW5")
-                                )
-                            )
-                        },
-                        onClose = { OverlayManager.dismissOverlayWindow(this@OverlayClickGUI) }
-                    )
-                    MainArea(snackbarHostState)
-                }
-
-                SnackbarHost(
-                    hostState = snackbarHostState,
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(16.dp)
+                OverlayPanel(
+                    maxPanelHeight = maxPanelHeight,
+                    snackbarHostState = snackbarHostState,
+                    selectedCategory = selectedModuleCategory,
+                    onCategorySelect = { selectedModuleCategory = it },
+                    query = query,
+                    onQueryChange = { query = it },
+                    onClose = { OverlayManager.dismissOverlayWindow(this@OverlayClickGUI) }
                 )
             }
         }
     }
 
     @Composable
-    private fun HeaderBar(
-        onDiscord: () -> Unit,
-        onWebsite: () -> Unit,
+    private fun OverlayPanel(
+        maxPanelHeight: androidx.compose.ui.unit.Dp,
+        snackbarHostState: SnackbarHostState,
+        selectedCategory: ModuleCategory?,
+        onCategorySelect: (ModuleCategory?) -> Unit,
+        query: String,
+        onQueryChange: (String) -> Unit,
         onClose: () -> Unit
     ) {
-        Row(
+        Column(
             modifier = Modifier
+                .widthIn(max = 480.dp)
                 .fillMaxWidth()
-                .height(56.dp)
-                .background(HeaderBackground)
-                .padding(horizontal = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Text(
-                    "Voidclient",
-                    color = AccentPrimary,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                .heightIn(max = maxPanelHeight)
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            WColors.Surface,
+                            WColors.SurfaceVariant
+                        )
+                    ),
+                    RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
                 )
-            }
-            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                IconButton(onClick = onDiscord) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_discord),
-                        contentDescription = "Discord",
-                        tint = TextSecondary,
-                        modifier = Modifier.size(20.dp)
+                .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+        ) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 10.dp, bottom = 4.dp)
+                    .size(width = 40.dp, height = 4.dp)
+                    .clip(RoundedCornerShape(2.dp))
+                    .background(WColors.BorderLight)
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 8.dp, top = 6.dp, bottom = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        "Voidclient",
+                        style = MaterialTheme.typography.titleLarge,
+                        color = WColors.PrimaryLight,
+                        fontWeight = FontWeight.Bold
                     )
-                }
-                IconButton(onClick = onWebsite) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_web),
-                        contentDescription = "Website",
-                        tint = TextSecondary,
-                        modifier = Modifier.size(20.dp)
+                    val activeCount = remember { ModuleManager.modules.count { it.isEnabled } }
+                    Text(
+                        "$activeCount module(s) active",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = WColors.OnSurfaceVariant
                     )
                 }
                 IconButton(onClick = onClose) {
                     Icon(
                         Icons.Rounded.Close,
                         contentDescription = "Close",
-                        tint = TextSecondary
+                        tint = WColors.OnSurfaceVariant
                     )
                 }
             }
-        }
-    }
 
-    @OptIn(ExperimentalAnimationApi::class)
-    @Composable
-    private fun MainArea(snackbarHostState: SnackbarHostState) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            CategorySidebar()
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(DarkBackground, RoundedCornerShape(12.dp))
-                    .padding(20.dp)
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 6.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                AnimatedContent(
-                    targetState = selectedModuleCategory,
-                    transitionSpec = {
-                        fadeIn(tween(200)) + slideInHorizontally { it / 3 } togetherWith
-                                fadeOut(tween(200)) + slideOutHorizontally { -it / 3 }
-                    },
-                    label = "CategoryContent"
-                ) { category ->
-                    if (category == ModuleCategory.Config) {
-                        ConfigurationScreen(snackbarHostState = snackbarHostState)
-                    } else {
-                        ModuleContent(category)
+                VCSearchBar(
+                    value = query,
+                    onValueChange = onQueryChange,
+                    placeholder = "Search modules..."
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    FilterChip(
+                        selected = selectedCategory == null,
+                        onClick = { onCategorySelect(null) },
+                        label = { Text("All") },
+                        colors = chipColors(),
+                        shape = RoundedCornerShape(10.dp)
+                    )
+                    ModuleCategory.entries.forEach { category ->
+                        FilterChip(
+                            selected = selectedCategory == category,
+                            onClick = { onCategorySelect(category) },
+                            label = { Text(category.displayName) },
+                            colors = chipColors(),
+                            shape = RoundedCornerShape(10.dp)
+                        )
                     }
                 }
             }
-        }
-    }
 
-    @Composable
-    private fun CategorySidebar() {
-        val categories = remember { ModuleCategory.entries }
-
-        LazyColumn(
-            modifier = Modifier
-                .width(68.dp)
-                .fillMaxHeight()
-                .background(SidebarBackground, RoundedCornerShape(12.dp))
-                .padding(vertical = 12.dp, horizontal = 6.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            items(categories.size) { index ->
-                val category = categories[index]
-                CategoryIcon(
-                    category = category,
-                    isSelected = selectedModuleCategory == category,
-                    onClick = { selectedModuleCategory = category }
-                )
+            val modules = remember {
+                ModuleManager.modules.filter { !it.private }
             }
-        }
-    }
+            val filtered = remember(modules, query, selectedCategory) {
+                modules.filter { module ->
+                    val categoryMatches = selectedCategory == null || module.category == selectedCategory
+                    val queryMatches = query.isBlank() || module.name.contains(query, ignoreCase = true)
+                    categoryMatches && queryMatches
+                }
+            }
 
-    @Composable
-    private fun CategoryIcon(
-        category: ModuleCategory,
-        isSelected: Boolean,
-        onClick: () -> Unit
-    ) {
-        val scale by animateFloatAsState(
-            targetValue = if (isSelected) 1.05f else 1f,
-            animationSpec = spring(dampingRatio = 0.7f),
-            label = "catScale"
-        )
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = Modifier.clickable { onClick() }
-        ) {
-            Box(
+            LazyColumn(
                 modifier = Modifier
-                    .size(44.dp)
-                    .scale(scale)
-                    .background(
-                        if (isSelected) ButtonBackground else Color.Transparent,
-                        RoundedCornerShape(10.dp)
-                    ),
-                contentAlignment = Alignment.Center
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Icon(
-                    painter = painterResource(category.iconResId),
-                    contentDescription = category.name,
-                    tint = if (isSelected) AccentPrimary else Color(0xFF666666),
-                    modifier = Modifier.size(20.dp)
+                if (selectedCategory == ModuleCategory.Config) {
+                    item {
+                        ConfigurationScreen(snackbarHostState = snackbarHostState)
+                    }
+                } else {
+                    items(filtered.size) { index ->
+                        VCModuleCard(module = filtered[index])
+                    }
+                    if (filtered.isEmpty()) {
+                        item {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 32.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    "No modules found",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = WColors.OnSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    "Tap a module to configure",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = WColors.OnSurfaceVariant
+                )
+                val activeCount = remember { ModuleManager.modules.count { it.isEnabled } }
+                Text(
+                    "$activeCount active",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = WColors.PrimaryLight,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
-            Text(
-                text = category.name,
-                color = if (isSelected) AccentPrimary else Color(0xFF666666),
-                fontSize = 9.sp,
-                fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+
+            SnackbarHost(
+                hostState = snackbarHostState,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(horizontal = 16.dp)
             )
         }
     }
+
+    @Composable
+    private fun chipColors() = FilterChipDefaults.filterChipColors(
+        containerColor = WColors.Surface,
+        selectedContainerColor = WColors.Primary.copy(alpha = 0.2f),
+        labelColor = WColors.OnSurfaceVariant,
+        selectedLabelColor = WColors.PrimaryLight
+    )
 }

@@ -37,6 +37,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -55,10 +56,10 @@ import androidx.compose.material.icons.rounded.Whatshot
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
 import androidx.compose.material3.BasicAlertDialog
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -103,9 +104,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.voidclient.client.R
 import com.voidclient.client.service.Services
-import com.voidclient.client.ui.component.WButton
-import com.voidclient.client.ui.component.WFloatingActionButton
-import com.voidclient.client.ui.component.WGlassCard
+import com.voidclient.client.ui.component.VCCard
+import com.voidclient.client.ui.component.VCPrimaryButton
 import com.voidclient.client.ui.component.authId
 import com.voidclient.client.ui.theme.WColors
 import com.voidclient.client.util.LocalSnackbarHostState
@@ -241,24 +241,25 @@ fun HomePageContent() {
                     TexturePackCard()
                     HomeLinksRow()
                 }
-                WFloatingActionButton(
+                FloatingActionButton(
                     onClick = {
                         if (!Settings.canDrawOverlays(context)) {
                             Toast.makeText(context, R.string.request_overlay_permission, Toast.LENGTH_SHORT).show()
                             overlayPermissionLauncher.launch(
                                 Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, "package: ${context.packageName}".toUri())
                             )
-                            return@WFloatingActionButton
+                            return@FloatingActionButton
                         }
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             postNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-                            return@WFloatingActionButton
+                            return@FloatingActionButton
                         }
                         onPostPermissionResult(true)
                     },
                     modifier = Modifier.padding(15.dp).align(Alignment.BottomEnd),
                     containerColor = if (Services.isActive) WColors.Error else WColors.Primary,
-                    contentColor = WColors.OnPrimary
+                    contentColor = WColors.OnPrimary,
+                    shape = RoundedCornerShape(18.dp)
                 ) {
                     AnimatedContent(Services.isActive, label = "") { isActive ->
                         if (!isActive) Icon(Icons.Rounded.PlayArrow, contentDescription = null)
@@ -396,10 +397,9 @@ fun HomePageContent() {
 
 @Composable
 private fun WelcomeCard() {
-    WGlassCard(
+    VCCard(
         modifier = Modifier.fillMaxWidth(),
-        glowColor = WColors.Primary,
-        glowIntensity = 0.25f
+        accent = WColors.Primary
     ) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -437,10 +437,9 @@ private fun GameCard() {
     val packageInfoState by mainScreenViewModel.packageInfoState.collectAsStateWithLifecycle()
     val selectedGame by mainScreenViewModel.selectedGame.collectAsStateWithLifecycle()
 
-    WGlassCard(
+    VCCard(
         modifier = Modifier.fillMaxWidth().fillMaxHeight(),
-        glowColor = WColors.Accent,
-        glowIntensity = 0.22f,
+        accent = WColors.Accent,
         onClick = { showGameSettingsDialog = true }
     ) {
         Column(
@@ -684,10 +683,9 @@ private fun TexturePackCard() {
         }
     }
 
-    WGlassCard(
+    VCCard(
         modifier = Modifier.fillMaxWidth(),
-        glowColor = WColors.Secondary,
-        glowIntensity = 0.2f
+        accent = WColors.Secondary
     ) {
         Column(modifier = Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Row(
@@ -701,10 +699,11 @@ private fun TexturePackCard() {
                     Text("Import texture packs, add-ons and worlds.", style = MaterialTheme.typography.bodySmall, color = WColors.OnSurfaceVariant)
                 }
             }
-            WButton(
+            VCPrimaryButton(
                 onClick = { filePickerLauncher.launch("*/*") },
                 modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(containerColor = WColors.Secondary, contentColor = WColors.OnSecondary)
+                color = WColors.Secondary,
+                contentColor = WColors.OnSecondary
             ) {
                 Icon(Icons.Rounded.Upload, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(Modifier.width(8.dp))
@@ -736,14 +735,13 @@ private fun HomeLinksRow() {
         modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        WGlassCard(
+        VCCard(
             onClick = {
                 val intent = Intent(Intent.ACTION_VIEW, "https://www.youtube.com/channel/$authId".toUri())
                 context.startActivity(intent)
             },
             modifier = Modifier.fillMaxWidth(),
-            glowColor = WColors.Primary,
-            glowIntensity = 0.18f
+            accent = WColors.Primary
         ) {
             Row(Modifier.padding(20.dp), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, tint = WColors.Primary, modifier = Modifier.size(26.dp))
@@ -754,14 +752,13 @@ private fun HomeLinksRow() {
             }
         }
 
-        WGlassCard(
+        VCCard(
             onClick = {
                 val intent = Intent(Intent.ACTION_VIEW, "https://discord.gg/AM3ZpaXHW5".toUri())
                 context.startActivity(intent)
             },
             modifier = Modifier.fillMaxWidth(),
-            glowColor = WColors.Accent,
-            glowIntensity = 0.18f
+            accent = WColors.Accent
         ) {
             Row(Modifier.padding(20.dp), horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
                 Icon(Icons.AutoMirrored.Filled.OpenInNew, contentDescription = null, tint = WColors.Accent, modifier = Modifier.size(26.dp))
