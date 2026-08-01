@@ -16,6 +16,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
 import com.voidclient.client.R
 
 @Composable
@@ -33,6 +34,7 @@ fun VideoBackground(
             setMediaItem(mediaItem)
             repeatMode = Player.REPEAT_MODE_ALL
             playWhenReady = true
+            volume = 0f
             prepare()
         }
     }
@@ -51,6 +53,7 @@ fun VideoBackground(
                     useController = false
                     setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER)
                     setShutterBackgroundColor(android.graphics.Color.TRANSPARENT)
+                    resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
                 }
             },
             modifier = Modifier
