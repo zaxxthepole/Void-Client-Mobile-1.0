@@ -4,7 +4,7 @@
 
 ### Minecraft Bedrock Edition Utility Client
 
-![Minecraft](https://img.shields.io/badge/Minecraft-Bedrock-green?logo=minecraft&logoColor=white)
+![Minecraft](https://img.shields.io/badge/Minecraft-Bedrock%201.26.10-green?logo=minecraft&logoColor=white)
 ![Platform](https://img.shields.io/badge/Platform-Android-orange?logo=android&logoColor=white)
 ![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?logo=kotlin&logoColor=white)
 ![License](https://img.shields.io/badge/License-GPLv3-blue?logo=gnu&logoColor=white)
@@ -18,7 +18,13 @@
 
 **Voidclient** is a high-performance utility client for **Minecraft Bedrock Edition** on Android. It uses a MITM (Man-in-the-Middle) packet interception approach to provide combat, movement, and visual enhancements — **without modifying game memory**.
 
-Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient rebrands and extends the foundation with a dark purple theme, new features, and a refreshed identity.
+Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient rebrands and extends the foundation with a Deep Cosmic Void theme, new features, and a refreshed identity.
+
+### Highlights
+- **MC 1.26.10 (Protocol 944)** support
+- **50+ cheat modules** across Combat, Motion, Visual, and Misc
+- **Deep Cosmic Void theme** — electric purple UI with looping video background
+- **Overlay GUI** — floating ClickGUI with shortcut buttons for quick toggle
 
 > **85% of this project's core architecture, relay system, and module framework originates from WClient by RetrivedMods. Voidclient would not exist without their work.**
 
@@ -32,6 +38,7 @@ Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient r
 | Module framework & packet handling | **WClient (RetrivedMods)** |
 | Original codebase & protocol layer | **WClient (RetrivedMods)** |
 | Voidclient rebrand, theme & extras | **DoTo.dev** |
+| Deep Cosmic Void theme design | **DoTo.dev** |
 
 > WClient is the original project. Voidclient is a fork that builds upon their incredible work.
 > Check out the original: [github.com/RetrivedMods/WClient](https://github.com/RetrivedMods/WClient)
@@ -75,11 +82,13 @@ Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient r
 | AutoWalk | Automatic walking |
 | PlayerTP | Teleport to players |
 | MotionFly | Motion-based flight |
+| NoSlow | No slowdown when using items (bow/shield/food) |
 
 ### Visual
 | Module | Description |
 |--------|-------------|
 | ESP | Entity highlighting |
+| StorageESP | Chest/shulker/furnace ESP through walls |
 | NameTags | Enhanced name display |
 | Coordinates | Position overlay |
 | Minimap | Mini map display |
@@ -100,6 +109,9 @@ Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient r
 | Watermark | RGB animated watermark |
 | ArrayList | Active module list |
 | PieChart | Visual pie chart |
+| PositionSpoof | Anti-cheat position jitter |
+| TimingSpoof | Anti-cheat timing jitter |
+| AutoFish | Auto fishing rod cast/reel |
 
 ---
 
@@ -152,8 +164,12 @@ Voidclient/
 │   │       │   └── world/        # World state
 │   │       ├── overlay/          # GUI overlays
 │   │       ├── service/          # Background services
+│   │       ├── render/           # Overlay rendering (ESP, StorageESP)
 │   │       └── ui/               # App UI (Compose)
-│   └── src/main/res/             # Resources & icons
+│   │           ├── component/    # VideoBackground, Navigation, etc.
+│   │           └── theme/        # Deep Cosmic Void theme colors
+│   └── src/main/res/
+│       └── raw/                  # Video background (void_background.mp4)
 ├── relay/                        # VRelay packet interception
 │   ├── src/main/kotlin/com/voidclient/vrelay/
 │   │   ├── WRelay.kt            # Main relay server
@@ -173,6 +189,22 @@ Voidclient/
 |----------|--------|
 | Android | Primary |
 | Other | May work via custom network setup |
+
+---
+
+## UI & Theme
+
+Voidclient uses the **Deep Cosmic Void** theme — a dark purple palette with electric violet accents and a looping video background.
+
+| Element | Color |
+|---------|-------|
+| Background | Deep Obsidian `#0B0714` |
+| Surface | Dark Violet `#120C22` |
+| Accent | Electric Purple `#9D4EDD` |
+| Glow | Lavender `#C084FC` |
+| Text | Slate `#F1F5F9` |
+
+The main UI features a fullscreen looping video background with a semi-transparent dark overlay. The overlay GUI (ClickGUI, shortcut buttons, HUD elements) is rendered via Android WindowManager overlays and is independent from the main UI.
 
 ---
 
