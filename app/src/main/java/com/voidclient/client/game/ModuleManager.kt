@@ -5,13 +5,16 @@ import android.net.Uri
 import android.os.Environment
 import com.voidclient.client.application.AppContext
 import com.voidclient.client.game.module.combat.ACAModule
+import com.voidclient.client.game.module.combat.AntiAimModule
 import com.voidclient.client.game.module.combat.AntiCrystalModule
 import com.voidclient.client.game.module.combat.AntiKnockbackModule
+import com.voidclient.client.game.module.combat.CriticalsModule
 import com.voidclient.client.game.module.combat.CrystalSmashModule
 import com.voidclient.client.game.module.combat.EnemyHunterModule
 import com.voidclient.client.game.module.combat.HitAndRunModule
 import com.voidclient.client.game.module.combat.HitboxModule
 import com.voidclient.client.game.module.combat.KillauraModule
+import com.voidclient.client.game.module.combat.ReachModule
 import com.voidclient.client.game.module.combat.TriggerBotModule
 import com.voidclient.client.game.module.combat.VAuraModule
 import com.voidclient.client.game.module.combat.AutoFightModule
@@ -39,10 +42,12 @@ import com.voidclient.client.game.module.motion.SpeedModule
 import com.voidclient.client.game.module.motion.SpiderModule
 import com.voidclient.client.game.module.motion.SprintModule
 import com.voidclient.client.game.module.motion.NoSlowModule
+import com.voidclient.client.game.module.visual.BreadcrumbsModule
 import com.voidclient.client.game.module.visual.CoordinatesModule
 import com.voidclient.client.game.module.visual.CrosshairModule
 import com.voidclient.client.game.module.visual.DamageTextModule
 import com.voidclient.client.game.module.visual.ESPModule
+import com.voidclient.client.game.module.visual.FreeCamModule
 import com.voidclient.client.game.module.visual.FullbrightModule
 import com.voidclient.client.game.module.visual.StorageESPModule
 import com.voidclient.client.game.module.visual.MinimapModule
@@ -52,6 +57,7 @@ import com.voidclient.client.game.module.visual.PlayerJoinModule
 import com.voidclient.client.game.module.visual.SpeedDisplayModule
 import com.voidclient.client.game.module.visual.TargetHudModule
 import com.voidclient.client.game.module.visual.WorldStateModule
+import com.voidclient.client.game.module.visual.XRayModule
 import com.voidclient.client.game.module.visual.ZoomModule
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -90,6 +96,9 @@ object ModuleManager {
             add(HitboxModule())
             add(CrystalSmashModule())
             add(TriggerBotModule())
+            add(ReachModule())
+            add(CriticalsModule())
+            add(AntiAimModule())
 
             // Motion
             add(MotionFlyModule())
@@ -122,6 +131,9 @@ object ModuleManager {
             add(TargetHudModule())
             add(FullbrightModule())
             add(StorageESPModule())
+            add(XRayModule())
+            add(BreadcrumbsModule())
+            add(FreeCamModule())
 
             // Misc
             add(ArrayListModule())

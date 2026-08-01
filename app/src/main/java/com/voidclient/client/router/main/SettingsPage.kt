@@ -3,10 +3,12 @@ package com.voidclient.client.router.main
 import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Dangerous
 import androidx.compose.material.icons.rounded.Opacity
 import androidx.compose.material.icons.rounded.Palette
 import androidx.compose.material.icons.rounded.SaveAlt
@@ -48,6 +50,7 @@ fun SettingsPageContent() {
 
         var showOpacityDialog by rememberSaveable { mutableStateOf(false) }
         var showFileNameDialog by rememberSaveable { mutableStateOf(false) }
+        var showSelfDestructDialog by rememberSaveable { mutableStateOf(false) }
         var configFileName by rememberSaveable { mutableStateOf("") }
         var isExporting by remember { mutableStateOf(false) }
 
@@ -329,7 +332,126 @@ fun SettingsPageContent() {
             }
         }
 
-        if (showOpacityDialog) {
+                OutlinedCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.outlinedCardColors(
+                        containerColor = Color(0xFF2A0E0E),
+                        contentColor = Color(0xFFFF6B6B)
+                    ),
+                    border = BorderStroke(1.dp, Color(0xFF6B1A1A)),
+                    onClick = { showSelfDestructDialog = true }
+                ) {
+                    Row(
+                        Modifier.padding(15.dp),
+                        horizontalArrangement = Arrangement.spacedBy(15.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(Icons.Rounded.Dangerous, null, tint = Color(0xFFFF6B6B), modifier = Modifier.size(24.dp))
+                        Column(Modifier.weight(1f)) {
+                            Text(
+                                "Self Destruct",
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = Color(0xFFFF6B6B)
+                            )
+                            Text(
+                                "Instantly disable all active modules",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color(0xFFCC8888)
+                            )
+                        }
+                        Icon(
+                            Icons.Rounded.Settings, null,
+                            tint = Color(0xFFCC8888),
+                            modifier = Modifier.scale(0.8f).size(20.dp)
+                        )
+                    }
+                }
+
+                if (showSelfDestructDialog) {
+                    BasicAlertDialog(
+                        onDismissRequest = { showSelfDestructDialog = false },
+                        modifier = Modifier.padding(24.dp)
+                    ) {
+                        Surface(
+                            shape = AlertDialogDefaults.shape,
+                            tonalElevation = AlertDialogDefaults.TonalElevation
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(24.dp),
+                                verticalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                Row(
+                                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        Icons.Rounded.Dangerous,
+                                        null,
+                                        tint = Color(0xFFFF6B6B),
+                                        modifier = Modifier.size(28.dp)
+                                    )
+                                    Text(
+                                        "Self Destruct",
+                                        style = MaterialTheme.typography.headlineSmall,
+                                        color = Color(0xFFFF6B6B)
+                                    )
+                                }
+
+                                Text(
+                                    "Warning! This will instantly disable ALL active modules and save the configuration.",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+
+                                Text(
+                                    "You will need to manually re-enable any modules you want to use again.",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.End,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    TextButton(
+                                        onClick = { showSelfDestructDialog = false }
+                                    ) {
+                                        Text("Cancel")
+                                    }
+                                    Spacer(Modifier.width(8.dp))
+                                    FilledTonalButton(
+                                        onClick = {
+                                            var count = 0
+                                            ModuleManager.modules.forEach {
+                                                if (it.isEnabled && !it.private) {
+                                                    it.isEnabled = false
+                                                    count++
+                                                }
+                                            }
+                                            ModuleManager.saveConfig()
+                                            showSelfDestructDialog = false
+                                            scope.launch {
+                                                snackbarHostState.showSnackbar(
+                                                    "Self Destruct: disabled $count module(s)",
+                                                    duration = SnackbarDuration.Short
+                                                )
+                                            }
+                                        },
+                                        colors = ButtonDefaults.filledTonalButtonColors(
+                                            containerColor = Color(0xFF6B1A1A),
+                                            contentColor = Color.White
+                                        )
+                                    ) {
+                                        Text("Disable All")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (showOpacityDialog) {
             BasicAlertDialog(
                 onDismissRequest = { showOpacityDialog = false },
                 modifier = Modifier.padding(vertical = 24.dp)
