@@ -28,3 +28,6 @@ google-services.json
 # Android Profiling
 *.hprof
 .kotlin/
+
+# AI context file — not for git
+CONTEXT.md
