@@ -21,10 +21,12 @@
 Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient rebrands and extends the foundation with a Deep Cosmic Void theme, new features, and a refreshed identity.
 
 ### Highlights
-- **MC 1.26.10 (Protocol 944)** support
-- **50+ cheat modules** across Combat, Motion, Visual, and Misc
-- **Deep Cosmic Void theme** — electric purple UI with looping video background
+- **MC 1.26.10 (Protocol 944)** — kept up to date with the latest Bedrock releases
+- **50+ cheat modules** across Combat, Motion, Visual, and Misc — each with configurable settings
+- **Deep Cosmic Void theme** — electric purple UI with a looping fullscreen video background
 - **Overlay GUI** — floating ClickGUI with shortcut buttons for quick toggle
+- **Anti-cheat bypasses** — PositionSpoof and TimingSpoof for cleaner movement packets
+- **MITM relay** — no memory injection, no root required
 
 > **85% of this project's core architecture, relay system, and module framework originates from WClient by RetrivedMods. Voidclient would not exist without their work.**
 
@@ -39,9 +41,21 @@ Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient r
 | Original codebase & protocol layer | **WClient (RetrivedMods)** |
 | Voidclient rebrand, theme & extras | **DoTo.dev** |
 | Deep Cosmic Void theme design | **DoTo.dev** |
+| MC 1.26.10 protocol support | **DoTo.dev** |
+| Vendored CloudburstMC Protocol sync | **DoTo.dev** |
+| New modules & anti-cheat bypasses | **DoTo.dev** |
+| Video background & UI polish | **DoTo.dev** |
 
 > WClient is the original project. Voidclient is a fork that builds upon their incredible work.
 > Check out the original: [github.com/RetrivedMods/WClient](https://github.com/RetrivedMods/WClient)
+
+### What Sets Voidclient Apart
+
+- **Stays current** — built for the latest Bedrock versions, not stuck behind on old protocols
+- **Thoughtful module design** — each module ships with customizable settings out of the box
+- **Clean UI** — Deep Cosmic Void theme with a looping video background, not just another dark theme
+- **Lightweight relay** — MITM approach keeps things fast without heavy memory hooks
+- **Active development** — new features and bypasses added regularly
 
 ---
 
