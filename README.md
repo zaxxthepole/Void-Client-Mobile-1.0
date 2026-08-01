@@ -1076,7 +1076,7 @@ Different servers have different anti-cheat systems. Here's a general compatibil
 
 | Server Type | Fly | Speed | Killaura | ESP | NoSlow |
 |-------------|-----|-------|----------|-----|--------|
-| Vanilla | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Vanilla | ❓ | ❓ | ❓ | ❓ | ❓ |
 | Hive | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
 | Lifeboat | ⚠️ | ⚠️ | ⚠️ | ✅ | ✅ |
 | CubeCraft | ⚠️ | ❌ | ⚠️ | ✅ | ✅ |
