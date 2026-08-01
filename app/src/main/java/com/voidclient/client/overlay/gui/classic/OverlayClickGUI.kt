@@ -5,6 +5,7 @@ import android.view.WindowManager
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -113,12 +114,12 @@ class OverlayClickGUI : OverlayWindow() {
                 visible = visible,
                 enter = slideInVertically(
                     initialOffsetY = { it },
-                    animationSpec = Slide
-                ) + fadeIn(Fade),
+                    animationSpec = tween(320, easing = androidx.compose.animation.core.FastOutSlowInEasing)
+                ) + fadeIn(tween(220)),
                 exit = slideOutVertically(
                     targetOffsetY = { it },
-                    animationSpec = Slide
-                ) + fadeOut(Fade),
+                    animationSpec = tween(280, easing = androidx.compose.animation.core.FastOutSlowInEasing)
+                ) + fadeOut(tween(200)),
                 modifier = Modifier.align(Alignment.BottomCenter)
             ) {
                 OverlayPanel(

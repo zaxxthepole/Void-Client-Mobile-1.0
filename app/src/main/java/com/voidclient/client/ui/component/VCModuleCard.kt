@@ -1,9 +1,9 @@
 package com.voidclient.client.ui.component
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.MutableTransitionState
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -62,7 +62,6 @@ import com.voidclient.client.game.Module
 import com.voidclient.client.game.ModuleCategory
 import com.voidclient.client.game.StringValue
 import com.voidclient.client.overlay.OverlayManager
-import com.voidclient.client.ui.theme.Fade
 import com.voidclient.client.ui.theme.SpringBouncy
 import com.voidclient.client.ui.theme.WColors
 import com.voidclient.client.util.translatedSelf
@@ -86,7 +85,7 @@ fun VCModuleCard(
 
     val bg by animateColorAsState(
         targetValue = if (module.isExpanded) WColors.SurfaceVariant else WColors.Surface,
-        animationSpec = Fade,
+        animationSpec = tween(220),
         label = "moduleBg"
     )
 
@@ -108,7 +107,6 @@ fun VCModuleCard(
                         stiffness = Spring.StiffnessMedium
                     )
                 ),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Box(
                 modifier = Modifier
@@ -174,7 +172,8 @@ private fun StaggeredValue(
     index: Int,
     content: @Composable () -> Unit
 ) {
-    val state = remember { MutableTransitionState(false).apply { targetState = true } }
+    val state = remember { MutableTransitionState<Boolean>(false) }
+    state.targetState = true
     val delay = (index * 28).coerceAtMost(220)
     AnimatedVisibility(
         visibleState = state,

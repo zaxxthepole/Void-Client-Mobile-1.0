@@ -54,7 +54,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.voidclient.client.ui.theme.Fade
 import com.voidclient.client.ui.theme.SpringSoft
 import com.voidclient.client.ui.theme.WColors
 
@@ -414,7 +413,7 @@ fun VCServerCard(
 ) {
     val bg by animateColorAsState(
         targetValue = if (selected) WColors.Primary.copy(alpha = 0.12f) else WColors.Surface,
-        animationSpec = Fade,
+        animationSpec = tween(220),
         label = "serverBg"
     )
     Card(

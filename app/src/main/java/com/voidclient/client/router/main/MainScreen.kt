@@ -2,6 +2,8 @@ package com.voidclient.client.router.main
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -29,8 +31,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.voidclient.client.ui.component.VCBottomNavBar
 import com.voidclient.client.ui.component.VCTab
 import com.voidclient.client.ui.component.VideoBackground
-import com.voidclient.client.ui.theme.Fade
-import com.voidclient.client.ui.theme.Slide
 import com.voidclient.client.viewmodel.MainScreenViewModel
 
 @Immutable
@@ -65,12 +65,12 @@ fun MainScreen() {
                     transitionSpec = {
                         slideInVertically(
                             initialOffsetY = { it / 10 },
-                            animationSpec = Slide
-                        ) + fadeIn(Fade) togetherWith
+                            animationSpec = tween(320, easing = FastOutSlowInEasing)
+                        ) + fadeIn(tween(220)) togetherWith
                                 slideOutVertically(
                                     targetOffsetY = { -it / 12 },
-                                    animationSpec = Slide
-                                ) + fadeOut(Fade)
+                                    animationSpec = tween(280, easing = FastOutSlowInEasing)
+                                ) + fadeOut(tween(200))
                     },
                     label = "tab_transition"
                 ) { tab ->

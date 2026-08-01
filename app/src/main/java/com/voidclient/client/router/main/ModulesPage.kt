@@ -158,7 +158,5 @@ private fun chipColors() = FilterChipDefaults.filterChipColors(
     containerColor = WColors.Surface,
     selectedContainerColor = WColors.Primary.copy(alpha = 0.2f),
     labelColor = WColors.OnSurfaceVariant,
-    selectedLabelColor = WColors.PrimaryLight,
-    iconColor = WColors.OnSurfaceVariant,
-    selectedIconColor = WColors.PrimaryLight
+    selectedLabelColor = WColors.PrimaryLight
 )
