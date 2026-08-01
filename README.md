@@ -36,7 +36,7 @@ Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient r
 
 | Contribution | Credit |
 |---|---|
-| Core architecture & relay system | **WClient (RetrivedMods)** — 85% |
+| Core architecture & relay system | **WClient (RetrivedMods)** — 65% |
 | Module framework & packet handling | **WClient (RetrivedMods)** |
 | Original codebase & protocol layer | **WClient (RetrivedMods)** |
 | Voidclient rebrand, theme & extras | **DoTo.dev** |
@@ -45,6 +45,7 @@ Built on top of [WClient](https://github.com/RetrivedMods/WClient), Voidclient r
 | Vendored CloudburstMC Protocol sync | **DoTo.dev** |
 | New modules & anti-cheat bypasses | **DoTo.dev** |
 | Video background & UI polish | **DoTo.dev** |
+| Further more support for newer versions of Minecraft | **DoTo.dev** |
 
 > WClient is the original project. Voidclient is a fork that builds upon their incredible work.
 > Check out the original: [github.com/RetrivedMods/WClient](https://github.com/RetrivedMods/WClient)
@@ -263,6 +264,6 @@ This software is provided **"AS IS"** without warranty. It is intended **solely 
 
 **Built with care by DoTo.dev**
 
-*Powered by [WClient](https://github.com/RetrivedMods/WClient) — 85% of the core*
+*Powered by [WClient](https://github.com/RetrivedMods/WClient) — 65% of the core*
 
 </div>
