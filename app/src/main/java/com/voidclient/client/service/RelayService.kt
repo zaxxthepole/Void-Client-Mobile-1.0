@@ -136,11 +136,21 @@ class RelayService : Service() {
             runCatching {
                 isActive = true
                 OverlayManager.show(this@RelayService)
-
+                openMinecraft()
             }.onFailure { error ->
                 error.printStackTrace()
                 Toast.makeText(this, error.message, Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private fun openMinecraft() {
+        val intent = packageManager.getLaunchIntentForPackage("com.mojang.minecraftpe")
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Minecraft not installed", Toast.LENGTH_SHORT).show()
         }
     }
 
