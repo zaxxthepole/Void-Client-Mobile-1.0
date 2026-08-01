@@ -2,6 +2,7 @@ package com.voidclient.client.game.module.visual
 
 import android.graphics.Canvas
 import android.graphics.Paint
+import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
 import com.voidclient.client.game.ModuleCategory
 import com.voidclient.client.render.RenderOverlayView
@@ -38,6 +39,8 @@ class BreadcrumbsModule : Module("Breadcrumbs", ModuleCategory.Visual) {
         strokeCap = Paint.Cap.ROUND
         strokeJoin = Paint.Join.ROUND
     }
+
+    override fun beforePacketBound(interceptablePacket: InterceptablePacket) {}
 
     override fun onEnabled() {
         super.onEnabled()
