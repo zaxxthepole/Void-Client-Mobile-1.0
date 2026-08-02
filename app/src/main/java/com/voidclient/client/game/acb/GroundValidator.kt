@@ -17,7 +17,7 @@ class GroundValidator {
         val lp = Acb.state.session?.localPlayer ?: return
         if (packet.getRuntimeEntityId() != lp.runtimeEntityId) return
         val deltaY = packet.getPosition().getY() - Acb.state.lastAuthY
-        val ground = packet.getOnGround()
+        val ground = packet.isOnGround()
         if (ground && deltaY > AcbConfig.GROUND_JUMP_THRESHOLD) packet.setOnGround(false)
         else if (!ground && kotlin.math.abs(deltaY) < AcbConfig.GROUND_EPSILON) packet.setOnGround(true)
         Acb.state.lastAuthY = packet.getPosition().getY()
