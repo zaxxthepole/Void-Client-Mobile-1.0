@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
@@ -30,16 +29,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.clipPath
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -58,33 +54,57 @@ import kotlin.random.Random
 
 private val McFont = FontFamily(Font(R.font.minecraft))
 
-private val V_MASK = listOf(
-    listOf(1, 0, 0, 0, 0, 0, 0, 0, 1),
-    listOf(0, 1, 0, 0, 0, 0, 0, 1, 0),
-    listOf(0, 0, 1, 0, 0, 0, 1, 0, 0),
-    listOf(0, 0, 0, 1, 0, 1, 0, 0, 0),
-    listOf(0, 0, 0, 0, 1, 0, 0, 0, 0),
-    listOf(0, 0, 0, 1, 0, 1, 0, 0, 0),
-    listOf(0, 0, 1, 0, 0, 0, 1, 0, 0)
+private data class NebulaBlob(
+    val color: Color,
+    val radius: Float,
+    val phaseX: Float,
+    val phaseY: Float,
+    val speed: Float,
+    val alpha: Float
 )
 
-private data class Star(val x: Float, val y: Float, val size: Float, val phase: Float, val brightness: Float)
-
-private fun generateStars(count: Int): List<Star> {
-    val random = Random(1337)
-    return List(count) {
-        Star(
-            x = random.nextFloat(),
-            y = random.nextFloat(),
-            size = 1.5f + random.nextFloat() * 2f,
-            phase = random.nextFloat() * 6.2832f,
-            brightness = 0.3f + random.nextFloat() * 0.7f
+private fun generateNebulaBlobs(): List<NebulaBlob> {
+    val random = Random(4242)
+    val colors = listOf(WColors.Primary, WColors.Secondary, WColors.SecondaryLight)
+    return colors.map { color ->
+        NebulaBlob(
+            color = color,
+            radius = 0.45f + random.nextFloat() * 0.2f,
+            phaseX = random.nextFloat() * 6.2832f,
+            phaseY = random.nextFloat() * 6.2832f,
+            speed = 0.8f + random.nextFloat() * 0.5f,
+            alpha = 0.1f + random.nextFloat() * 0.06f
         )
     }
 }
 
-private fun Color.darker(factor: Float): Color =
-    Color(red * factor, green * factor, blue * factor, alpha)
+private data class OrbitParticle(
+    val phase: Float,
+    val radiusFrac: Float,
+    val speed: Float
+)
+
+private fun generateOrbitParticles(count: Int): List<OrbitParticle> {
+    val random = Random(777)
+    return (0 until count).map { i ->
+        val frac = i.toFloat() / (count - 1)
+        OrbitParticle(
+            phase = random.nextFloat() * 360f,
+            radiusFrac = 0.18f + 0.82f * frac,
+            speed = 1.6f - 1.1f * frac
+        )
+    }
+}
+
+private val RING_COLORS = listOf(
+    WColors.SecondaryLight,
+    WColors.PrimaryLight,
+    WColors.Primary,
+    WColors.Secondary,
+    WColors.PrimaryDark,
+    WColors.SecondaryVariant,
+    WColors.PrimaryDark
+)
 
 @Composable
 fun LoadingScreen(onDone: () -> Unit) {
@@ -118,28 +138,18 @@ fun LoadingScreen(onDone: () -> Unit) {
 
     val infiniteTransition = rememberInfiniteTransition(label = "InfiniteAnimations")
 
-    val starPhase by infiniteTransition.animateFloat(
+    val vortexTime by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
-        animationSpec = infiniteRepeatable(animation = tween(5000, easing = LinearEasing)),
-        label = "StarPhase"
+        animationSpec = infiniteRepeatable(animation = tween(9000, easing = LinearEasing)),
+        label = "VortexTime"
     )
 
-    val cubeAngle by infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(animation = tween(7000, easing = LinearEasing)),
-        label = "CubeAngle"
-    )
-
-    val cubeBob by infiniteTransition.animateFloat(
+    val nebulaDrift by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 1f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(2200, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "CubeBob"
+        animationSpec = infiniteRepeatable(animation = tween(14000, easing = LinearEasing)),
+        label = "NebulaDrift"
     )
 
     val glow by infiniteTransition.animateFloat(
@@ -152,14 +162,14 @@ fun LoadingScreen(onDone: () -> Unit) {
         label = "Glow"
     )
 
-    val breathe by infiniteTransition.animateFloat(
-        initialValue = 1f,
-        targetValue = 1.035f,
+    val corePulse by infiniteTransition.animateFloat(
+        initialValue = 0.7f,
+        targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(2400, easing = FastOutSlowInEasing),
+            animation = tween(1400, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         ),
-        label = "Breathe"
+        label = "CorePulse"
     )
 
     Box(
@@ -167,14 +177,14 @@ fun LoadingScreen(onDone: () -> Unit) {
             .fillMaxSize()
             .background(WColors.Background)
     ) {
-        PixelStarfield(phase = starPhase)
+        NebulaCanvas(drift = nebulaDrift)
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
                     Brush.radialGradient(
-                        listOf(Color.Transparent, WColors.Background.copy(alpha = 0.6f))
+                        listOf(Color.Transparent, WColors.Background.copy(alpha = 0.55f))
                     )
                 )
         )
@@ -183,26 +193,16 @@ fun LoadingScreen(onDone: () -> Unit) {
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            VoxelVLogo(
-                progress = animatedProgress,
-                breathe = breathe,
-                modifier = Modifier
-                    .width(220.dp)
-                    .height(172.dp)
-            )
-
-            Spacer(modifier = Modifier.height(22.dp))
-
             Box(
                 modifier = Modifier.drawBehind {
                     drawCircle(
                         color = WColors.Primary.copy(alpha = glow * 0.35f),
-                        radius = size.width * 0.5f,
+                        radius = size.width * 0.55f,
                         center = center
                     )
                     drawCircle(
-                        color = WColors.Secondary.copy(alpha = glow * 0.18f),
-                        radius = size.width * 0.75f,
+                        color = WColors.Secondary.copy(alpha = glow * 0.2f),
+                        radius = size.width * 0.85f,
                         center = center
                     )
                 }
@@ -214,7 +214,17 @@ fun LoadingScreen(onDone: () -> Unit) {
                 )
             }
 
-            Spacer(modifier = Modifier.height(26.dp))
+            Spacer(modifier = Modifier.height(22.dp))
+
+            VortexCanvas(
+                time = vortexTime,
+                pulse = corePulse,
+                modifier = Modifier
+                    .width(290.dp)
+                    .height(200.dp)
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
 
             XpBar(progress = animatedProgress)
 
@@ -249,305 +259,86 @@ fun LoadingScreen(onDone: () -> Unit) {
                 color = Color.White.copy(alpha = 0.7f)
             )
         }
-
-        GrassCube(
-            angleDeg = cubeAngle,
-            bob = cubeBob,
-            modifier = Modifier
-                .size(64.dp)
-                .align(Alignment.BottomEnd)
-                .padding(24.dp)
-        )
     }
 }
 
 @Composable
-private fun PixelStarfield(phase: Float, modifier: Modifier = Modifier) {
-    val stars = remember { generateStars(45) }
+private fun NebulaCanvas(drift: Float, modifier: Modifier = Modifier) {
+    val blobs = remember { generateNebulaBlobs() }
     Canvas(modifier = modifier.fillMaxSize()) {
-        stars.forEach { star ->
-            val twinkle = 0.5f + 0.5f * sin(phase * 2f * PI.toFloat() * 0.8f + star.phase)
-            val alpha = star.brightness * (0.3f + 0.7f * twinkle)
-            drawRect(
-                color = Color.White.copy(alpha = alpha),
-                topLeft = Offset(star.x * size.width, star.y * size.height),
-                size = Size(star.size, star.size)
+        blobs.forEach { blob ->
+            val cx = size.width * (0.5f + 0.35f * sin(drift * 2f * PI.toFloat() * blob.speed + blob.phaseX))
+            val cy = size.height * (0.5f + 0.28f * cos(drift * 2f * PI.toFloat() * blob.speed * 0.8f + blob.phaseY))
+            drawCircle(
+                brush = Brush.radialGradient(
+                    listOf(blob.color.copy(alpha = blob.alpha), Color.Transparent)
+                ),
+                radius = size.minDimension * blob.radius,
+                center = Offset(cx, cy)
             )
         }
     }
 }
 
 @Composable
-private fun VoxelVLogo(
-    progress: Float,
-    breathe: Float,
+private fun VortexCanvas(
+    time: Float,
+    pulse: Float,
     modifier: Modifier = Modifier
 ) {
-    Canvas(modifier = modifier.scale(breathe)) {
-        val cols = V_MASK[0].size
-        val rows = V_MASK.size
-        val marginX = size.width * 0.02f
-        val cell = (size.width * 0.96f) / (cols + 0.1f)
-        val blockW = cell * 0.78f
-        val blockH = blockW * 1.05f
-        val gap = cell - blockW
-        val totalH = rows * cell
-        val startY = (size.height - totalH) / 2f
-        val assembly = ((progress - 5f) / 45f).coerceIn(0f, 1f)
+    val particles = remember { generateOrbitParticles(34) }
+    Canvas(modifier = modifier) {
+        val center = Offset(size.width / 2f, size.height / 2f)
+        val baseR = size.minDimension * 0.34f
 
-        for (r in 0 until rows) {
-            for (c in 0 until cols) {
-                if (V_MASK[r][c] == 0) continue
-                val idx = (rows - 1 - r) * cols + c
-                val start = 0.8f * idx / 62f
-                val local = ((assembly - start) / 0.2f).coerceIn(0f, 1f)
-                if (local <= 0f) continue
-                val scale = local + 0.35f * sin(local * PI.toFloat()) * (1f - local)
-                drawVoxelBlock(
-                    x = marginX + c * cell + gap / 2f,
-                    y = startY + r * cell + gap / 2f,
-                    w = blockW,
-                    h = blockH,
-                    scale = scale,
-                    alpha = local
+        drawCircle(
+            brush = Brush.radialGradient(
+                listOf(WColors.Primary.copy(alpha = 0.2f * pulse), Color.Transparent)
+            ),
+            radius = baseR * 1.05f,
+            center = center
+        )
+
+        RING_COLORS.forEachIndexed { i, color ->
+            val r = baseR * (1f + i * 0.16f)
+            val rot = time * 360f * (1.25f - i * 0.11f) + i * 24f
+            val alpha = (0.5f - i * 0.05f).coerceAtLeast(0.18f)
+            val strokeWidth = (2.5f - i * 0.2f).coerceAtLeast(1.2f).dp.toPx()
+            rotate(rot, center) {
+                drawOval(
+                    color = color.copy(alpha = alpha),
+                    topLeft = Offset(center.x - r, center.y - r * 0.62f),
+                    size = Size(r * 2f, r * 1.24f),
+                    style = Stroke(width = strokeWidth)
                 )
             }
         }
-    }
-}
 
-private fun DrawScope.drawVoxelBlock(
-    x: Float,
-    y: Float,
-    w: Float,
-    h: Float,
-    scale: Float,
-    alpha: Float
-) {
-    val faceColor = WColors.Primary
-    val topColor = WColors.PrimaryLight
-    val sideColor = WColors.PrimaryDark
-    val outlineColor = Color(0xFF1F0A38)
-
-    val centerX = x + w / 2f
-    val centerY = y + h / 2f
-    val w2 = w * scale
-    val h2 = h * scale
-    val x0 = centerX - w2 / 2f
-    val y0 = centerY - h2 / 2f
-    val th = h2 * 0.22f
-    val sd = w2 * 0.2f
-
-    drawRect(
-        color = topColor.copy(alpha = alpha),
-        topLeft = Offset(x0, y0 - th),
-        size = Size(w2, th)
-    )
-    val topHalfW = w2 / 2f
-    val topHalfH = th / 2f
-    drawRect(
-        color = topColor.darker(0.88f).copy(alpha = alpha),
-        topLeft = Offset(x0, y0 - th),
-        size = Size(topHalfW, topHalfH)
-    )
-    drawRect(
-        color = topColor.darker(0.88f).copy(alpha = alpha),
-        topLeft = Offset(x0 + topHalfW, y0 - th + topHalfH),
-        size = Size(topHalfW, topHalfH)
-    )
-
-    drawRect(
-        color = sideColor.copy(alpha = alpha),
-        topLeft = Offset(x0 - sd, y0),
-        size = Size(sd, h2)
-    )
-
-    drawRect(
-        color = faceColor.copy(alpha = alpha),
-        topLeft = Offset(x0, y0),
-        size = Size(w2, h2)
-    )
-    val faceHalfW = w2 / 2f
-    val faceHalfH = h2 / 2f
-    drawRect(
-        color = faceColor.darker(0.92f).copy(alpha = alpha),
-        topLeft = Offset(x0, y0),
-        size = Size(faceHalfW, faceHalfH)
-    )
-    drawRect(
-        color = faceColor.darker(0.92f).copy(alpha = alpha),
-        topLeft = Offset(x0 + faceHalfW, y0 + faceHalfH),
-        size = Size(faceHalfW, faceHalfH)
-    )
-
-    drawRect(
-        color = sideColor.copy(alpha = alpha),
-        topLeft = Offset(x0 + w2, y0),
-        size = Size(sd, h2)
-    )
-
-    drawRect(
-        color = outlineColor.copy(alpha = alpha * 0.8f),
-        topLeft = Offset(x0 - 1.5f, y0 - th - 1.5f),
-        size = Size(w2 + sd + 3f, h2 + th + 3f),
-        style = Stroke(width = 1.5f)
-    )
-}
-
-private data class CubeFace(
-    val verts: List<FloatArray>,
-    val normal: FloatArray,
-    val isTop: Boolean
-)
-
-private val CUBE_FACES = listOf(
-    CubeFace(
-        verts = listOf(
-            floatArrayOf(-1f, 1f, -1f),
-            floatArrayOf(1f, 1f, -1f),
-            floatArrayOf(1f, 1f, 1f),
-            floatArrayOf(-1f, 1f, 1f)
-        ),
-        normal = floatArrayOf(0f, 1f, 0f),
-        isTop = true
-    ),
-    CubeFace(
-        verts = listOf(
-            floatArrayOf(-1f, -1f, 1f),
-            floatArrayOf(1f, -1f, 1f),
-            floatArrayOf(1f, 1f, 1f),
-            floatArrayOf(-1f, 1f, 1f)
-        ),
-        normal = floatArrayOf(0f, 0f, 1f),
-        isTop = false
-    ),
-    CubeFace(
-        verts = listOf(
-            floatArrayOf(1f, -1f, -1f),
-            floatArrayOf(1f, -1f, 1f),
-            floatArrayOf(1f, 1f, 1f),
-            floatArrayOf(1f, 1f, -1f)
-        ),
-        normal = floatArrayOf(1f, 0f, 0f),
-        isTop = false
-    ),
-    CubeFace(
-        verts = listOf(
-            floatArrayOf(-1f, -1f, 1f),
-            floatArrayOf(-1f, -1f, -1f),
-            floatArrayOf(-1f, 1f, -1f),
-            floatArrayOf(-1f, 1f, 1f)
-        ),
-        normal = floatArrayOf(-1f, 0f, 0f),
-        isTop = false
-    )
-)
-
-@Composable
-private fun GrassCube(
-    angleDeg: Float,
-    bob: Float,
-    modifier: Modifier = Modifier
-) {
-    Canvas(modifier = modifier) {
-        val bobPx = sin(bob * 2f * PI.toFloat()) * size.minDimension * 0.05f
-        drawGrassCube(
-            angleRad = angleDeg * PI.toFloat() / 180f,
-            bobPx = bobPx,
-            size = size.minDimension
+        drawCircle(
+            color = WColors.SecondaryLight.copy(alpha = 0.85f * pulse),
+            radius = 3.dp.toPx(),
+            center = center
         )
-    }
-}
+        drawCircle(
+            color = WColors.PrimaryLight.copy(alpha = 0.4f * pulse),
+            radius = 8.dp.toPx(),
+            center = center
+        )
 
-private fun DrawScope.drawGrassCube(angleRad: Float, bobPx: Float, size: Float) {
-    val half = size * 0.30f
-    val view = floatArrayOf(0.577f, 0.577f, 0.577f)
-    val cosA = cos(angleRad.toDouble()).toFloat()
-    val sinA = sin(angleRad.toDouble()).toFloat()
-
-    fun rotate(v: FloatArray): FloatArray {
-        val x = v[0] * cosA - v[2] * sinA
-        val z = v[0] * sinA + v[2] * cosA
-        return floatArrayOf(x, v[1], z)
-    }
-
-    data class VisibleFace(val face: CubeFace, val points: List<Offset>, val depth: Float)
-
-    val visible = CUBE_FACES.mapNotNull { face ->
-        val n = rotate(face.normal)
-        val dot = n[0] * view[0] + n[1] * view[1] + n[2] * view[2]
-        if (dot <= 0.01f) return@mapNotNull null
-        val rotated = face.verts.map { rotate(it) }
-        val depth = rotated.fold(0f) { acc, v -> acc + v[2] } / rotated.size
-        val points = rotated.map { p ->
-            val sx = (p[0] - p[2]) * 0.866f
-            val sy = (p[0] + p[2]) * 0.5f - p[1]
-            Offset(sx * half, sy * half + bobPx)
-        }
-        VisibleFace(face, points, depth)
-    }.sortedByDescending { it.depth }
-
-    visible.forEach { vf ->
-        val path = Path().apply {
-            moveTo(vf.points[0].x, vf.points[0].y)
-            vf.points.forEach { lineTo(it.x, it.y) }
-            close()
-        }
-        if (vf.face.isTop) {
-            drawTexturedFace(
-                path = path,
-                base = WColors.Grass,
-                dark = WColors.GrassDark,
-                edge = Color(0xFF3E6B26),
-                strip = null
+        particles.forEach { p ->
+            val r = baseR * 1.35f * p.radiusFrac
+            val angle = (time * 360f * p.speed + p.phase) * PI.toFloat() / 180f
+            val pos = Offset(
+                center.x + cos(angle) * r,
+                center.y + sin(angle) * r
             )
-        } else {
-            drawTexturedFace(
-                path = path,
-                base = WColors.Dirt,
-                dark = WColors.DirtDark,
-                edge = Color(0xFF3E2510),
-                strip = WColors.Grass
+            val inward = 1f - p.radiusFrac
+            drawCircle(
+                color = WColors.SecondaryLight.copy(alpha = 0.35f + 0.4f * inward),
+                radius = (1.5f + 1.5f * inward).dp.toPx(),
+                center = pos
             )
         }
-        drawPath(path, Color.Black.copy(alpha = 0.35f), style = Stroke(width = 1.5f))
-    }
-}
-
-private fun DrawScope.drawTexturedFace(
-    path: Path,
-    base: Color,
-    dark: Color,
-    edge: Color,
-    strip: Color?
-) {
-    drawPath(path, base)
-    clipPath(path) {
-        val bounds = path.getBounds()
-        val cellW = bounds.width / 2f
-        val cellH = bounds.height / 2f
-        for (r in 0 until 2) {
-            for (c in 0 until 2) {
-                if ((r + c) % 2 == 1) {
-                    drawRect(
-                        color = dark,
-                        topLeft = Offset(bounds.left + c * cellW, bounds.top + r * cellH),
-                        size = Size(cellW, cellH)
-                    )
-                }
-            }
-        }
-        if (strip != null) {
-            drawRect(
-                color = strip,
-                topLeft = Offset(bounds.left, bounds.top),
-                size = Size(bounds.width, bounds.height * 0.16f)
-            )
-        }
-        val midX = bounds.left + cellW
-        val midY = bounds.top + cellH
-        drawLine(edge, Offset(midX, bounds.top), Offset(midX, bounds.bottom), strokeWidth = 1f)
-        drawLine(edge, Offset(bounds.left, midY), Offset(bounds.right, midY), strokeWidth = 1f)
     }
 }
 
