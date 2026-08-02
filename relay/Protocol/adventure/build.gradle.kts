@@ -1,5 +1,12 @@
+plugins {
+    id("java-library")
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.checkerframework)
+}
+
+
 dependencies {
-    api(projects.bedrockCodec)
+    api(project(":Protocol:bedrock-codec"))
     api(libs.adventure.text.serializer.legacy)
     api(libs.adventure.text.serializer.json)
 
