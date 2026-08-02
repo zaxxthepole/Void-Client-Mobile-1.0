@@ -48,7 +48,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.toDp
 import com.voidclient.client.R
 import com.voidclient.client.ui.theme.WColors
 import kotlinx.coroutines.delay
@@ -479,7 +478,7 @@ private fun DrawScope.drawGrassCube(angleRad: Float, bobPx: Float, size: Float) 
         val dot = n[0] * view[0] + n[1] * view[1] + n[2] * view[2]
         if (dot <= 0.01f) return@mapNotNull null
         val rotated = face.verts.map { rotate(it) }
-        val depth = rotated.sumOf { it[2] } / rotated.size
+        val depth = rotated.fold(0f) { acc, v -> acc + v[2] } / rotated.size
         val points = rotated.map { p ->
             val sx = (p[0] - p[2]) * 0.866f
             val sy = (p[0] + p[2]) * 0.5f - p[1]
@@ -579,7 +578,10 @@ private fun McText(
                     color = outlineColor,
                     textAlign = textAlign
                 ),
-                modifier = Modifier.offset(x = o.x.toDp(), y = o.y.toDp())
+                modifier = Modifier.offset(
+                    x = with(density) { o.x.toDp() },
+                    y = with(density) { o.y.toDp() }
+                )
             )
         }
         Text(
