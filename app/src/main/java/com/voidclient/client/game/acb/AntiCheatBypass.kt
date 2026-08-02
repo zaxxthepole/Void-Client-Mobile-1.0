@@ -24,11 +24,13 @@ object Acb {
         state.session = session
         state.reset()
         state.session = session
+        aim.reset()
         log("bound to session")
     }
 
     fun onDisconnect(reason: String) {
         state.reset()
+        aim.reset()
         log("disconnected ($reason)")
     }
 
@@ -37,8 +39,14 @@ object Acb {
         when (packet) {
             is PlayerAuthInputPacket -> {
                 tickSync.sync(packet)
+                ground.fixAuth(packet)
                 teleport.step(packet)
                 variance.apply(packet)
+                val pending = aim.pendingInteractRotation
+                if (pending != null) {
+                    packet.setInteractRotation(pending)
+                    aim.pendingInteractRotation = null
+                }
             }
             is MovePlayerPacket -> {
                 tickSync.observeServerTick(packet.getTick())
@@ -46,9 +54,9 @@ object Acb {
                 if (state.activeDesync && lp != null && packet.getRuntimeEntityId() == lp.runtimeEntityId) {
                     return true // suppress server rubber-band while freecam desync is intentional
                 }
-                ground.fix(packet)
+                ground.fixMove(packet)
             }
-            is StartGamePacket -> state.reset()
+            is StartGamePacket -> state.reset(keepSession = true)
         }
         return false
     }
@@ -68,8 +76,7 @@ object Acb {
             pkt.setHotbarSlot(player.inventory.heldItemSlot)
             pkt.setItemInHand(player.inventory.hand)
             pkt.setPlayerPosition(pos)
-            pkt.setClickPosition(pos)
-            aim.applyTo(pkt, look)
+            aim.applyTo(pkt, target, look)
             session.serverBound(pkt)
         }
         log("attack ${target.runtimeEntityId} x$packets")

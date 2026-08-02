@@ -2,7 +2,6 @@ package com.voidclient.client.game.acb
 
 import kotlin.random.Random
 
-// PacketOrderGuard.kt — burst spacing so attacks never fire at fixed intervals
 class PacketOrderGuard {
     fun acquire(): Boolean {
         val now = System.currentTimeMillis()

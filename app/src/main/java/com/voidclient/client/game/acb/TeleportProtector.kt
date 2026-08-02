@@ -3,7 +3,6 @@ package com.voidclient.client.game.acb
 import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
 
-// TeleportProtector.kt — sub-threshold teleport: server sees stepped positions in auth inputs
 class TeleportProtector {
     fun teleportTo(target: Vector3f) { Acb.state.pendingTeleport = target }
     fun cancel() { Acb.state.pendingTeleport = null }

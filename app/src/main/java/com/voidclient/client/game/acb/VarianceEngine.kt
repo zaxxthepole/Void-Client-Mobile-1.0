@@ -4,7 +4,6 @@ import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
 import kotlin.random.Random
 
-// VarianceEngine.kt — always-on micro-jitter (only grows when stealthActive)
 class VarianceEngine {
     fun apply(packet: PlayerAuthInputPacket) {
         val r = packet.getRotation()
