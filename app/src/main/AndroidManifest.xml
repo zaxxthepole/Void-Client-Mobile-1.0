@@ -24,7 +24,7 @@
         android:name=".application.AppContext"
         android:enableOnBackInvokedCallback="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Voidclient 1.0"
+        android:label="Voidclient"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:hardwareAccelerated="true"
