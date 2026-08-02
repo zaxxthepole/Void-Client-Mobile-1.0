@@ -64,7 +64,6 @@ object Acb {
     // The single choke point every combat module uses to attack.
     fun attack(target: Entity, packets: Int = AcbConfig.ATTACK_PACKETS_DEFAULT): Boolean {
         val session = state.session ?: return false
-        if (!guard.acquire()) return false
         val player = session.localPlayer
         val look = aim.rotateTowards(target)
         val pos = player.vec3Position
