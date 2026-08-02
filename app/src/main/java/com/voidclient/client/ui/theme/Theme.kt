@@ -77,6 +77,15 @@ object WColors {
     val MinimapEntityFar = Color(0xFFC084FC)
     val MinimapZoom = 1.0f
     val MinimapDotSize = 5
+
+    // Minecraft-blocky loading screen
+    val Grass = Color(0xFF7CBD5B)
+    val GrassDark = Color(0xFF5A9E3B)
+    val Dirt = Color(0xFF8B5A2B)
+    val DirtDark = Color(0xFF5E3A1E)
+    val XpGreen = Color(0xFF64FF64)
+    val XpGreenDark = Color(0xFF2BB52B)
+    val XpTrack = Color(0xFF0A2E0A)
 }
 
 private val WDarkColorScheme = darkColorScheme(

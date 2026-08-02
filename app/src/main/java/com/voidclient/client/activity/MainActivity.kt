@@ -15,6 +15,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.*
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -65,14 +69,18 @@ class MainActivity : ComponentActivity() {
             VoidclientTheme {
                 var showLoading by remember { mutableStateOf(true) }
 
-                if (showLoading) {
-                    LoadingScreen(
-                        onDone = {
-                            showLoading = false
-                        }
-                    )
-                } else {
+                Box {
                     Navigation()
+                    AnimatedVisibility(
+                        visible = showLoading,
+                        exit = fadeOut(tween(durationMillis = 400))
+                    ) {
+                        LoadingScreen(
+                            onDone = {
+                                showLoading = false
+                            }
+                        )
+                    }
                 }
             }
         }
