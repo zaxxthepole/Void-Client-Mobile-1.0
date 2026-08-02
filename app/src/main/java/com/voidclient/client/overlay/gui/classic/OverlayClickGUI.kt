@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -86,7 +85,7 @@ class OverlayClickGUI : OverlayWindow() {
     @Composable
     override fun Content() {
         val configuration = LocalConfiguration.current
-        val maxPanelHeight = (configuration.screenHeightDp * 0.6f).dp
+        val maxPanelHeight = (configuration.screenHeightDp * 0.88f).dp
         val snackbarHostState = remember { SnackbarHostState() }
         var visible by remember { mutableStateOf(false) }
 
@@ -147,7 +146,6 @@ class OverlayClickGUI : OverlayWindow() {
     ) {
         Column(
             modifier = Modifier
-                .widthIn(max = 480.dp)
                 .fillMaxWidth()
                 .heightIn(max = maxPanelHeight)
                 .background(
@@ -183,7 +181,7 @@ class OverlayClickGUI : OverlayWindow() {
                         color = WColors.PrimaryLight,
                         fontWeight = FontWeight.Bold
                     )
-                    val activeCount = remember { ModuleManager.modules.count { it.isEnabled } }
+                    val activeCount = ModuleManager.modules.count { it.isEnabled }
                     Text(
                         "$activeCount module(s) active",
                         style = MaterialTheme.typography.bodySmall,
@@ -251,7 +249,7 @@ class OverlayClickGUI : OverlayWindow() {
                     .fillMaxWidth()
                     .weight(1f),
                 contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                 if (selectedCategory == ModuleCategory.Config) {
                     item {
@@ -292,7 +290,7 @@ class OverlayClickGUI : OverlayWindow() {
                     style = MaterialTheme.typography.labelSmall,
                     color = WColors.OnSurfaceVariant
                 )
-                val activeCount = remember { ModuleManager.modules.count { it.isEnabled } }
+                val activeCount = ModuleManager.modules.count { it.isEnabled }
                 Text(
                     "$activeCount active",
                     style = MaterialTheme.typography.labelSmall,

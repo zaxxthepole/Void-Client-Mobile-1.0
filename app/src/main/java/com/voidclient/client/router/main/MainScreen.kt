@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Extension
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -36,7 +35,6 @@ import com.voidclient.client.viewmodel.MainScreenViewModel
 @Immutable
 enum class AppTab(val label: String, val icon: ImageVector) {
     Home("Home", Icons.Rounded.Home),
-    Play("Play", Icons.Rounded.PlayArrow),
     Modules("Modules", Icons.Rounded.Extension),
     Settings("Settings", Icons.Rounded.Settings)
 }
@@ -76,7 +74,6 @@ fun MainScreen() {
                 ) { tab ->
                     when (tab) {
                         AppTab.Home -> HomePageContent()
-                        AppTab.Play -> PlayPageContent()
                         AppTab.Modules -> ModulesPageContent()
                         AppTab.Settings -> SettingsPageContent()
                     }
