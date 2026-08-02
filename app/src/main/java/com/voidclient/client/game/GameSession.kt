@@ -2,6 +2,7 @@ package com.voidclient.client.game
 
 import android.util.Log
 import com.voidclient.client.application.AppContext
+import com.voidclient.client.game.acb.Acb
 import com.voidclient.client.game.entity.LocalPlayer
 import com.voidclient.client.game.registry.BlockMapping
 import com.voidclient.client.game.registry.BlockMappingProvider
@@ -18,6 +19,8 @@ import org.cloudburstmc.protocol.common.SimpleDefinitionRegistry
 
 @Suppress("MemberVisibilityCanBePrivate")
 class GameSession(val wRelaySession: WRelaySession) : ComposedPacketHandler {
+
+    init { Acb.bind(this) }
 
     val localPlayer = LocalPlayer(this)
     val level = Level(this)
@@ -44,6 +47,7 @@ class GameSession(val wRelaySession: WRelaySession) : ComposedPacketHandler {
     }
 
     override fun beforePacketBound(packet: BedrockPacket): Boolean {
+        if (Acb.onPacket(packet)) return true
         when (packet) {
             is StartGamePacket -> {
                 try {
@@ -116,6 +120,7 @@ class GameSession(val wRelaySession: WRelaySession) : ComposedPacketHandler {
     }
 
     override fun onDisconnect(reason: String) {
+        Acb.onDisconnect(reason)
         localPlayer.onDisconnect()
         level.onDisconnect()
         startGameReceived = false
