@@ -1,23 +1,11 @@
-@file:Suppress("VulnerableLibrariesLocal")
-
-plugins {
-    id("java-library")
-    alias(libs.plugins.checkerframework)
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
-}
-
 dependencies {
-    // Lombok as annotation processor (avoids circular dependency)
-    compileOnly("org.projectlombok:lombok:1.18.34")
-    annotationProcessor("org.projectlombok:lombok:1.18.34")
-
-    // compileOnly(libs.netty.transport.raknet)
-    api(project(":relay:Network:transport-raknet"))
-    api(project(":relay:Protocol:bedrock-codec"))
+    api(projects.bedrockCodec)
+    api(libs.netty.transport.raknet)
     api(libs.snappy)
+}
+
+tasks.jar {
+    manifest {
+        attributes("Automatic-Module-Name" to "org.cloudburstmc.protocol.bedrock.connection")
+    }
 }

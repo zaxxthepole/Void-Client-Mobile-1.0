@@ -13,9 +13,11 @@ import static org.cloudburstmc.protocol.common.util.Preconditions.checkNotNull;
 public class SimpleDefinitionRegistry<D extends Definition> implements DefinitionRegistry<D> {
 
     private final Int2ObjectMap<D> runtimeMap;
+    private final Map<String, D> identifierMap;
 
     private SimpleDefinitionRegistry(Int2ObjectMap<D> runtimeMap, Map<String, D> identifierMap) {
         this.runtimeMap = runtimeMap;
+        this.identifierMap = identifierMap;
     }
 
     public static <D extends Definition> Builder<D> builder() {
@@ -25,6 +27,11 @@ public class SimpleDefinitionRegistry<D extends Definition> implements Definitio
     @Override
     public D getDefinition(int runtimeId) {
         return this.runtimeMap.get(runtimeId);
+    }
+
+    @Override
+    public D getDefinition(String identifier) {
+        return this.identifierMap.get(identifier);
     }
 
     @Override
@@ -55,7 +62,9 @@ public class SimpleDefinitionRegistry<D extends Definition> implements Definitio
             checkArgument(!this.runtimeMap.containsKey(definition.getRuntimeId()),
                     "Runtime ID is already registered: " + definition.getRuntimeId());
             this.runtimeMap.put(definition.getRuntimeId(), definition);
-
+            if (definition instanceof NamedDefinition) {
+                this.identifierMap.put(((NamedDefinition) definition).getIdentifier(), definition);
+            }
             return this;
         }
 
@@ -64,7 +73,9 @@ public class SimpleDefinitionRegistry<D extends Definition> implements Definitio
             checkArgument(this.runtimeMap.containsKey(definition.getRuntimeId()),
                     "Runtime ID is not registered: " + definition.getRuntimeId());
             this.runtimeMap.remove(definition.getRuntimeId());
-
+            if (definition instanceof NamedDefinition) {
+                this.identifierMap.remove(((NamedDefinition) definition).getIdentifier());
+            }
             return this;
         }
 

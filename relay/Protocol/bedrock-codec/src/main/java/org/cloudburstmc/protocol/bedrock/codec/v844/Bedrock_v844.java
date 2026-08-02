@@ -10,10 +10,13 @@ import org.cloudburstmc.protocol.bedrock.codec.v844.serializer.BiomeDefinitionLi
 import org.cloudburstmc.protocol.bedrock.codec.v844.serializer.PlayerArmorDamageSerializer_v844;
 import org.cloudburstmc.protocol.bedrock.codec.v844.serializer.ServerboundPackSettingChangeSerializer_v844;
 import org.cloudburstmc.protocol.bedrock.data.*;
+import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataFormat;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityDataTypes;
 import org.cloudburstmc.protocol.bedrock.data.entity.EntityFlag;
 import org.cloudburstmc.protocol.bedrock.packet.*;
+import org.cloudburstmc.protocol.bedrock.transformer.Byte2IntTransformer;
 import org.cloudburstmc.protocol.bedrock.transformer.FlagTransformer;
+import org.cloudburstmc.protocol.bedrock.transformer.Short2BooleanTransformer;
 import org.cloudburstmc.protocol.common.util.TypeMap;
 
 public class Bedrock_v844 extends Bedrock_v827 {
@@ -27,6 +30,8 @@ public class Bedrock_v844 extends Bedrock_v827 {
             .toBuilder()
             .update(EntityDataTypes.FLAGS, new FlagTransformer(ENTITY_FLAGS, 0))
             .update(EntityDataTypes.FLAGS_2, new FlagTransformer(ENTITY_FLAGS, 1))
+            .replace(EntityDataTypes.SHULKER_ATTACH_FACE, 65, EntityDataFormat.BYTE, Byte2IntTransformer.INSTANCE)
+            .replace(EntityDataTypes.SHULKER_ATTACHED, 66, EntityDataFormat.SHORT, Short2BooleanTransformer.INSTANCE)
             .build();
 
     protected static final TypeMap<SoundEvent> SOUND_EVENTS = Bedrock_v827.SOUND_EVENTS

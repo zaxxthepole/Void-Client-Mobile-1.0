@@ -31,10 +31,27 @@ public class SetScoreboardIdentityPacket implements BedrockPacket {
         REMOVE
     }
 
-    @Value
+    @Data
     public static class Entry {
-        private final long scoreboardId;
-        private final UUID uuid;
+        long scoreboardId;
+        /**
+         * @since v2168
+         */
+        long playerId;
+        /**
+         * @deprecated since v2168
+         */
+        UUID uuid;
+
+        public Entry(long scoreboardId, UUID uuid) {
+            this.scoreboardId = scoreboardId;
+            this.uuid = uuid;
+        }
+
+        public Entry(long scoreboardId, long playerId) {
+            this.scoreboardId = scoreboardId;
+            this.playerId = playerId;
+        }
     }
 
     @Override

@@ -16,6 +16,9 @@ import java.util.List;
 @ToString(doNotUseGetters = true)
 @EqualsAndHashCode(doNotUseGetters = true)
 public class CraftingDataPacket implements BedrockPacket {
+    /**
+     * @deprecated since v2168
+     */
     private final List<RecipeData> craftingData = new ObjectArrayList<>();
     /**
      * @since v2168

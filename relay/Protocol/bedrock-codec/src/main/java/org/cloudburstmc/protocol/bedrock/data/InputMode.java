@@ -8,7 +8,8 @@ public enum InputMode {
     /**
      * @deprecated since v859
      */
-    MOTION_CONTROLLER;
+    MOTION_CONTROLLER,
+    COUNT;
 
     private static final InputMode[] VALUES = values();
 

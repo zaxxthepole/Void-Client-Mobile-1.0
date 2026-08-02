@@ -14,8 +14,8 @@ import static org.cloudburstmc.protocol.common.util.Preconditions.checkArgument;
 @Getter
 @ToString(exclude = {"geometryData"})
 @EqualsAndHashCode
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(toBuilder = true, builderClassName = "Builder")
 public class SerializedSkin {
     private static final int PIXEL_SIZE = 4;
 
@@ -24,51 +24,65 @@ public class SerializedSkin {
     public static final int SKIN_128_64_SIZE = 128 * 64 * PIXEL_SIZE;
     public static final int SKIN_128_128_SIZE = 128 * 128 * PIXEL_SIZE;
 
-    private final String skinId;
+    private static final Color DEFAULT_COLOR = new Color(0, true);
+
+    private String skinId;
     /**
      * @since v428
      */
-    private final String playFabId;
-    private final String geometryName;
-    private final String skinResourcePatch;
-    private final ImageData skinData;
-    private final List<AnimationData> animations;
-    private final ImageData capeData;
-    private final String geometryData;
+    @Builder.Default
+    private String playFabId = "";
+    private String geometryName;
+    private String skinResourcePatch;
+    private ImageData skinData;
+    @Builder.Default
+    private List<AnimationData> animations = Collections.emptyList();
+    @Builder.Default
+    private ImageData capeData = ImageData.EMPTY;
+    private String geometryData;
     /**
      * @since v465
      */
-    private final String geometryDataEngineVersion;
-    private final String animationData;
-    private final boolean premium;
-    private final boolean persona;
-    private final boolean capeOnClassic;
+    @Builder.Default
+    private String geometryDataEngineVersion = "0.0.0";
+    @Builder.Default
+    private String animationData = "";
+    private boolean premium;
+    private boolean persona;
+    private boolean capeOnClassic;
     /**
      * @since v465
      */
-    private final boolean primaryUser;
-    private final String capeId;
-    private final String fullSkinId;
-    private final String armSize;
+    private boolean primaryUser;
+    @Builder.Default
+    private String capeId = "";
+    private String fullSkinId;
+    @Builder.Default
+    private String armSize = "wide";
     /**
      * @deprecated since v2168
      */
-    private final String skinColor;
+    private String skinColor;
     /**
      * @since v2168
      */
-    private final Color color;
-    private final List<PersonaPieceData> personaPieces;
-    private final List<PersonaPieceTintData> tintColors;
-    private final boolean overridingPlayerAppearance;
+    @Builder.Default
+    private Color color = DEFAULT_COLOR;
+    @Builder.Default
+    private List<PersonaPieceData> personaPieces = Collections.emptyList();
+    @Builder.Default
+    private List<PersonaPieceTintData> tintColors = Collections.emptyList();
+    private boolean overridingPlayerAppearance;
     /**
      * @since v2168
      */
-    private final boolean trusted;
+    @Builder.Default
+    private boolean trusted = true;
     /**
      * @since v2168
      */
-    private final String profileHash;
+    @Builder.Default
+    private String profileHash = "";
 
     public static SerializedSkin of(String skinId, String playFabId, ImageData skinData, ImageData capeData, String geometryName,
                                     String geometryData, boolean premiumSkin) {
@@ -76,8 +90,8 @@ public class SerializedSkin {
         capeData.checkLegacyCapeSize();
 
         return new SerializedSkin(skinId, playFabId, geometryName, null, skinData, Collections.emptyList(), capeData,
-                geometryData, "", "", premiumSkin, false, false, true, "", "",
-                "wide", "#0", new Color(0, true), Collections.emptyList(), Collections.emptyList(), true, true, "");
+                geometryData, "0.0.0", "", premiumSkin, false, false, true, "", "",
+                "wide", null, DEFAULT_COLOR, Collections.emptyList(), Collections.emptyList(), true, true, "");
     }
 
     public static SerializedSkin of(String skinId, String playFabId, String skinResourcePatch, ImageData skinData,
@@ -104,7 +118,7 @@ public class SerializedSkin {
                                     String skinColor, List<PersonaPieceData> personaPieces,
                                     List<PersonaPieceTintData> tintColors) {
         return new SerializedSkin(skinId, playFabId, null, skinResourcePatch, skinData,
-                Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, "", animationData,
+                Collections.unmodifiableList(new ObjectArrayList<>(animations)), capeData, geometryData, "0.0.0", animationData,
                 premium, persona, capeOnClassic, primaryUser, capeId, fullSkinId, armSize, skinColor, null, personaPieces, tintColors, true, true, "");
     }
 
@@ -199,9 +213,9 @@ public class SerializedSkin {
     public String getSkinColor() {
         if ((skinColor == null || skinColor.isEmpty()) && color != null) {
             if (color.getAlpha() == 0) {
-                return  "#0";
+                skinColor = "#0";
             } else {
-                return String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
+                skinColor = String.format("#%02x%02x%02x", color.getRed(), color.getGreen(), color.getBlue());
             }
         }
         return skinColor;
@@ -211,13 +225,20 @@ public class SerializedSkin {
      * @since v2168
      */
     public Color getColor() {
-        if (color == null && skinColor != null && !skinColor.isEmpty()) {
+        if ((color == null || color == DEFAULT_COLOR) && skinColor != null && !skinColor.isEmpty()) {
             if (skinColor.equals("#0")) {
-                return new Color(0, true);
+                color = new Color(0, true);
             } else {
-                return new Color((int) Long.parseLong(skinColor.startsWith("#") ? skinColor.substring(1) : skinColor, 16), true);
+                color = new Color((int) Long.parseLong(skinColor.startsWith("#") ? skinColor.substring(1) : skinColor, 16), true);
             }
         }
         return color;
+    }
+
+    public String getFullSkinId() {
+        if (fullSkinId == null) {
+            fullSkinId = skinId + capeId;
+        }
+        return fullSkinId;
     }
 }
