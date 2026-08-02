@@ -31,3 +31,4 @@ google-services.json
 
 # AI context file — not for git
 CONTEXT.md
+compile_log.txt
