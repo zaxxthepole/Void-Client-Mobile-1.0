@@ -3,181 +3,111 @@ package com.voidclient.client.game.module.combat
 import com.voidclient.client.game.InterceptablePacket
 import com.voidclient.client.game.Module
 import com.voidclient.client.game.ModuleCategory
+import com.voidclient.client.game.acb.Acb
 import com.voidclient.client.game.entity.*
 import com.voidclient.client.game.friend.FriendManager
+import com.voidclient.client.game.utils.math.Rotation
+import com.voidclient.client.game.utils.math.getRotationDifference
+import com.voidclient.client.game.utils.math.toRotation
 import org.cloudburstmc.math.vector.Vector3f
 import org.cloudburstmc.protocol.bedrock.packet.MovePlayerPacket
 import org.cloudburstmc.protocol.bedrock.packet.PlayerAuthInputPacket
+import org.cloudburstmc.protocol.bedrock.packet.SetEntityMotionPacket
 import kotlin.math.cos
 import kotlin.math.sin
 
 class KillauraModule : Module("killaura", ModuleCategory.Combat) {
 
-    private var rangeValue by floatValue("range", 7f, 2f..10f)
-    private var cpsValue by intValue("cps", 20, 5..30)
-    private var packets by intValue("packets", 1, 1..10)
-    private var playersOnly by boolValue("players_only", true)
-    private var mobsOnly by boolValue("mobs_only", false)
-    private var antiBot by boolValue("anti_bot", true)
+    private val rangeValue by floatValue("Range", 6f, 1f..12f)
+    private val cpsValue by intValue("CPS", 12, 1..30)
+    private val angleValue by floatValue("Angle", 45f, 5f..180f)
+    private val smoothValue by boolValue("Smooth Rotations", true)
+    private val tpAuraValue by boolValue("TP Aura", false)
+    private val tpDistanceValue by floatValue("TP Distance", 1.5f, 0.5f..5f)
+    private val strafeValue by boolValue("Strafe", true)
 
-
-    private var tpAuraEnabled by boolValue("tp_aura", false)
-    private var teleportBehind by boolValue("tp_behind", false)
-    private var tpSpeed by intValue("tp_speed", 100, 10..500)
-    private var tpYOffset by intValue("tp_y_offset", 1, -10..10)
-    private var keepDistance by floatValue("keep_distance", 1.2f, 0.5f..10f)
-
-
-    private var strafe by boolValue("strafe", false)
-    private val strafeSpeed by floatValue("strafe_speed", 2.5f, 1f..4f)
-    private val strafeRadius by floatValue("strafe_radius", 2.5f, 1f..6f)
-
-
-
-
-
-    private var lastAttackTime = 0L
-    private var tpCooldown = 0L
-    private var strafeAngle = 0f
-
-
-
-    private fun Player.isBot(): Boolean {
-
-        if (this is LocalPlayer) return false
-
-
-        val playerListEntry = session.level.playerMap[this.uuid] ?: return true
-
-
-        val name = playerListEntry.name?.toString() ?: ""
-        if (name.isBlank()) return true
-
-
-        val xuid = playerListEntry.xuid ?: ""
-        if (xuid.isEmpty() || xuid == "0") return true
-
-        if (name.trim().isEmpty()) return true
-
-        return false
+    override fun onEnabled() {
+        super.onEnabled()
+        Acb.state.stealthActive = true
     }
 
-
+    override fun onDisabled() {
+        super.onDisabled()
+        Acb.state.stealthActive = false
+        Acb.teleport.cancel()
+    }
 
     override fun beforePacketBound(interceptablePacket: InterceptablePacket) {
         if (!isEnabled) return
         if (interceptablePacket.packet !is PlayerAuthInputPacket) return
 
-        val now = System.currentTimeMillis()
-        val delay = 1000L / cpsValue
-        if (now - lastAttackTime < delay) return
-
-        val targets = searchForTargets()
-        if (targets.isEmpty()) return
-
-        for (target in targets) {
-
-            if (target is Player && FriendManager.isFriend(target.uuid)) continue
-
-            if (tpAuraEnabled && now - tpCooldown >= tpSpeed) {
-                teleportTo(target)
-                tpCooldown = now
-            }
-
-
-            repeat(packets) {
-                session.localPlayer.attack(target)
-            }
-
-            if (strafe) strafeAroundTarget(target)
-        }
-
-        lastAttackTime = now
-    }
-
-
-    private fun searchForTargets(): List<Entity> {
         val player = session.localPlayer
-        return session.level.entityMap.values
+        val playerRot = Rotation(player.vec3Rotation.getY(), player.vec3Rotation.getX())
+
+        val target = session.level.entityMap.values
+            .filterIsInstance<Player>()
+            .filter { it !is LocalPlayer }
             .filter { it.distance(player) <= rangeValue }
-            .filter { it.isTarget() }
-            .sortedBy { it.distance(player) }
-    }
-
-    private fun Entity.isTarget(): Boolean {
-        return when (this) {
-            is LocalPlayer -> false
-            is Player -> {
-                if (!playersOnly) return false
-
-
-                if (antiBot && isBot()) return false
-
-                true
+            .filterNot { FriendManager.isFriend(it.uuid) }
+            .filterNot { it.isBot() }
+            .map {
+                it to getRotationDifference(
+                    toRotation(player.vec3Position, it.vec3Position),
+                    playerRot
+                )
             }
-            is EntityUnknown -> mobsOnly && isMob()
-            else -> false
-        }
-    }
+            .filter { it.second <= angleValue }
+            .minByOrNull { it.second }
+            ?.first
+            ?: return
 
+        if (!Acb.guard.acquire()) return
 
-    private fun teleportTo(entity: Entity) {
-        val player = session.localPlayer
-        val pos = entity.vec3Position
+        val playerPos = player.vec3Position
 
-        val yawRad = Math.toRadians(entity.vec3Rotation.y.toDouble()).toFloat()
-        val behind = Vector3f.from(sin(yawRad), 0f, -cos(yawRad)).normalize()
+        if (tpAuraValue && target.distance(playerPos) > tpDistanceValue) {
+            val targetPos = target.vec3Position
+            val dir = targetPos.sub(playerPos).normalize()
+            val dest = targetPos.sub(dir.mul(tpDistanceValue))
 
-        val tpPos = if (teleportBehind) {
-            Vector3f.from(
-                pos.x + behind.x * keepDistance,
-                pos.y + tpYOffset,
-                pos.z + behind.z * keepDistance
-            )
-        } else {
-            val dir = pos.sub(player.vec3Position).normalize()
-            Vector3f.from(
-                pos.x - dir.x * keepDistance,
-                pos.y + tpYOffset,
-                pos.z - dir.z * keepDistance
+            Acb.teleport.teleportTo(dest)
+
+            session.clientBound(
+                MovePlayerPacket().apply {
+                    setRuntimeEntityId(player.runtimeEntityId)
+                    setPosition(dest)
+                    setRotation(player.vec3Rotation)
+                    setMode(MovePlayerPacket.Mode.NORMAL)
+                    setOnGround(true)
+                    setTick(Acb.state.lastServerTick)
+                }
             )
         }
 
-        session.clientBound(
-            MovePlayerPacket().apply {
-                runtimeEntityId = player.runtimeEntityId
-                position = tpPos
-                rotation = entity.vec3Rotation
-                mode = MovePlayerPacket.Mode.NORMAL
-                setOnGround(false)
-                tick = player.tickExists
+        if (Acb.attack(target, packets = 1)) {
+            Acb.swing()
+
+            if (strafeValue) {
+                val yaw = Math.toRadians(player.rotationYaw.toDouble())
+                session.clientBound(
+                    SetEntityMotionPacket().apply {
+                        setRuntimeEntityId(player.runtimeEntityId)
+                        setMotion(
+                            Vector3f.from(
+                                (-cos(yaw) * 0.15).toFloat(),
+                                0f,
+                                (-sin(yaw) * 0.15).toFloat()
+                            )
+                        )
+                    }
+                )
             }
-        )
+        }
     }
 
-
-    private fun strafeAroundTarget(entity: Entity) {
-        val pos = entity.vec3Position
-        strafeAngle += strafeSpeed
-        if (strafeAngle >= 360f) strafeAngle -= 360f
-
-        val x = strafeRadius * cos(strafeAngle)
-        val z = strafeRadius * sin(strafeAngle)
-
-        session.clientBound(
-            MovePlayerPacket().apply {
-                runtimeEntityId = session.localPlayer.runtimeEntityId
-                position = pos.add(x.toFloat(), 0f, z.toFloat())
-                rotation = Vector3f.ZERO
-                mode = MovePlayerPacket.Mode.NORMAL
-                setOnGround(true)
-                tick = session.localPlayer.tickExists
-            }
-        )
-    }
-
-
-    private fun EntityUnknown.isMob(): Boolean {
-        return this.identifier in MobList.mobTypes
+    private fun Player.isBot(): Boolean {
+        if (this is LocalPlayer) return false
+        val playerList = session.level.playerMap[this.uuid] ?: return false
+        return playerList.name.isBlank()
     }
 }
